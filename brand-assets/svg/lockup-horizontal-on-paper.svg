@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <rect width="320" height="80" fill="#fafbfc"></rect>
+  <g transform="translate(8 8) scale(0.64)">
+    <path d="M 8 50 L 44 14 L 50 22 L 56 14 L 92 50 L 50 92 Z" fill="#1d1e26"></path>
+  </g>
+  <text x="84" y="52" font-family="Geist, ui-sans-serif, system-ui, -apple-system, sans-serif" font-weight="500" font-size="32" letter-spacing="-0.6" fill="#1d1e26">Fornax Labs</text>
+</svg>

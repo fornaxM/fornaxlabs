@@ -1,0 +1,2140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ConsumIQ — One source of truth, from event to invoice.</title>
+<meta name="description" content="ConsumIQ is the first platform where metering, rating, entitlements, and invoicing are the same row of data — and the intelligence on top is what no fragmented stack can produce." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  /* ============================================================
+     Tokens — ConsumIQ Design System "Quiet Intelligence"
+     ============================================================ */
+  :root {
+    --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --font-serif: "Instrument Serif", "Times New Roman", serif;
+
+    --r-xs: 4px;  --r-sm: 6px;  --r-md: 8px;  --r-lg: 12px;
+    --r-xl: 16px; --r-2xl: 20px; --r-full: 999px;
+
+    --shadow-xs: 0 1px 2px rgba(15,18,30,.04), 0 0 0 .5px rgba(15,18,30,.06);
+    --shadow-sm: 0 2px 6px rgba(15,18,30,.05), 0 0 0 .5px rgba(15,18,30,.06);
+    --shadow-md: 0 6px 18px rgba(15,18,30,.07), 0 0 0 .5px rgba(15,18,30,.06);
+    --shadow-lg: 0 16px 40px rgba(15,18,30,.09), 0 0 0 .5px rgba(15,18,30,.06);
+    --shadow-xl: 0 28px 70px rgba(15,18,30,.14), 0 0 0 .5px rgba(15,18,30,.06);
+  }
+
+  [data-theme="light"] {
+    --bg:          oklch(0.992 0.003 250);
+    --bg-elev-1:   oklch(0.985 0.004 250);
+    --bg-elev-2:   #ffffff;
+    --bg-sunken:   oklch(0.965 0.006 250);
+    --surface:     #ffffff;
+
+    --border:      oklch(0.92 0.006 250);
+    --border-strong: oklch(0.85 0.008 250);
+    --divider:     oklch(0.945 0.005 250);
+
+    --fg:          oklch(0.18 0.012 260);
+    --fg-muted:    oklch(0.42 0.012 260);
+    --fg-subtle:   oklch(0.58 0.012 260);
+    --fg-faint:    oklch(0.72 0.010 260);
+    --fg-inverse:  oklch(0.99 0.003 250);
+
+    --brand:       oklch(0.52 0.155 268);
+    --brand-hover: oklch(0.46 0.16 268);
+    --brand-soft:  oklch(0.96 0.025 268);
+    --brand-border: oklch(0.86 0.06 268);
+    --brand-fg:    #ffffff;
+
+    --success:     oklch(0.55 0.12 152);
+    --success-soft: oklch(0.96 0.03 152);
+    --success-border: oklch(0.86 0.06 152);
+
+    --warning:     oklch(0.65 0.14 65);
+    --warning-soft: oklch(0.965 0.04 75);
+    --warning-border: oklch(0.85 0.08 70);
+
+    --danger:      oklch(0.55 0.18 26);
+    --danger-soft: oklch(0.965 0.03 26);
+    --danger-border: oklch(0.86 0.07 26);
+
+    --info:        oklch(0.55 0.12 230);
+    --info-soft:   oklch(0.965 0.03 230);
+    --info-border: oklch(0.86 0.06 230);
+
+    --focus-ring:  oklch(0.55 0.18 268 / .35);
+  }
+
+  [data-theme="dark"] {
+    --bg:          oklch(0.16 0.012 260);
+    --bg-elev-1:   oklch(0.195 0.013 260);
+    --bg-elev-2:   oklch(0.225 0.013 260);
+    --bg-sunken:   oklch(0.13 0.012 260);
+    --surface:     oklch(0.205 0.013 260);
+
+    --border:      oklch(0.30 0.012 260);
+    --border-strong: oklch(0.40 0.014 260);
+    --divider:     oklch(0.255 0.012 260);
+
+    --fg:          oklch(0.97 0.004 250);
+    --fg-muted:    oklch(0.78 0.010 260);
+    --fg-subtle:   oklch(0.62 0.012 260);
+    --fg-faint:    oklch(0.48 0.012 260);
+    --fg-inverse:  oklch(0.16 0.012 260);
+
+    --brand:       oklch(0.72 0.155 268);
+    --brand-hover: oklch(0.78 0.16 268);
+    --brand-soft:  oklch(0.30 0.06 268);
+    --brand-border: oklch(0.42 0.08 268);
+    --brand-fg:    oklch(0.16 0.012 260);
+
+    --success:     oklch(0.78 0.14 152);
+    --success-soft: oklch(0.28 0.05 152);
+    --success-border: oklch(0.40 0.07 152);
+
+    --warning:     oklch(0.82 0.14 75);
+    --warning-soft: oklch(0.30 0.06 75);
+    --warning-border: oklch(0.42 0.08 75);
+
+    --danger:      oklch(0.72 0.18 26);
+    --danger-soft: oklch(0.32 0.07 26);
+    --danger-border: oklch(0.44 0.10 26);
+
+    --info:        oklch(0.78 0.12 230);
+    --info-soft:   oklch(0.30 0.05 230);
+    --info-border: oklch(0.42 0.07 230);
+
+    --focus-ring:  oklch(0.72 0.18 268 / .45);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "cv11";
+    transition: background-color .25s ease, color .25s ease;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--brand); color: var(--brand-fg); }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ============================================================
+     NAV
+     ============================================================ */
+  .nav-wrap {
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    background: color-mix(in oklch, var(--bg) 78%, transparent);
+    border-bottom: 1px solid var(--divider);
+  }
+  .nav {
+    max-width: 1320px; margin: 0 auto;
+    padding: 14px 32px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 32px;
+  }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 500; font-size: 16px; letter-spacing: -0.012em;
+  }
+  .logo-mark {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background:
+      conic-gradient(from 220deg at 50% 50%,
+        var(--brand) 0deg, color-mix(in oklch, var(--brand) 60%, var(--fg)) 140deg,
+        var(--brand) 360deg);
+    position: relative;
+    box-shadow: inset 0 0 0 .5px rgba(255,255,255,.18), var(--shadow-xs);
+  }
+  .logo-mark::after {
+    content: ""; position: absolute; inset: 6px;
+    background: var(--bg);
+    border-radius: 2px;
+  }
+  .logo-mark::before {
+    content: ""; position: absolute; inset: 9px;
+    background: var(--brand);
+    border-radius: 1px;
+    z-index: 1;
+  }
+  .logo .by {
+    font-family: var(--font-mono);
+    font-size: 10.5px; color: var(--fg-faint);
+    letter-spacing: .04em;
+    margin-left: 6px;
+  }
+  .nav-links {
+    display: flex; gap: 2px; justify-self: center;
+  }
+  .nav-link {
+    font-size: 13.5px; font-weight: 500; color: var(--fg-muted);
+    padding: 8px 12px; border-radius: var(--r-md);
+    display: inline-flex; align-items: center; gap: 5px;
+    cursor: pointer;
+    transition: color .12s ease, background .12s ease;
+  }
+  .nav-link:hover { color: var(--fg); background: color-mix(in oklch, var(--fg) 4%, transparent); }
+  .nav-link .caret {
+    width: 8px; height: 8px;
+    border-right: 1.2px solid currentColor;
+    border-bottom: 1.2px solid currentColor;
+    transform: rotate(45deg) translate(-2px, -2px);
+    opacity: .55;
+  }
+  .nav-cta {
+    display: flex; gap: 8px; align-items: center;
+  }
+
+  /* Mega menu */
+  .mega {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    top: calc(100% + 6px);
+    width: min(880px, 92vw);
+    background: var(--bg-elev-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    box-shadow: var(--shadow-xl);
+    padding: 24px;
+    display: none;
+  }
+  .nav-item { position: relative; }
+  .nav-item:hover .mega,
+  .nav-item:focus-within .mega { display: block; }
+  .mega-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    gap: 28px;
+  }
+  .mega-col h4 {
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
+    color: var(--fg-faint); letter-spacing: .1em;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+  .mega-item {
+    display: flex; gap: 12px; padding: 10px; border-radius: var(--r-md);
+    margin: 0 -10px;
+    cursor: pointer;
+    transition: background .12s ease;
+  }
+  .mega-item:hover { background: var(--bg-sunken); }
+  .mega-item .glyph {
+    width: 28px; height: 28px; border-radius: var(--r-sm);
+    flex-shrink: 0;
+    background: var(--brand-soft);
+    border: 1px solid var(--brand-border);
+    display: grid; place-items: center;
+    color: var(--brand);
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  }
+  .mega-item .text b {
+    display: block; font-weight: 500; font-size: 13.5px; color: var(--fg);
+    margin-bottom: 2px;
+  }
+  .mega-item .text span { font-size: 12px; color: var(--fg-muted); line-height: 1.4; }
+  .mega-item.star .glyph {
+    background: var(--brand); color: var(--brand-fg); border-color: var(--brand);
+  }
+  .mega-feature {
+    grid-column: 1; grid-row: 1 / span 2;
+    background: var(--bg-sunken);
+    border-radius: var(--r-lg);
+    padding: 18px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 220px;
+  }
+  .mega-feature .eyebrow {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--fg-subtle);
+  }
+  .mega-feature h3 {
+    font-size: 19px; font-weight: 500; letter-spacing: -0.012em;
+    margin: 8px 0 0;
+    line-height: 1.25;
+  }
+  .mega-feature h3 em {
+    font-family: var(--font-serif); font-style: italic; color: var(--brand);
+  }
+  .mega-feature .arrow {
+    font-family: var(--font-mono); font-size: 12px; color: var(--brand);
+    display: inline-flex; gap: 6px; align-items: center;
+  }
+
+  /* ============================================================
+     Buttons
+     ============================================================ */
+  .btn {
+    appearance: none; border: 0; cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    padding: 10px 16px;
+    border-radius: var(--r-md);
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: background .12s ease, color .12s ease, border-color .12s ease, transform .06s ease, box-shadow .12s ease;
+    letter-spacing: -0.005em;
+    text-decoration: none;
+  }
+  .btn:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--focus-ring); }
+  .btn:active { transform: translateY(.5px); }
+  .btn--primary {
+    background: var(--brand); color: var(--brand-fg);
+    box-shadow: var(--shadow-xs), inset 0 1px 0 rgba(255,255,255,.16);
+  }
+  .btn--primary:hover { background: var(--brand-hover); }
+  .btn--secondary {
+    background: var(--bg-elev-2); color: var(--fg);
+    box-shadow: var(--shadow-xs);
+  }
+  .btn--secondary:hover { background: var(--bg-sunken); }
+  .btn--ghost { background: transparent; color: var(--fg); }
+  .btn--ghost:hover { background: color-mix(in oklch, var(--fg) 6%, transparent); }
+  .btn--sm { font-size: 12.5px; padding: 7px 12px; border-radius: var(--r-sm); }
+  .btn--lg { font-size: 15px; padding: 13px 22px; border-radius: var(--r-lg); }
+  .btn .arrow { transition: transform .12s ease; }
+  .btn:hover .arrow { transform: translateX(2px); }
+
+  /* ============================================================
+     Shared section chrome
+     ============================================================ */
+  .shell { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+  .shell-wide { max-width: 1320px; margin: 0 auto; padding: 0 32px; }
+
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase;
+    color: var(--fg-subtle);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .eyebrow .num { color: var(--fg-faint); }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 999px; background: var(--brand);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--brand) 18%, transparent);
+  }
+
+  .section { padding: 100px 0; border-top: 1px solid var(--divider); }
+  .section:first-child { border-top: 0; }
+
+  .sec-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: end;
+    margin-bottom: 56px;
+  }
+  .sec-head h2 {
+    font-weight: 400;
+    font-size: clamp(36px, 4.4vw, 56px);
+    letter-spacing: -0.028em;
+    line-height: 1.05;
+    margin: 16px 0 0;
+    max-width: 18ch;
+  }
+  .sec-head h2 em {
+    font-family: var(--font-serif);
+    font-style: italic; font-weight: 400; color: var(--brand);
+    letter-spacing: -0.02em;
+  }
+  .sec-head .lede {
+    font-size: 17px; line-height: 1.55; color: var(--fg-muted);
+    max-width: 48ch;
+    margin: 0;
+    padding-bottom: 8px;
+  }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero {
+    position: relative;
+    padding: 80px 0 120px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(70% 60% at 70% 0%,
+        color-mix(in oklch, var(--brand) 8%, transparent) 0%,
+        transparent 60%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 72px;
+    align-items: center;
+    position: relative;
+  }
+  .hero h1 {
+    font-weight: 400;
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 1.02;
+    letter-spacing: -0.034em;
+    margin: 24px 0 28px;
+  }
+  .hero h1 em {
+    font-family: var(--font-serif);
+    font-style: italic; font-weight: 400;
+    color: var(--brand);
+    letter-spacing: -0.025em;
+  }
+  .hero .lede {
+    font-size: 19px; line-height: 1.55; color: var(--fg-muted);
+    max-width: 52ch; margin: 0 0 32px;
+  }
+  .hero .cta-row {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .hero .meta-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px; padding-top: 28px; border-top: 1px dashed var(--divider);
+    max-width: 540px;
+  }
+  .hero .meta-row dt {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-faint); letter-spacing: .1em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .hero .meta-row dd {
+    margin: 0; font-size: 14px; color: var(--fg);
+    line-height: 1.4;
+  }
+  .hero .meta-row dd em {
+    font-family: var(--font-serif); font-style: italic;
+    color: var(--brand); font-size: 17px; margin-right: 4px;
+  }
+
+  /* Unified-pipe diagram */
+  .pipe-art {
+    position: relative;
+    background: var(--bg-elev-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    padding: 28px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .pipe-art::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 70%, var(--bg-sunken) 100%);
+    pointer-events: none;
+  }
+  .pipe-art .head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; position: relative;
+  }
+  .pipe-art .head .label {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--fg-subtle); letter-spacing: .08em; text-transform: uppercase;
+  }
+  .pipe-art .head .live {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--success); display: inline-flex; gap: 6px; align-items: center;
+  }
+  .pipe-art .head .live .blink {
+    width: 6px; height: 6px; border-radius: 999px; background: var(--success);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--success) 22%, transparent);
+    animation: blink 2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+
+  .pipe-stage {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 12px 0 20px;
+    position: relative;
+  }
+  .pipe-stage .step {
+    text-align: center; position: relative;
+    padding: 12px 4px;
+  }
+  .pipe-stage .step .ico {
+    width: 36px; height: 36px;
+    margin: 0 auto 10px;
+    border-radius: var(--r-md);
+    background: var(--brand-soft);
+    border: 1px solid var(--brand-border);
+    color: var(--brand);
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+    position: relative; z-index: 2;
+  }
+  .pipe-stage .step .ico.event {
+    background: var(--brand); color: var(--brand-fg); border-color: var(--brand);
+  }
+  .pipe-stage .step b {
+    display: block; font-size: 12.5px; font-weight: 500;
+  }
+  .pipe-stage .step span {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--fg-faint); letter-spacing: .04em;
+    text-transform: uppercase;
+    margin-top: 2px; display: block;
+  }
+  .pipe-stage::before {
+    content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand) 0%, var(--brand) 100%);
+    border-radius: 2px;
+    z-index: 1;
+  }
+  .pipe-stage::after {
+    content: ""; position: absolute; left: 12.5%; top: 28px;
+    width: 6px; height: 6px; border-radius: 999px; background: var(--brand);
+    box-shadow:
+      40px 0 0 0 var(--brand-fg),
+      40px 0 0 1.5px var(--brand);
+    animation: travel 4s linear infinite;
+    z-index: 3;
+  }
+  @keyframes travel {
+    0%   { transform: translateX(0); opacity: 1; }
+    90%  { transform: translateX(calc(100% + 4vw)); opacity: 1; }
+    100% { transform: translateX(calc(100% + 4vw)); opacity: 0; }
+  }
+
+  .pipe-art .row {
+    display: flex; justify-content: space-between;
+    padding: 12px 0;
+    border-top: 1px dashed var(--divider);
+    font-size: 13px;
+  }
+  .pipe-art .row:first-of-type { border-top: 1px solid var(--divider); }
+  .pipe-art .row .k { color: var(--fg-muted); }
+  .pipe-art .row .v {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--fg);
+  }
+  .pipe-art .row .v em {
+    font-family: var(--font-serif); font-style: italic;
+    color: var(--brand); font-size: 16px;
+  }
+
+  /* Proof strip */
+  .proof-strip {
+    margin-top: 64px; padding-top: 36px;
+    border-top: 1px solid var(--divider);
+    display: flex; flex-direction: column; gap: 22px;
+    align-items: center;
+  }
+  .proof-strip .cap {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--fg-subtle); letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .proof-strip .logos {
+    display: flex; gap: 56px; flex-wrap: wrap; justify-content: center;
+    opacity: .65;
+  }
+  .proof-strip .logos .logo-stub {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 22px; color: var(--fg-muted);
+    letter-spacing: -0.01em;
+  }
+  .proof-strip .logos .logo-stub.s2 { font-family: var(--font-mono); font-style: normal; font-size: 14px; letter-spacing: .04em; }
+
+  /* ============================================================
+     FRAGMENTATION → UNIFICATION
+     ============================================================ */
+  .gap-compare {
+    display: grid; grid-template-columns: 1fr 60px 1fr; gap: 24px;
+    align-items: stretch;
+  }
+  .gap-pane {
+    background: var(--bg-elev-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    padding: 28px;
+    position: relative;
+    min-height: 360px;
+  }
+  .gap-pane .pane-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 24px;
+  }
+  .gap-pane .pane-head h3 {
+    margin: 0; font-size: 18px; font-weight: 500; letter-spacing: -0.012em;
+  }
+  .gap-pane .pane-head .tag {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-faint); letter-spacing: .08em; text-transform: uppercase;
+  }
+  .gap-pane.unified { background: var(--bg-elev-2); }
+  .gap-pane.unified .pane-head .tag { color: var(--brand); }
+
+  .frag-stack { display: grid; gap: 8px; }
+  .frag-vendor {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 12px;
+    align-items: center;
+    padding: 12px 14px;
+    background: var(--bg-elev-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+  }
+  .frag-vendor .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--fg-faint); }
+  .frag-vendor .name { font-size: 13.5px; font-weight: 500; }
+  .frag-vendor .role {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-subtle); letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  .frag-tape {
+    position: relative; height: 14px;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .frag-tape::before, .frag-tape::after {
+    content: ""; position: absolute; top: 50%;
+    height: 1px; background: var(--border-strong);
+    width: calc(50% - 32px);
+  }
+  .frag-tape::before { left: 0; }
+  .frag-tape::after  { right: 0; }
+  .frag-tape span {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--danger);
+    letter-spacing: .1em; text-transform: uppercase;
+    background: var(--bg-elev-1);
+    padding: 0 8px;
+    z-index: 1;
+  }
+
+  .frag-foot {
+    margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--divider);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    font-size: 12.5px;
+    color: var(--fg-muted);
+  }
+  .frag-foot b { display: block; color: var(--danger); font-size: 22px; font-weight: 400; font-family: var(--font-serif); font-style: italic; }
+  .gap-pane.unified .frag-foot b { color: var(--brand); }
+
+  .uni-pipe {
+    display: grid; grid-template-columns: 1fr; gap: 0;
+    background: var(--bg-elev-1);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .uni-row {
+    display: grid; grid-template-columns: 40px 1fr auto;
+    align-items: center; gap: 14px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .uni-row:last-child { border-bottom: 0; }
+  .uni-row .step {
+    width: 28px; height: 28px; border-radius: var(--r-sm);
+    background: var(--brand-soft);
+    border: 1px solid var(--brand-border);
+    color: var(--brand);
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    display: grid; place-items: center;
+  }
+  .uni-row .step.star { background: var(--brand); color: var(--brand-fg); border-color: var(--brand); }
+  .uni-row .name { font-size: 13.5px; font-weight: 500; }
+  .uni-row .note {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-subtle); letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .gap-divider {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    gap: 14px;
+    color: var(--fg-faint);
+  }
+  .gap-divider .arrow {
+    font-family: var(--font-mono); font-size: 22px; color: var(--brand);
+  }
+  .gap-divider .word {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 18px; color: var(--brand);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  /* ============================================================
+     PLATFORM LAYERS (6 cards)
+     ============================================================ */
+  .layers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .layer-card {
+    background: var(--bg-elev-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: 28px 26px;
+    display: flex; flex-direction: column; gap: 16px;
+    min-height: 240px;
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    cursor: pointer;
+  }
+  .layer-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+  }
+  .layer-card.star {
+    background: var(--bg-elev-2);
+    border-color: var(--brand-border);
+  }
+  .layer-card .head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .layer-card .num {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--fg-faint); letter-spacing: .08em;
+  }
+  .layer-card .tag {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--brand); letter-spacing: .12em; text-transform: uppercase;
+    padding: 3px 7px;
+    background: var(--brand-soft);
+    border: 1px solid var(--brand-border);
+    border-radius: var(--r-full);
+  }
+  .layer-card h3 {
+    margin: 4px 0 0;
+    font-size: 22px; font-weight: 500; letter-spacing: -0.012em;
+    line-height: 1.2;
+  }
+  .layer-card h3 em {
+    font-family: var(--font-serif); font-style: italic; color: var(--brand);
+  }
+  .layer-card p {
+    margin: 0; color: var(--fg-muted); font-size: 14px; line-height: 1.5;
+  }
+  .layer-card .arrow {
+    margin-top: auto;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--brand);
+    display: inline-flex; gap: 6px;
+  }
+
+  /* ============================================================
+     INTELLIGENCE DASHBOARD MOCK
+     ============================================================ */
+  .intel-frame {
+    background: var(--bg-elev-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .intel-chrome {
+    display: grid; grid-template-columns: 240px 1fr 200px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .intel-side {
+    padding: 22px 18px;
+    border-right: 1px solid var(--divider);
+    background: var(--bg-elev-1);
+    min-height: 460px;
+  }
+  .intel-side .group { margin-bottom: 22px; }
+  .intel-side .group-name {
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--fg-faint); letter-spacing: .12em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .intel-side .item {
+    padding: 7px 10px;
+    font-size: 13px; color: var(--fg-muted);
+    border-radius: var(--r-sm);
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 0 -10px;
+  }
+  .intel-side .item.active { background: var(--brand-soft); color: var(--brand); font-weight: 500; }
+  .intel-side .item .pip { width: 5px; height: 5px; border-radius: 999px; background: var(--brand); }
+  .intel-main { padding: 26px 28px; }
+  .intel-main .breadcrumb {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--fg-subtle); letter-spacing: .06em;
+    display: flex; gap: 8px; margin-bottom: 6px;
+  }
+  .intel-main h4 {
+    margin: 0 0 4px;
+    font-size: 22px; font-weight: 500; letter-spacing: -0.012em;
+  }
+  .intel-main h4 em { font-family: var(--font-serif); font-style: italic; color: var(--brand); }
+  .intel-main .desc {
+    font-size: 13px; color: var(--fg-muted);
+    margin-bottom: 24px;
+  }
+  .intel-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    margin-bottom: 24px;
+  }
+  .intel-stat {
+    border: 1px solid var(--divider);
+    border-radius: var(--r-lg);
+    padding: 14px 16px;
+    background: var(--bg-elev-1);
+  }
+  .intel-stat .lbl {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-faint); letter-spacing: .08em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .intel-stat .val {
+    font-size: 28px; font-weight: 400; letter-spacing: -0.022em;
+    color: var(--fg); line-height: 1;
+  }
+  .intel-stat .val em { font-family: var(--font-serif); font-style: italic; color: var(--brand); }
+  .intel-stat .delta { margin-top: 6px; font-size: 12px; font-family: var(--font-mono); color: var(--success); }
+  .intel-stat .delta.neg { color: var(--danger); }
+
+  .intel-chart {
+    background: var(--bg-elev-1);
+    border: 1px solid var(--divider);
+    border-radius: var(--r-lg);
+    padding: 16px;
+    height: 180px;
+    position: relative;
+  }
+  .intel-chart .chart-head {
+    display: flex; justify-content: space-between; margin-bottom: 8px;
+  }
+  .intel-chart .chart-head b { font-size: 12.5px; font-weight: 500; }
+  .intel-chart .chart-head span {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-subtle); letter-spacing: .04em;
+  }
+  .intel-chart svg { width: 100%; height: 130px; }
+
+  .intel-right {
+    padding: 22px 18px;
+    border-left: 1px solid var(--divider);
+    background: var(--bg-elev-1);
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .intel-right h5 {
+    margin: 0;
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--fg-faint); letter-spacing: .12em; text-transform: uppercase;
+  }
+  .intel-insight {
+    background: var(--bg-elev-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 12px 14px;
+    font-size: 12.5px; line-height: 1.5;
+    color: var(--fg);
+  }
+  .intel-insight b { font-weight: 500; }
+  .intel-insight em { font-family: var(--font-serif); font-style: italic; color: var(--brand); font-size: 14px; }
+  .intel-insight .src {
+    margin-top: 8px;
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--fg-faint); letter-spacing: .06em; text-transform: uppercase;
+  }
+
+  .insight-chips {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .chip-card {
+    background: var(--bg-elev-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 16px 18px;
+    display: flex; flex-direction: column; gap: 8px;
+    min-height: 120px;
+  }
+  .chip-card .lbl {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-faint); letter-spacing: .08em; text-transform: uppercase;
+  }
+  .chip-card .q { font-size: 13.5px; color: var(--fg); line-height: 1.4; }
+  .chip-card .persona {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--brand); letter-spacing: .04em;
+    margin-top: auto;
+  }
+
+  /* ============================================================
+     TWO-SIDED
+     ============================================================ */
+  .twosided-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ts-card {
+    background: var(--bg-elev-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .ts-card .ts-head {
+    padding: 22px 26px;
+    border-bottom: 1px solid var(--divider);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .ts-card .ts-head .lbl {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--fg-subtle); letter-spacing: .1em; text-transform: uppercase;
+  }
+  .ts-card .ts-head h4 {
+    margin: 6px 0 0;
+    font-size: 22px; font-weight: 500; letter-spacing: -0.014em;
+  }
+  .ts-card .ts-head h4 em { font-family: var(--font-serif); font-style: italic; color: var(--brand); }
+  .ts-card .ts-head .who {
+    font-size: 12.5px; color: var(--fg-muted);
+    text-align: right; max-width: 14ch; line-height: 1.4;
+  }
+  .ts-body { padding: 22px 26px 26px; }
+
+  .ts-bar-row {
+    display: grid; grid-template-columns: 130px 1fr 60px;
+    align-items: center; gap: 14px;
+    padding: 9px 0;
+    border-bottom: 1px dashed var(--divider);
+    font-size: 13px;
+  }
+  .ts-bar-row:last-child { border-bottom: 0; }
+  .ts-bar-row .lbl { color: var(--fg-muted); }
+  .ts-bar-row .bar {
+    height: 8px; background: var(--bg-sunken); border-radius: 999px;
+    overflow: hidden; position: relative;
+  }
+  .ts-bar-row .bar .fill {
+    height: 100%; background: var(--brand); border-radius: 999px;
+    box-shadow: inset 0 0 0 .5px rgba(255,255,255,.15);
+  }
+  .ts-bar-row .val {
+    font-family: var(--font-mono); font-size: 12px;
+    text-align: right; color: var(--fg);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ============================================================
+     DEVELOPER
+     ============================================================ */
+  .dev-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px;
+    align-items: start;
+  }
+  .dev-text h3 {
+    margin: 0 0 16px;
+    font-size: clamp(28px, 3.2vw, 40px);
+    font-weight: 400; letter-spacing: -0.024em; line-height: 1.05;
+    max-width: 16ch;
+  }
+  .dev-text h3 em { font-family: var(--font-serif); font-style: italic; color: var(--brand); }
+  .dev-text p {
+    color: var(--fg-muted); font-size: 16px; line-height: 1.55;
+    margin: 0 0 24px;
+  }
+  .dev-bullets {
+    display: grid; gap: 12px;
+    list-style: none; padding: 0; margin: 0 0 28px;
+  }
+  .dev-bullets li {
+    display: grid; grid-template-columns: 20px 1fr; gap: 12px;
+    font-size: 14px; color: var(--fg);
+  }
+  .dev-bullets li .check {
+    width: 18px; height: 18px; border-radius: 999px;
+    background: var(--brand-soft); color: var(--brand);
+    border: 1px solid var(--brand-border);
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    margin-top: 1px;
+  }
+  .dev-bullets li b { font-weight: 500; }
+  .dev-bullets li span { color: var(--fg-muted); }
+
+  .code-frame {
+    background: var(--bg-elev-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  .code-tabs {
+    display: flex; gap: 0;
+    background: var(--bg-sunken);
+    border-bottom: 1px solid var(--divider);
+    padding: 0 12px;
+  }
+  .code-tab {
+    appearance: none; border: 0; background: transparent; cursor: pointer;
+    font-family: var(--font-mono); font-size: 11.5px;
+    color: var(--fg-muted); padding: 12px 14px;
+    border-bottom: 1.5px solid transparent;
+    transition: color .12s ease, border-color .12s ease;
+  }
+  .code-tab[aria-selected="true"] { color: var(--brand); border-bottom-color: var(--brand); }
+  .code-body {
+    padding: 22px 24px 24px;
+    font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7;
+    overflow-x: auto;
+  }
+  .code-body .tk-com { color: var(--fg-faint); }
+  .code-body .tk-key { color: oklch(0.50 0.16 268); }
+  [data-theme="dark"] .code-body .tk-key { color: oklch(0.78 0.12 280); }
+  .code-body .tk-str { color: oklch(0.50 0.12 152); }
+  [data-theme="dark"] .code-body .tk-str { color: oklch(0.80 0.12 152); }
+  .code-body .tk-num { color: oklch(0.55 0.16 26); }
+  [data-theme="dark"] .code-body .tk-num { color: oklch(0.78 0.14 26); }
+  .code-body .tk-fn  { color: oklch(0.55 0.12 230); }
+  [data-theme="dark"] .code-body .tk-fn  { color: oklch(0.78 0.12 230); }
+
+  /* ============================================================
+     COMPARE TABLE
+     ============================================================ */
+  .compare-wrap {
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background: var(--bg-elev-2);
+  }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .compare-table th, .compare-table td {
+    padding: 14px 18px; text-align: left;
+    border-bottom: 1px solid var(--divider);
+  }
+  .compare-table thead th {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-subtle); letter-spacing: .08em; text-transform: uppercase;
+    background: var(--bg-sunken);
+    font-weight: 500;
+    text-align: center;
+  }
+  .compare-table thead th:first-child { text-align: left; }
+  .compare-table thead th.brand { color: var(--brand); background: var(--brand-soft); }
+  .compare-table tbody td { text-align: center; color: var(--fg-muted); }
+  .compare-table tbody td:first-child { text-align: left; color: var(--fg); font-weight: 500; }
+  .compare-table tbody td.brand { background: color-mix(in oklch, var(--brand) 4%, var(--bg-elev-2)); color: var(--fg); }
+  .compare-table tbody tr:last-child td { border-bottom: 0; }
+  .compare-cell {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 12px;
+    line-height: 1;
+  }
+  .compare-cell .mark.full   { color: var(--brand); }
+  .compare-cell .mark.part   { color: var(--warning); }
+  .compare-cell .mark.none   { color: var(--fg-faint); }
+
+  /* ============================================================
+     PRICING
+     ============================================================ */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .price-card {
+    background: var(--bg-elev-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: 28px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .price-card.featured {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 1px var(--brand), var(--shadow-md);
+  }
+  .price-card .tier {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--fg-subtle); letter-spacing: .12em; text-transform: uppercase;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .price-card .tier .tag-brand {
+    color: var(--brand);
+    background: var(--brand-soft); border: 1px solid var(--brand-border);
+    padding: 3px 7px; border-radius: var(--r-full);
+    letter-spacing: .1em;
+  }
+  .price-card .price {
+    font-weight: 400; font-size: 40px; letter-spacing: -0.024em; line-height: 1;
+  }
+  .price-card .price em { font-family: var(--font-serif); font-style: italic; color: var(--brand); }
+  .price-card .price-sub {
+    font-family: var(--font-mono); font-size: 11.5px;
+    color: var(--fg-subtle); letter-spacing: .04em;
+  }
+  .price-card .desc { font-size: 13.5px; color: var(--fg-muted); line-height: 1.5; }
+  .price-card ul {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 8px; font-size: 13px;
+  }
+  .price-card ul li {
+    display: grid; grid-template-columns: 16px 1fr; gap: 10px; color: var(--fg);
+  }
+  .price-card ul li::before {
+    content: ""; width: 5px; height: 5px; background: var(--brand);
+    border-radius: 999px; align-self: center; justify-self: center;
+  }
+  .price-card .btn { margin-top: 8px; justify-content: center; }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  .foot-wrap {
+    border-top: 1px solid var(--divider);
+    background: var(--bg-elev-1);
+    margin-top: 60px;
+    padding: 80px 0 36px;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(5, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+  .foot-brand .logo { margin-bottom: 18px; }
+  .foot-brand p {
+    font-size: 13.5px; color: var(--fg-muted); line-height: 1.55;
+    max-width: 30ch; margin: 0 0 18px;
+  }
+  .foot-brand .by {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--fg-subtle); letter-spacing: .04em;
+  }
+  .foot-brand .by em {
+    font-family: var(--font-serif); font-style: italic; color: var(--fg); font-size: 13px;
+  }
+  .foot-col h5 {
+    margin: 0 0 14px;
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-faint); letter-spacing: .12em; text-transform: uppercase;
+    font-weight: 500;
+  }
+  .foot-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .foot-col li {
+    font-size: 13px; color: var(--fg-muted);
+    transition: color .12s ease; cursor: pointer;
+  }
+  .foot-col li:hover { color: var(--fg); }
+  .foot-bottom {
+    border-top: 1px solid var(--divider);
+    padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-subtle); letter-spacing: .08em; text-transform: uppercase;
+  }
+  .foot-bottom em {
+    font-family: var(--font-serif); font-style: italic;
+    color: var(--brand); text-transform: none; letter-spacing: 0; font-size: 13px;
+  }
+  .foot-bottom .ctrls {
+    display: inline-flex; gap: 4px;
+    background: var(--bg-elev-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    padding: 3px;
+  }
+  .foot-bottom .ctrls button {
+    appearance: none; border: 0; background: transparent; cursor: pointer;
+    color: var(--fg-muted);
+    font: 500 11px/1 var(--font-sans);
+    padding: 6px 12px;
+    border-radius: var(--r-full);
+    letter-spacing: 0; text-transform: none;
+  }
+  .foot-bottom .ctrls button[aria-pressed="true"] {
+    background: var(--brand); color: var(--brand-fg);
+  }
+
+  /* ============================================================
+     Misc
+     ============================================================ */
+  .pull {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.2; letter-spacing: -0.018em;
+    color: var(--fg);
+    max-width: 28ch;
+  }
+  .pull .accent { color: var(--brand); }
+  .attribution {
+    margin-top: 18px;
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--fg-subtle); letter-spacing: .08em; text-transform: uppercase;
+  }
+
+  @media (max-width: 920px) {
+    .nav-links { display: none; }
+    .hero-grid, .gap-compare, .twosided-grid, .dev-grid, .sec-head { grid-template-columns: 1fr; gap: 32px; }
+    .layers-grid, .insight-chips, .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .intel-chrome { grid-template-columns: 1fr; }
+    .intel-side, .intel-right { display: none; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .gap-divider { transform: rotate(90deg); height: 60px; }
+    .gap-divider .word { writing-mode: horizontal-tb; transform: none; }
+  }
+  @media (max-width: 600px) {
+    .nav { padding: 14px 20px; }
+    .shell, .shell-wide { padding: 0 20px; }
+    .section { padding: 64px 0; }
+    .layers-grid, .insight-chips, .pricing-grid { grid-template-columns: 1fr; }
+    .foot-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ============================================================
+     SALES MODAL
+     ============================================================ */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 100;
+    background: color-mix(in oklch, var(--fg) 40%, transparent);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    animation: fade-in .15s ease;
+  }
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal-box {
+    background: var(--bg-elev-2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-2xl);
+    box-shadow: var(--shadow-xl);
+    width: 100%; max-width: 480px;
+    padding: 36px;
+    position: relative;
+    animation: slide-up .18s ease;
+  }
+  @keyframes slide-up { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    appearance: none; border: 0; background: transparent; cursor: pointer;
+    color: var(--fg-faint); font-size: 18px; line-height: 1;
+    width: 30px; height: 30px; border-radius: var(--r-sm);
+    display: grid; place-items: center;
+    transition: background .12s ease, color .12s ease;
+  }
+  .modal-close:hover { background: var(--bg-sunken); color: var(--fg); }
+
+  .modal-eyebrow {
+    font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--fg-subtle);
+    margin-bottom: 8px;
+  }
+  .modal-title {
+    font-size: 26px; font-weight: 400; letter-spacing: -0.022em;
+    line-height: 1.15; margin: 0 0 6px;
+  }
+  .modal-title em { font-family: var(--font-serif); font-style: italic; color: var(--brand); }
+  .modal-sub {
+    font-size: 14px; color: var(--fg-muted); line-height: 1.5;
+    margin: 0 0 28px;
+  }
+
+  .modal-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .modal-field label {
+    font-size: 13px; font-weight: 500; color: var(--fg);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .modal-field label .opt {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-faint); font-weight: 400; letter-spacing: .04em;
+  }
+  .modal-field input,
+  .modal-field textarea,
+  .modal-field select {
+    appearance: none;
+    font-family: var(--font-sans); font-size: 14px; color: var(--fg);
+    background: var(--bg-elev-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 10px 13px;
+    outline: none;
+    transition: border-color .12s ease, box-shadow .12s ease;
+    width: 100%;
+  }
+  .modal-field input::placeholder,
+  .modal-field textarea::placeholder { color: var(--fg-faint); }
+  .modal-field input:focus,
+  .modal-field textarea:focus,
+  .modal-field select:focus {
+    border-color: var(--brand-border);
+    box-shadow: 0 0 0 3px var(--focus-ring);
+  }
+  .modal-field textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+
+  .modal-footer { margin-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+  .modal-footer .btn { width: 100%; justify-content: center; }
+  .modal-footer .note {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--fg-faint); text-align: center; letter-spacing: .04em;
+  }
+  .modal-footer .note a { color: var(--brand); text-decoration: underline; text-underline-offset: 2px; }
+
+  .modal-success {
+    text-align: center; padding: 16px 0 8px;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .modal-success .check-circle {
+    width: 52px; height: 52px; border-radius: 999px;
+    background: var(--success-soft); border: 1px solid var(--success-border);
+    color: var(--success);
+    display: grid; place-items: center; font-size: 22px;
+  }
+  .modal-success h3 {
+    margin: 0; font-size: 22px; font-weight: 400; letter-spacing: -0.018em;
+  }
+  .modal-success h3 em { font-family: var(--font-serif); font-style: italic; color: var(--brand); }
+  .modal-success p { margin: 0; font-size: 14px; color: var(--fg-muted); line-height: 1.55; max-width: 32ch; }
+</style>
+</head>
+<body data-theme="light">
+<div id="root"></div>
+
+<script type="text/babel">
+// ── Tweaks panel (minimal inline version) ───────────────────────────────────
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── ConsumIQ marketing site ──────────────────────────────────────────────────
+
+// ── NAV ──────────────────────────────────────────────────────────────────────
+function Logo() {
+  return (
+    <span className="logo">
+      <a href="ConsumIQ.html" style={{display:'inline-flex', alignItems:'center', gap:10, color:'inherit'}}>
+        <span className="logo-mark" aria-hidden="true" />
+        <span>ConsumIQ</span>
+      </a>
+      <a href="index.html" className="by" style={{textDecoration:'none'}}>/ Fornax Labs ↗</a>
+    </span>
+  );
+}
+
+function Nav({ openModal }) {
+  return (
+    <div className="nav-wrap">
+      <nav className="nav">
+        <Logo />
+        <div className="nav-links">
+          <div className="nav-item">
+            <a className="nav-link" href="#platform">Platform <span className="caret" /></a>
+            <div className="mega">
+              <div className="mega-grid">
+                <div className="mega-feature">
+                  <div className="eyebrow">Why ConsumIQ</div>
+                  <h3>One pipe from <em>event</em> to <em>invoice</em>.</h3>
+                </div>
+                <div className="mega-col">
+                  <h4>Build &amp; bill</h4>
+                  <a className="mega-item" href="#platform"><span className="glyph">01</span><span className="text"><b>Metering</b><span>Real-time event ingest at AI scale.</span></span></a>
+                  <a className="mega-item" href="#platform"><span className="glyph">02</span><span className="text"><b>Rating &amp; Pricing</b><span>Tiers, commits, hybrid models.</span></span></a>
+                  <a className="mega-item" href="#platform"><span className="glyph">03</span><span className="text"><b>Entitlements</b><span>Sub-100ms feature gates.</span></span></a>
+                  <a className="mega-item" href="#platform"><span className="glyph">04</span><span className="text"><b>Invoicing &amp; A/R</b><span>Tax, dunning, ERP sync.</span></span></a>
+                </div>
+                <div className="mega-col">
+                  <h4>The wrapper</h4>
+                  <a className="mega-item star" href="#intelligence"><span className="glyph">★</span><span className="text"><b>Intelligence</b><span>22 insights only a unified stack can answer.</span></span></a>
+                  <a className="mega-item star" href="#twosided"><span className="glyph">★</span><span className="text"><b>Buyer FinOps Portal</b><span>The other half of the transaction.</span></span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a className="nav-link" href="#solutions">Solutions <span className="caret" /></a>
+          <a className="nav-link" href="#why">Why ConsumIQ</a>
+          <a className="nav-link" href="#developers">Developers</a>
+        </div>
+        <div className="nav-cta">
+          <button className="btn btn--primary btn--sm" onClick={openModal}>Talk to sales</button>
+        </div>
+      </nav>
+    </div>
+  );
+}
+
+// ── HERO ─────────────────────────────────────────────────────────────────────
+function PipeArt() {
+  return (
+    <div className="pipe-art">
+      <div className="head">
+        <span className="label">Live event → invoice → insight</span>
+        <span className="live"><span className="blink" />telemetry: 14,402 ev/s</span>
+      </div>
+      <div className="pipe-stage">
+        <div className="step"><div className="ico event">ev</div><b>Event</b><span>Captured</span></div>
+        <div className="step"><div className="ico">$</div><b>Rate</b><span>Applied</span></div>
+        <div className="step"><div className="ico">✓</div><b>Entitle</b><span>Checked</span></div>
+        <div className="step"><div className="ico">∎</div><b>Invoice</b><span>Settled</span></div>
+      </div>
+      <div className="row"><span className="k">Customer</span><span className="v">acme-co · ent_2026Q2</span></div>
+      <div className="row"><span className="k">This invoice line</span><span className="v"><em>$12,408.61</em></span></div>
+      <div className="row"><span className="k">Real-time gross margin</span><span className="v" style={{color:'var(--success)'}}>+58.4%</span></div>
+      <div className="row"><span className="k">Reconciliation tasks</span><span className="v" style={{fontFamily:'var(--font-serif)', fontStyle:'italic', color:'var(--brand)', fontSize:16}}>none</span></div>
+    </div>
+  );
+}
+
+function Hero({ openModal }) {
+  return (
+    <section className="hero">
+      <div className="shell-wide hero-grid">
+        <div>
+          <div className="eyebrow"><span className="dot" />Unified metering &amp; billing · v1</div>
+          <h1>One source of truth,<br />from <em>event</em> to <em>invoice</em>.</h1>
+          <p className="lede">
+            ConsumIQ is the first platform where metering, rating, entitlements, and invoicing
+            are the same row of data — and the intelligence on top is what no fragmented stack
+            can produce.
+          </p>
+          <div className="cta-row">
+            <button className="btn btn--primary btn--lg" onClick={openModal}>Talk to sales <span className="arrow">→</span></button>
+            <button className="btn btn--secondary btn--lg" data-cal-link={CAL_LINK} data-cal-config='{"layout":"month_view"}'>Book a demo</button>
+          </div>
+          <dl className="meta-row">
+            <div><dt>Built for</dt><dd>AI-native &amp; modern SaaS</dd></div>
+            <div><dt>Eliminates</dt><dd><em>4–7%</em>ARR leakage</dd></div>
+            <div><dt>Integrates in</dt><dd><em>3–6</em>weeks, not months</dd></div>
+          </dl>
+        </div>
+        <PipeArt />
+      </div>
+    </section>
+  );
+}
+
+// ── FRAGMENTATION → UNIFICATION ──────────────────────────────────────────────
+function FragmentationSection() {
+  return (
+    <section className="section" id="why">
+      <div className="shell">
+        <div className="sec-head">
+          <div>
+            <div className="eyebrow"><span className="num">01 /</span> The problem</div>
+            <h2>Three vendors and a <em>reconciliation</em> tax.</h2>
+          </div>
+          <p className="lede">
+            Most teams adopting consumption pricing assemble a stack of three or four vendors — one
+            for metering, one for entitlements, one for invoicing — then spend the next year
+            cleaning up the seams between them. Every late-arriving event becomes a finance ticket.
+          </p>
+        </div>
+        <div className="gap-compare">
+          <div className="gap-pane">
+            <div className="pane-head"><h3>The fragmented stack</h3><span className="tag">Today</span></div>
+            <div className="frag-stack">
+              <div className="frag-vendor"><span className="dot" /><span className="name">Metering vendor</span><span className="role">Event capture</span></div>
+              <div className="frag-tape"><span>reconcile</span></div>
+              <div className="frag-vendor"><span className="dot" /><span className="name">Rating engine</span><span className="role">Pricing logic</span></div>
+              <div className="frag-tape"><span>map ids</span></div>
+              <div className="frag-vendor"><span className="dot" /><span className="name">Entitlements layer</span><span className="role">Feature gates</span></div>
+              <div className="frag-tape"><span>sync schema</span></div>
+              <div className="frag-vendor"><span className="dot" /><span className="name">Invoicing &amp; A/R</span><span className="role">Tax, dunning, ERP</span></div>
+            </div>
+            <div className="frag-foot">
+              <div><b>3–6 mo</b>integration</div>
+              <div><b>4–7%</b>ARR leakage</div>
+            </div>
+          </div>
+          <div className="gap-divider">
+            <span className="word">becomes</span>
+            <span className="arrow">→</span>
+          </div>
+          <div className="gap-pane unified">
+            <div className="pane-head"><h3>One pipe, one schema</h3><span className="tag">ConsumIQ</span></div>
+            <div className="uni-pipe">
+              <div className="uni-row"><span className="step">01</span><span className="name">Metering</span><span className="note">event-first ingest</span></div>
+              <div className="uni-row"><span className="step">02</span><span className="name">Rating &amp; Pricing</span><span className="note">retroactive · simulated</span></div>
+              <div className="uni-row"><span className="step">03</span><span className="name">Entitlements</span><span className="note">&lt;100ms runtime</span></div>
+              <div className="uni-row"><span className="step">04</span><span className="name">Invoicing &amp; A/R</span><span className="note">tax · dunning · ERP</span></div>
+              <div className="uni-row"><span className="step star">★</span><span className="name">Intelligence</span><span className="note">22 cross-layer insights</span></div>
+              <div className="uni-row"><span className="step star">★</span><span className="name">Buyer FinOps Portal</span><span className="note">the other half</span></div>
+            </div>
+            <div className="frag-foot">
+              <div><b>3–6 wk</b>integration</div>
+              <div><b>0</b>systems to reconcile</div>
+            </div>
+          </div>
+        </div>
+        <div style={{marginTop:64, display:'grid', gridTemplateColumns:'1fr 1fr', gap:64, alignItems:'center'}}>
+          <div className="pull">
+            "The event, the rate, the entitlement, and the invoice are the
+            <span className="accent"> same row of data</span>. There is nothing to reconcile."
+          </div>
+          <div style={{display:'grid', gap:16}}>
+            <div className="intel-insight">
+              <b>For the CFO.</b> Revenue leakage detection becomes a single SQL query, not a quarterly project.
+            </div>
+            <div className="intel-insight">
+              <b>For Engineering.</b> One SDK, one set of customer IDs, one schema, one auth surface.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── PLATFORM LAYERS ──────────────────────────────────────────────────────────
+const LAYERS = [
+  { n: '01', name: 'Metering', em: '', desc: 'Tens-of-thousands of events per second. Idempotent, late-arrival safe, schema-agnostic. Built event-first for AI scale.' },
+  { n: '02', name: 'Rating &', em: 'Pricing', desc: 'SQL-defined billable metrics. Replay history under hypothetical pricing. Tiers, volume, commits, prepaid credits, hybrid.' },
+  { n: '03', name: 'Entitlements', em: '', desc: 'Sub-100ms runtime feature checks. Plan versioning. Trial management. Migrations without a deploy.' },
+  { n: '04', name: 'Invoicing &', em: 'A/R', desc: 'Native invoicing, tax, dunning, revenue recognition. Sync to NetSuite, Sage Intacct, QuickBooks, Salesforce. Payment-agnostic.' },
+  { n: '05', name: 'Intelligence', em: '', desc: 'Twenty-two insights mapped to CFO, Product, RevOps, Engineering, CS. Cross-customer benchmarks unique to the platform.', star: true },
+  { n: '06', name: 'Buyer FinOps', em: 'Portal', desc: 'The other side of the transaction. Department allocation, approvals, cross-vendor spend. The wedge that locks both sides in.', star: true },
+];
+
+function PlatformSection() {
+  return (
+    <section className="section" id="platform">
+      <div className="shell">
+        <div className="sec-head">
+          <div>
+            <div className="eyebrow"><span className="num">02 /</span> The platform</div>
+            <h2>Six layers. <em>One</em> source of truth.</h2>
+          </div>
+          <p className="lede">
+            Build &amp; bill — the four core layers that every consumption product needs. Plus
+            two more that only exist because they all live in one place: intelligence on top,
+            and the buyer-facing portal underneath.
+          </p>
+        </div>
+        <div className="layers-grid">
+          {LAYERS.map((l) => (
+            <div key={l.n} className={`layer-card${l.star ? ' star' : ''}`}>
+              <div className="head">
+                <span className="num">{l.n}</span>
+                {l.star && <span className="tag">Unification only</span>}
+              </div>
+              <h3>{l.name} {l.em && <em>{l.em}</em>}</h3>
+              <p>{l.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── INTELLIGENCE DASHBOARD ────────────────────────────────────────────────────
+function MarginChart() {
+  const points = [
+    [0,38],[1,41],[2,39],[3,45],[4,52],[5,49],
+    [6,56],[7,61],[8,58],[9,64],[10,67],[11,72],
+  ];
+  const w = 540, h = 130, pad = 8;
+  const xMax = points[points.length - 1][0];
+  const yMin = 30, yMax = 80;
+  const sx = (x) => pad + (x / xMax) * (w - pad * 2);
+  const sy = (y) => h - pad - ((y - yMin) / (yMax - yMin)) * (h - pad * 2);
+  const line = points.map(([x,y],i) => `${i?'L':'M'}${sx(x).toFixed(1)},${sy(y).toFixed(1)}`).join(' ');
+  const area = `${line} L${sx(xMax).toFixed(1)},${h-pad} L${sx(0).toFixed(1)},${h-pad} Z`;
+  return (
+    <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="var(--brand)" stopOpacity=".28" />
+          <stop offset="100%" stopColor="var(--brand)" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      {[40,50,60,70].map(y => (
+        <line key={y} x1={pad} x2={w-pad} y1={sy(y)} y2={sy(y)} stroke="var(--divider)" strokeDasharray="2 4" />
+      ))}
+      <path d={area} fill="url(#g1)" />
+      <path d={line} fill="none" stroke="var(--brand)" strokeWidth="1.75" strokeLinejoin="round" />
+      {points.map(([x,y],i) => (
+        <circle key={i} cx={sx(x)} cy={sy(y)} r={i===points.length-1?3.5:1.5} fill="var(--brand)" />
+      ))}
+    </svg>
+  );
+}
+
+const SIDE_GROUPS = [
+  { name: 'Finance', items: [
+    { l: 'Gross margin per customer', active: true, pip: true },
+    { l: 'Revenue leakage' },
+    { l: 'Forecasted month-end' },
+    { l: 'Commitment burn-down' },
+  ]},
+  { name: 'Product', items: [
+    { l: 'Revenue per feature' },
+    { l: 'Pricing elasticity' },
+    { l: 'Cross-cust. benchmarks' },
+  ]},
+  { name: 'RevOps', items: [
+    { l: 'Expansion signals' },
+    { l: 'Churn risk (decay)' },
+  ]},
+];
+
+const INSIGHT_CHIPS = [
+  { tag: 'INSIGHT F1', q: 'Is customer X profitable at the gross margin level today?', who: 'CFO · Finance' },
+  { tag: 'INSIGHT P1', q: 'Which features generate the most revenue per compute dollar?', who: 'Head of Product' },
+  { tag: 'INSIGHT S1', q: 'Which accounts will exceed their commitment in 18 days?', who: 'Sales · RevOps' },
+  { tag: 'INSIGHT E2', q: 'Which customers generate high cost relative to billed revenue?', who: 'Head of Engineering' },
+];
+
+function IntelligenceSection() {
+  return (
+    <section className="section" id="intelligence" style={{background:'var(--bg-elev-1)'}}>
+      <div className="shell">
+        <div className="sec-head">
+          <div>
+            <div className="eyebrow"><span className="num">03 /</span> Intelligence</div>
+            <h2>The questions you <em>couldn't</em> ask before.</h2>
+          </div>
+          <p className="lede">
+            Existing tools see revenue. ConsumIQ sees revenue, usage, entitlements, and
+            cost-to-serve — together. Twenty-two insights, mapped to the people who need
+            them, that no fragmented stack can produce.
+          </p>
+        </div>
+        <div className="intel-frame">
+          <div className="intel-chrome">
+            <aside className="intel-side">
+              {SIDE_GROUPS.map((g) => (
+                <div className="group" key={g.name}>
+                  <div className="group-name">{g.name}</div>
+                  {g.items.map((it) => (
+                    <div key={it.l} className={`item${it.active?' active':''}`}>
+                      <span>{it.l}</span>
+                      {it.pip && <span className="pip" />}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </aside>
+            <div className="intel-main">
+              <div className="breadcrumb">
+                <span>Insights</span><span>/</span><span>Finance</span><span>/</span>
+                <span style={{color:'var(--brand)'}}>F1 · Gross margin per customer</span>
+              </div>
+              <h4>Real-time gross margin <em>per customer</em>.</h4>
+              <div className="desc">Revenue (billing) + variable cost-to-serve (infra, model APIs) + consumption volume (metering), reconciled to a single per-customer number, updated every minute.</div>
+              <div className="intel-stats">
+                <div className="intel-stat">
+                  <div className="lbl">Margin · acme-co</div>
+                  <div className="val"><em>58.4</em>%</div>
+                  <div className="delta">+6.1% wk/wk</div>
+                </div>
+                <div className="intel-stat">
+                  <div className="lbl">Revenue (MTD)</div>
+                  <div className="val"><em>$1.24</em>M</div>
+                  <div className="delta">+11.8% vs. plan</div>
+                </div>
+                <div className="intel-stat">
+                  <div className="lbl">Cost-to-serve</div>
+                  <div className="val"><em>$515</em>k</div>
+                  <div className="delta neg">+18.2% vs. plan</div>
+                </div>
+              </div>
+              <div className="intel-chart">
+                <div className="chart-head">
+                  <b>Gross margin · trailing 12 weeks</b>
+                  <span>live · updated every minute</span>
+                </div>
+                <MarginChart />
+              </div>
+            </div>
+            <aside className="intel-right">
+              <h5>Anomalies</h5>
+              <div className="intel-insight">
+                <b>Heads-up — acme-co's COGS</b> just crossed 42% of MRR. At the current pace, this account turns
+                <em> margin-negative</em> in 11 days.
+              </div>
+              <h5>Benchmarks</h5>
+              <div className="intel-insight">
+                Your token-per-API-call ratio is in the <b>87th percentile</b> for AI customer-support products.
+                Caching typically lowers it by <em>23%</em>.
+              </div>
+              <h5>Recommended action</h5>
+              <div className="intel-insight">
+                Open an upgrade conversation with acme-co in the next 7 days.
+                Projected uplift: <em>$48k</em>/mo.
+              </div>
+            </aside>
+          </div>
+        </div>
+        <div className="insight-chips">
+          {INSIGHT_CHIPS.map((c) => (
+            <div key={c.tag} className="chip-card">
+              <div className="lbl">{c.tag}</div>
+              <div className="q">{c.q}</div>
+              <div className="persona">{c.who}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── TWO-SIDED ────────────────────────────────────────────────────────────────
+function TwoSidedSection() {
+  return (
+    <section className="section" id="twosided">
+      <div className="shell">
+        <div className="sec-head">
+          <div>
+            <div className="eyebrow"><span className="num">04 /</span> Two-sided wedge</div>
+            <h2>The only platform built for <em>both</em> sides.</h2>
+          </div>
+          <p className="lede">
+            Sellers ship a pricing surface. Buyers get a FinOps console for free. Every
+            integration cuts the switching cost the next time someone tries to replace you.
+          </p>
+        </div>
+        <div className="twosided-grid">
+          <div className="ts-card">
+            <div className="ts-head">
+              <div>
+                <div className="lbl">Seller surface</div>
+                <h4>Revenue by <em>customer cohort</em></h4>
+              </div>
+              <div className="who">For finance, RevOps &amp; product teams</div>
+            </div>
+            <div className="ts-body">
+              {[
+                { l: 'AI inference (enterprise)', pct: 86, v: '$2.41M' },
+                { l: 'API · usage tier', pct: 64, v: '$1.78M' },
+                { l: 'Agents · per-run', pct: 49, v: '$840K' },
+                { l: 'Storage & egress', pct: 31, v: '$412K' },
+                { l: 'Trials in flight', pct: 14, v: '52' },
+              ].map((r) => (
+                <div className="ts-bar-row" key={r.l}>
+                  <span className="lbl">{r.l}</span>
+                  <span className="bar"><span className="fill" style={{width:`${r.pct}%`}} /></span>
+                  <span className="val">{r.v}</span>
+                </div>
+              ))}
+              <div style={{marginTop:16,paddingTop:16,borderTop:'1px dashed var(--divider)',display:'flex',justifyContent:'space-between',fontSize:12.5,color:'var(--fg-muted)'}}>
+                <span>Net Revenue Retention</span>
+                <span style={{fontFamily:'var(--font-mono)',color:'var(--success)'}}>+138% (Q2 · 2026)</span>
+              </div>
+            </div>
+          </div>
+          <div className="ts-card">
+            <div className="ts-head">
+              <div>
+                <div className="lbl">Buyer portal</div>
+                <h4>Spend, allocated by <em>department</em></h4>
+              </div>
+              <div className="who">For your customer's finance team</div>
+            </div>
+            <div className="ts-body">
+              {[
+                { l: 'Engineering · platform', pct: 72, v: '$184K' },
+                { l: 'Data science', pct: 58, v: '$148K' },
+                { l: 'Customer support AI', pct: 41, v: '$104K' },
+                { l: 'Internal ops', pct: 22, v: '$56K' },
+                { l: 'Pending approvals', pct: 8, v: '4 reqs' },
+              ].map((r) => (
+                <div className="ts-bar-row" key={r.l}>
+                  <span className="lbl">{r.l}</span>
+                  <span className="bar"><span className="fill" style={{width:`${r.pct}%`,background:'var(--info)'}} /></span>
+                  <span className="val">{r.v}</span>
+                </div>
+              ))}
+              <div style={{marginTop:16,paddingTop:16,borderTop:'1px dashed var(--divider)',display:'flex',justifyContent:'space-between',fontSize:12.5,color:'var(--fg-muted)'}}>
+                <span>Monthly budget · 71% used</span>
+                <span style={{fontFamily:'var(--font-mono)',color:'var(--warning)'}}>18 days to threshold</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── DEVELOPER ────────────────────────────────────────────────────────────────
+const CODE_SAMPLES = {
+  ts: `import { ConsumIQ } from "@consumiq/sdk";
+
+const ciq = new ConsumIQ({ apiKey: process.env.CIQ_KEY });
+
+// One call. Event captured, rated, entitled, ready to invoice.
+await ciq.events.record({
+  customer: "acme-co",
+  event:    "inference.completed",
+  units:    1,
+  meta:     { model: "claude-sonnet-4.6", tokens_in: 1402, tokens_out: 814 },
+});
+
+// Real-time gate, same SDK, sub-100ms.
+const allowed = await ciq.entitlements.check("acme-co", "advanced_models");
+if (!allowed.ok) return reply("Plan limit reached", allowed.reason);
+
+// Same customer ID rolls into the invoice. Nothing to reconcile.
+const margin = await ciq.insights.grossMargin({ customer: "acme-co" });
+//=> { mtd: 0.584, trend: +0.061, atRisk: false, costToServe: 515_402 }`,
+  py: `from consumiq import ConsumIQ
+
+ciq = ConsumIQ(api_key=os.environ["CIQ_KEY"])
+
+ciq.events.record(
+  customer="acme-co",
+  event="inference.completed",
+  units=1,
+  meta={"model": "claude-sonnet-4.6", "tokens_in": 1402, "tokens_out": 814},
+)
+
+allowed = ciq.entitlements.check("acme-co", "advanced_models")
+if not allowed.ok:
+    raise PlanLimit(allowed.reason)
+
+margin = ciq.insights.gross_margin(customer="acme-co")
+# => { "mtd": 0.584, "trend": +0.061, "at_risk": False, ... }`,
+  curl: `curl -X POST https://api.consumiq.io/v1/events \\
+  -H "Authorization: Bearer $CIQ_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "customer": "acme-co",
+    "event":    "inference.completed",
+    "units":    1,
+    "meta":     { "model": "claude-sonnet-4.6", "tokens": 2216 }
+  }'
+
+# Same customer key flows into:
+#   GET /v1/entitlements/acme-co/advanced_models
+#   GET /v1/insights/gross-margin?customer=acme-co
+#   GET /v1/invoices/acme-co/preview`,
+};
+
+function DeveloperSection() {
+  const [tab, setTab] = React.useState('ts');
+  return (
+    <section className="section" id="developers" style={{background:'var(--bg-elev-1)'}}>
+      <div className="shell">
+        <div className="dev-grid">
+          <div className="dev-text">
+            <div className="eyebrow" style={{marginBottom:18}}><span className="num">05 /</span> For engineers</div>
+            <h3>One SDK. One schema. <em>One</em> auth.</h3>
+            <p>
+              The integration that takes three to six months across a fragmented stack takes three
+              to six weeks here. Same customer IDs everywhere. Same event schema. Same
+              authentication. Nothing to map.
+            </p>
+            <ul className="dev-bullets">
+              <li><span className="check">✓</span><span><b>Event-first ingest</b><br /><span>Idempotent, deduplicated, late-arrival safe — at 30k events / second.</span></span></li>
+              <li><span className="check">✓</span><span><b>SQL-defined metrics</b><br /><span>Re-rate history retroactively. Simulate price changes against real data.</span></span></li>
+              <li><span className="check">✓</span><span><b>Payment-agnostic</b><br /><span>Stripe, Adyen, Braintree, or your own processor. Your call.</span></span></li>
+              <li><span className="check">✓</span><span><b>Audit-grade lineage</b><br /><span>Every invoice line traces to the exact event that produced it.</span></span></li>
+            </ul>
+          </div>
+          <div className="code-frame">
+            <div className="code-tabs" role="tablist">
+              <button className="code-tab" aria-selected={tab==='ts'} onClick={() => setTab('ts')}>node.ts</button>
+              <button className="code-tab" aria-selected={tab==='py'} onClick={() => setTab('py')}>python.py</button>
+              <button className="code-tab" aria-selected={tab==='curl'} onClick={() => setTab('curl')}>curl.sh</button>
+              <span style={{marginLeft:'auto',alignSelf:'center',paddingRight:12,fontFamily:'var(--font-mono)',fontSize:10.5,color:'var(--fg-faint)',letterSpacing:'.08em'}}>SDK · v0.9 · stable</span>
+            </div>
+            <div className="code-body"><pre style={{margin:0}}>{CODE_SAMPLES[tab]}</pre></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── COMPARE ──────────────────────────────────────────────────────────────────
+const COMPARE_ROWS = [
+  ['Event ingest at AI scale',           'full','full','part','part','part'],
+  ['Multi-dimensional metering',         'full','full','part','part','part'],
+  ['Native invoicing & A/R',             'full','part','none','part','full'],
+  ['Real-time entitlement API',          'full','none','none','part','part'],
+  ['Plan & contract simulation',         'full','part','part','none','none'],
+  ['Per-customer gross margin (COGS)',   'full','none','none','none','none'],
+  ['Buyer FinOps portal',                'full','none','none','part','none'],
+  ['Cross-customer benchmarks',          'full','none','none','none','none'],
+  ['One SDK, one customer ID',           'full','part','part','part','part'],
+  ['Payment-agnostic',                   'full','none','full','full','part'],
+];
+const HEADERS = ['Capability','ConsumIQ','Metering-only','Rating-only','Entitlements-only','Subscription-first'];
+const MARK  = { full:'●', part:'◐', none:'○' };
+const LABEL = { full:'Native', part:'Partial', none:'Not offered' };
+
+function CompareSection() {
+  return (
+    <section className="section" id="solutions">
+      <div className="shell">
+        <div className="sec-head">
+          <div>
+            <div className="eyebrow"><span className="num">06 /</span> Capability matrix</div>
+            <h2>What unification <em>enables</em>.</h2>
+          </div>
+          <p className="lede">
+            A side-by-side against the four archetypes of fragmented stacks. We
+            don't name names here — the point isn't to put down anyone in
+            particular, it's to show what's only possible when one platform owns the whole pipe.
+          </p>
+        </div>
+        <div className="compare-wrap">
+          <table className="compare-table">
+            <thead>
+              <tr>
+                {HEADERS.map((h,i) => (
+                  <th key={h} className={i===1?'brand':''}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARE_ROWS.map((row) => (
+                <tr key={row[0]}>
+                  {row.map((cell,i) => {
+                    if (i===0) return <td key={i}>{cell}</td>;
+                    return (
+                      <td key={i} className={i===1?'brand':''}>
+                        <span className="compare-cell" title={LABEL[cell]}>
+                          <span className={`mark ${cell}`}>{MARK[cell]}</span>
+                          <span style={{color:'var(--fg-faint)'}}>{LABEL[cell]}</span>
+                        </span>
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div style={{marginTop:18,fontFamily:'var(--font-mono)',fontSize:11,color:'var(--fg-faint)',letterSpacing:'.06em',textTransform:'uppercase'}}>
+          ● Native, mature &nbsp;·&nbsp; ◐ Partial &nbsp;·&nbsp; ○ Not offered
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── CTA BANNER ────────────────────────────────────────────────────────────────
+function CTABanner({ openModal }) {
+  return (
+    <section className="section" style={{padding:'80px 0',borderTop:'1px solid var(--divider)'}}>
+      <div className="shell" style={{textAlign:'center'}}>
+        <div className="eyebrow" style={{justifyContent:'center',display:'inline-flex'}}><span className="dot" />Ready when you are</div>
+        <h2 style={{fontWeight:400,fontSize:'clamp(40px, 5vw, 64px)',letterSpacing:'-0.03em',lineHeight:1.05,margin:'18px auto 24px',maxWidth:'18ch'}}>
+          Stop reconciling. <em style={{fontFamily:'var(--font-serif)',fontStyle:'italic',color:'var(--brand)'}}>Start measuring.</em>
+        </h2>
+        <p style={{fontSize:18,color:'var(--fg-muted)',maxWidth:'52ch',margin:'0 auto 32px',lineHeight:1.55}}>
+          Move your metering and billing onto one platform. Get the intelligence layer for free.
+          Most teams are live in under six weeks.
+        </p>
+        <div style={{display:'inline-flex',gap:12}}>
+          <button className="btn btn--primary btn--lg" onClick={openModal}>Talk to sales <span className="arrow">→</span></button>
+          <button className="btn btn--secondary btn--lg" data-cal-link={CAL_LINK} data-cal-config='{"layout":"month_view"}'>Book a demo</button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── FOOTER ────────────────────────────────────────────────────────────────────
+function Footer({ theme, setTheme }) {
+  return (
+    <footer className="foot-wrap">
+      <div className="shell-wide">
+        <div style={{marginBottom:40}}>
+          <Logo />
+          <p style={{fontSize:'13.5px',color:'var(--fg-muted)',lineHeight:1.55,maxWidth:'36ch',margin:'18px 0 0'}}>One source of truth, from event to invoice — and the intelligence on top that no fragmented stack can produce.</p>
+          <div style={{fontFamily:'var(--font-mono)',fontSize:11,color:'var(--fg-subtle)',letterSpacing:'.04em',marginTop:12}}>A product of <em style={{fontFamily:'var(--font-serif)',fontStyle:'italic',color:'var(--fg)',fontSize:13}}>Fornax Labs</em> · est. 2026</div>
+        </div>
+        <div className="foot-bottom">
+          <span>© 2026 Fornax Labs · ConsumIQ — <em>quiet intelligence</em></span>
+          <span className="ctrls" role="tablist" aria-label="Theme">
+              <button aria-pressed={theme==='light'} onClick={() => setTheme('light')}>Light</button>
+              <button aria-pressed={theme==='dark'} onClick={() => setTheme('dark')}>Dark</button>
+            </span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ── SALES MODAL ──────────────────────────────────────────────────────────────
+// Replace YOUR_FORM_ID below with the ID from your Formspree dashboard.
+// Steps: formspree.io → New Form → copy the ID (e.g. xpwzabcd)
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/meedaajv";
+// Cal.com: replace with your username + event slug, e.g. "manju/30min"
+const CAL_LINK = "https://cal.com/manjunath-iyer/30min";
+
+const USE_CASES = [
+  "AI / LLM product billing",
+  "Usage-based SaaS pricing",
+  "Metering & event ingest",
+  "Entitlements & feature gates",
+  "Invoicing & revenue recognition",
+  "Intelligence & analytics",
+  "Replacing a fragmented stack",
+  "Other",
+];
+
+function SalesModal({ onClose }) {
+  const [fields, setFields] = React.useState({ name:'', email:'', phone:'', usecase:'', message:'' });
+  const [status, setStatus] = React.useState('idle'); // idle | submitting | success | error
+  const firstRef = React.useRef(null);
+
+  React.useEffect(() => {
+    firstRef.current?.focus();
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
+  const set = (k) => (e) => setFields((p) => ({ ...p, [k]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('submitting');
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: fields.name,
+          email: fields.email,
+          phone: fields.phone || '—',
+          use_case: fields.usecase || '—',
+          message: fields.message || '—',
+        }),
+      });
+      if (res.ok) {
+        setStatus('success');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  return (
+    <div className="modal-backdrop" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }} role="dialog" aria-modal="true" aria-label="Talk to sales">
+      <div className="modal-box">
+        <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
+
+        {status === 'success' ? (
+          <div className="modal-success">
+            <div className="check-circle">✓</div>
+            <h3>We'll be in <em>touch</em>.</h3>
+            <p>Thanks — Manju will reply within one business day.</p>
+            <button className="btn btn--secondary" style={{marginTop:8}} onClick={onClose}>Done</button>
+          </div>
+        ) : (
+          <>
+            <div className="modal-eyebrow">Talk to sales</div>
+            <h2 className="modal-title">Let's see if we're a <em>fit</em>.</h2>
+            <p className="modal-sub">Tell us about your product and we'll reach out within one business day.</p>
+
+            <form onSubmit={handleSubmit}>
+              <div className="modal-field">
+                <label htmlFor="ts-name">Name</label>
+                <input ref={firstRef} id="ts-name" type="text" placeholder="Jane Smith" required value={fields.name} onChange={set('name')} autoComplete="name" />
+              </div>
+              <div className="modal-field">
+                <label htmlFor="ts-email">Work email</label>
+                <input id="ts-email" type="email" placeholder="jane@company.com" required value={fields.email} onChange={set('email')} autoComplete="email" />
+              </div>
+              <div className="modal-field">
+                <label htmlFor="ts-phone">Phone <span className="opt">optional</span></label>
+                <input id="ts-phone" type="tel" placeholder="+1 (555) 000-0000" value={fields.phone} onChange={set('phone')} autoComplete="tel" />
+              </div>
+              <div className="modal-field">
+                <label htmlFor="ts-usecase">Primary use case</label>
+                <select id="ts-usecase" required value={fields.usecase} onChange={set('usecase')} style={{cursor:'pointer'}}>
+                  <option value="" disabled>Select one…</option>
+                  {USE_CASES.map((u) => <option key={u} value={u}>{u}</option>)}
+                </select>
+              </div>
+              <div className="modal-field">
+                <label htmlFor="ts-msg">Anything else <span className="opt">optional</span></label>
+                <textarea id="ts-msg" placeholder="Current stack, event volume, timeline…" value={fields.message} onChange={set('message')} />
+              </div>
+
+              {status === 'error' && (
+                <div style={{fontSize:13,color:'var(--danger)',marginBottom:8}}>Something went wrong — please try again or email <a href="mailto:manju@fornaxlabs.xyz" style={{color:'var(--brand)'}}>manju@fornaxlabs.xyz</a> directly.</div>
+              )}
+
+              <div className="modal-footer">
+                <button type="submit" className="btn btn--primary btn--lg" disabled={status==='submitting'}>
+                  {status === 'submitting' ? 'Sending…' : 'Send message →'}
+                </button>
+                <button type="button" className="btn btn--secondary btn--lg" data-cal-link={CAL_LINK} data-cal-config='{"layout":"month_view"}' onClick={onClose}>
+                  Book a demo call instead
+                </button>
+                <div className="note">Or email us at <a href="mailto:manju@fornaxlabs.xyz">manju@fornaxlabs.xyz</a></div>
+              </div>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── APP ──────────────────────────────────────────────────────────────────────
+function App() {
+  const [theme, setTheme] = React.useState('light');
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
+  React.useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  React.useEffect(() => {
+    document.body.style.overflow = modalOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [modalOpen]);
+
+  return (
+    <>
+      <Nav openModal={openModal} />
+      <Hero openModal={openModal} />
+      <FragmentationSection />
+      <PlatformSection />
+      <IntelligenceSection />
+      <TwoSidedSection />
+      <DeveloperSection />
+      <CompareSection />
+      <CTABanner openModal={openModal} />
+      <Footer theme={theme} setTheme={setTheme} />
+      {modalOpen && <SalesModal onClose={closeModal} />}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+<!-- Cal.com embed — loads lazily, intercepts clicks on [data-cal-link] elements -->
+<script>
+(function(C,A,L){let p=function(a,ar){a.q.push(ar)};let d=C.document;C.Cal=C.Cal||function(){let cal=C.Cal;let ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement("script")).src=A;cal.loaded=true}if(ar[0]===L){const api=function(){p(api,arguments)};const namespace=ar[1];api.q=api.q||[];if(typeof namespace==="string"){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,["-init-",namespace,L])}else{p(cal,ar)}return}p(cal,ar)}})(window,"https://app.cal.com/embed/embed.js","init");
+Cal("init",{origin:"https://cal.com"});
+Cal("ui",{
+  "theme":"auto",
+  "styles":{"branding":{"brandColor":"#4f46e5"}},
+  "hideEventTypeDetails":false,
+  "layout":"month_view"
+});
+</script>
+</body>
+</html>
