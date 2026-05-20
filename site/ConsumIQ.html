@@ -2,9 +2,69 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+<!-- Inline theme init — runs before first paint to prevent FOUC -->
+<script>(function(){try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
 <title>ConsumIQ — One source of truth, from event to invoice.</title>
 <meta name="description" content="ConsumIQ is the first platform where metering, rating, entitlements, and invoicing are the same row of data — and the intelligence on top is what no fragmented stack can produce." />
+<meta name="author" content="Fornax Labs" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://consumiq.fornaxlabs.com/" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://consumiq.fornaxlabs.com/" />
+<meta property="og:site_name" content="ConsumIQ by Fornax Labs" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content="ConsumIQ — One source of truth, from event to invoice." />
+<meta property="og:description" content="ConsumIQ is the first platform where metering, rating, entitlements, and invoicing are the same row of data — and the intelligence on top is what no fragmented stack can produce." />
+<meta property="og:image" content="https://consumiq.fornaxlabs.com/brand-assets/png/social-og-1200x630.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="ConsumIQ — Unified metering and billing for AI-native SaaS" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ConsumIQ — One source of truth, from event to invoice." />
+<meta name="twitter:description" content="ConsumIQ is the first platform where metering, rating, entitlements, and invoicing are the same row of data — and the intelligence on top is what no fragmented stack can produce." />
+<meta name="twitter:image" content="https://consumiq.fornaxlabs.com/brand-assets/png/social-og-1200x630.png" />
+<meta name="twitter:image:alt" content="ConsumIQ — Unified metering and billing for AI-native SaaS" />
+
+<link rel="icon" type="image/svg+xml" href="../brand-assets/favicon/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="../brand-assets/favicon/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="../brand-assets/favicon/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="../brand-assets/favicon/apple-touch-icon-180.png" />
+<link rel="manifest" href="../brand-assets/site.webmanifest" />
+<meta name="theme-color" content="#fafbfc" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#1c1e2a" media="(prefers-color-scheme: dark)" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ConsumIQ",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "url": "https://consumiq.fornaxlabs.com",
+  "description": "The unified metering and billing platform for AI-native and modern SaaS. One source of truth, from event to invoice.",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "seller": {
+      "@type": "Organization",
+      "name": "Fornax Labs",
+      "url": "https://fornaxlabs.xyz",
+      "email": "manju@fornaxlabs.xyz"
+    }
+  },
+  "featureList": [
+    "Real-time metering at 30k events per second",
+    "Per-customer gross margin intelligence",
+    "Native invoicing with tax and dunning",
+    "Sub-100ms entitlement checks",
+    "Buyer FinOps portal"
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,6 +94,7 @@
   }
 
   [data-theme="light"] {
+    color-scheme: light;
     --bg:          oklch(0.992 0.003 250);
     --bg-elev-1:   oklch(0.985 0.004 250);
     --bg-elev-2:   #ffffff;
@@ -76,6 +137,7 @@
   }
 
   [data-theme="dark"] {
+    color-scheme: dark;
     --bg:          oklch(0.16 0.012 260);
     --bg-elev-1:   oklch(0.195 0.013 260);
     --bg-elev-2:   oklch(0.225 0.013 260);
@@ -132,6 +194,18 @@
   ::selection { background: var(--brand); color: var(--brand-fg); }
 
   a { color: inherit; text-decoration: none; }
+
+  /* ============================================================
+     SKIP LINK (accessibility)
+     ============================================================ */
+  .skip-link {
+    position: absolute; top: -40px; left: 0; z-index: 9999;
+    background: var(--brand); color: var(--brand-fg);
+    padding: 8px 16px; border-radius: 0 0 var(--r-md) 0;
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    transition: top .12s ease;
+  }
+  .skip-link:focus { top: 0; }
 
   /* ============================================================
      NAV
@@ -1301,7 +1375,8 @@
   .modal-success p { margin: 0; font-size: 14px; color: var(--fg-muted); line-height: 1.55; max-width: 32ch; }
 </style>
 </head>
-<body data-theme="light">
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div id="root"></div>
 
 <script type="text/babel">
@@ -1326,7 +1401,7 @@ function Logo() {
         <span className="logo-mark" aria-hidden="true" />
         <span>ConsumIQ</span>
       </a>
-      <a href="index.html" className="by" style={{textDecoration:'none'}}>/ Fornax Labs ↗</a>
+      <a href="../index.html" className="by" style={{textDecoration:'none'}}>/ Fornax Labs ↗</a>
     </span>
   );
 }
@@ -1334,7 +1409,7 @@ function Logo() {
 function Nav({ openModal }) {
   return (
     <div className="nav-wrap">
-      <nav className="nav">
+      <nav className="nav" aria-label="Main navigation">
         <Logo />
         <div className="nav-links">
           <div className="nav-item">
@@ -1843,13 +1918,13 @@ function DeveloperSection() {
             </ul>
           </div>
           <div className="code-frame">
-            <div className="code-tabs" role="tablist">
-              <button className="code-tab" aria-selected={tab==='ts'} onClick={() => setTab('ts')}>node.ts</button>
-              <button className="code-tab" aria-selected={tab==='py'} onClick={() => setTab('py')}>python.py</button>
-              <button className="code-tab" aria-selected={tab==='curl'} onClick={() => setTab('curl')}>curl.sh</button>
+            <div className="code-tabs" role="tablist" aria-label="Code examples">
+              <button className="code-tab" role="tab" id="tab-ts" aria-selected={tab==='ts'} aria-controls="panel-ts" onClick={() => setTab('ts')}>node.ts</button>
+              <button className="code-tab" role="tab" id="tab-py" aria-selected={tab==='py'} aria-controls="panel-py" onClick={() => setTab('py')}>python.py</button>
+              <button className="code-tab" role="tab" id="tab-curl" aria-selected={tab==='curl'} aria-controls="panel-curl" onClick={() => setTab('curl')}>curl.sh</button>
               <span style={{marginLeft:'auto',alignSelf:'center',paddingRight:12,fontFamily:'var(--font-mono)',fontSize:10.5,color:'var(--fg-faint)',letterSpacing:'.08em'}}>SDK · v0.9 · stable</span>
             </div>
-            <div className="code-body"><pre style={{margin:0}}>{CODE_SAMPLES[tab]}</pre></div>
+            <div className="code-body" role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`}><pre style={{margin:0}}>{CODE_SAMPLES[tab]}</pre></div>
           </div>
         </div>
       </div>
@@ -2092,13 +2167,24 @@ function SalesModal({ onClose }) {
 
 // ── APP ──────────────────────────────────────────────────────────────────────
 function App() {
-  const [theme, setTheme] = React.useState('light');
+  const [theme, setThemeState] = React.useState(() => {
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') return saved;
+    } catch(e) {}
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
   const [modalOpen, setModalOpen] = React.useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
+  const setTheme = React.useCallback((t) => {
+    setThemeState(t);
+    try { localStorage.setItem('theme', t); } catch(e) {}
+  }, []);
+
   React.useEffect(() => {
-    document.body.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   React.useEffect(() => {
@@ -2109,14 +2195,16 @@ function App() {
   return (
     <>
       <Nav openModal={openModal} />
-      <Hero openModal={openModal} />
-      <FragmentationSection />
-      <PlatformSection />
-      <IntelligenceSection />
-      <TwoSidedSection />
-      <DeveloperSection />
-      <CompareSection />
-      <CTABanner openModal={openModal} />
+      <main id="main-content">
+        <Hero openModal={openModal} />
+        <FragmentationSection />
+        <PlatformSection />
+        <IntelligenceSection />
+        <TwoSidedSection />
+        <DeveloperSection />
+        <CompareSection />
+        <CTABanner openModal={openModal} />
+      </main>
       <Footer theme={theme} setTheme={setTheme} />
       {modalOpen && <SalesModal onClose={closeModal} />}
     </>

@@ -2,17 +2,77 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
+  <!-- Inline theme init — runs before first paint to prevent FOUC -->
+  <script>(function(){try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
   <title>Fornax Labs — Quiet infrastructure for the consumption economy.</title>
+  <meta name="description" content="Fornax Labs builds billing infrastructure for the consumption economy. ConsumIQ is the unified metering &amp; billing platform for AI-native and modern SaaS — one source of truth, from event to invoice." />
+  <meta name="author" content="Fornax Labs" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://fornaxlabs.xyz/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fornaxlabs.xyz/" />
+  <meta property="og:site_name" content="Fornax Labs" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Fornax Labs — Quiet infrastructure for the consumption economy." />
+  <meta property="og:description" content="Fornax Labs builds billing infrastructure for the consumption economy. ConsumIQ is the unified metering &amp; billing platform for AI-native and modern SaaS — one source of truth, from event to invoice." />
+  <meta property="og:image" content="https://fornaxlabs.xyz/brand-assets/png/social-og-1200x630.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Fornax Labs — Billing built for the AI-native world" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Fornax Labs — Quiet infrastructure for the consumption economy." />
+  <meta name="twitter:description" content="Fornax Labs builds billing infrastructure for the consumption economy. ConsumIQ is the unified metering &amp; billing platform for AI-native and modern SaaS — one source of truth, from event to invoice." />
+  <meta name="twitter:image" content="https://fornaxlabs.xyz/brand-assets/png/social-og-1200x630.png" />
+  <meta name="twitter:image:alt" content="Fornax Labs — Billing built for the AI-native world" />
 
   <link rel="icon" type="image/svg+xml" href="brand-assets/favicon/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="brand-assets/favicon/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="brand-assets/favicon/favicon-16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="brand-assets/favicon/apple-touch-icon-180.png" />
+  <link rel="manifest" href="brand-assets/site.webmanifest" />
+  <meta name="theme-color" content="#fafbfc" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1c1e2a" media="(prefers-color-scheme: dark)" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Fornax Labs",
+    "url": "https://fornaxlabs.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://fornaxlabs.xyz/brand-assets/png/mark-brand-256.png",
+      "width": 256,
+      "height": 256
+    },
+    "description": "Quiet billing infrastructure for the consumption economy.",
+    "email": "manju@fornaxlabs.xyz",
+    "foundingDate": "2026",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Products",
+      "itemListElement": [{
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "SoftwareApplication",
+          "name": "ConsumIQ",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "description": "The unified metering and billing platform for AI-native and modern SaaS. One source of truth, from event to invoice.",
+          "url": "https://consumiq.fornaxlabs.com"
+        }
+      }]
+    }
+  }
+  </script>
 
   <style>
     /* ============================================================
@@ -34,6 +94,7 @@
     }
 
     [data-theme="light"] {
+      color-scheme: light;
       --bg:          oklch(0.992 0.003 250);
       --bg-elev-1:   oklch(0.985 0.004 250);
       --bg-elev-2:   #ffffff;
@@ -67,6 +128,7 @@
     }
 
     [data-theme="dark"] {
+      color-scheme: dark;
       --bg:          oklch(0.14 0.012 260);
       --bg-elev-1:   oklch(0.18 0.013 260);
       --bg-elev-2:   oklch(0.215 0.013 260);
@@ -115,6 +177,18 @@
     ::selection { background: var(--brand); color: var(--brand-fg); }
 
     /* ============================================================
+       SKIP LINK (accessibility)
+       ============================================================ */
+    .skip-link {
+      position: absolute; top: -40px; left: 0; z-index: 9999;
+      background: var(--brand); color: var(--brand-fg);
+      padding: 8px 16px; border-radius: 0 0 var(--r-md) 0;
+      font-size: 14px; font-weight: 500; text-decoration: none;
+      transition: top .12s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ============================================================
        SHELL
        ============================================================ */
     .shell { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
@@ -152,6 +226,7 @@
       transition: color .12s ease, background .12s ease;
     }
     .nav-link:hover { color: var(--fg); background: color-mix(in oklch, var(--fg) 4%, transparent); }
+    .nav-link:focus-visible { outline: 0; color: var(--fg); box-shadow: 0 0 0 3px var(--focus-ring); border-radius: var(--r-md); }
 
     .nav-cta { display: flex; gap: 8px; align-items: center; }
 
@@ -170,6 +245,7 @@
       transition: background .12s ease, color .12s ease, transform .06s ease, box-shadow .12s ease;
     }
     .btn:active { transform: translateY(.5px); }
+    .btn:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--focus-ring); }
     .btn--primary {
       background: var(--ink); color: var(--bg);
       box-shadow: var(--shadow-xs), inset 0 1px 0 rgba(255,255,255,.08);
@@ -524,6 +600,8 @@
     .theme-ctrls button[aria-pressed="true"] {
       background: var(--brand); color: var(--brand-fg);
     }
+    .theme-ctrls button:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--focus-ring); }
+    .modal-close:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--focus-ring); }
 
     /* ============================================================
        MODAL
@@ -660,10 +738,12 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
   <!-- NAV -->
   <div class="nav-wrap">
-    <nav class="nav">
-      <a class="brand" href="#">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="Fornax Labs – home">
         <!-- The Forge mark: diamond with V-notch -->
         <svg width="22" height="22" viewBox="0 0 100 100" aria-hidden="true" style="display:block;flex-shrink:0">
           <path d="M 8 50 L 44 14 L 50 22 L 56 14 L 92 50 L 50 92 Z" fill="currentColor" fill-rule="evenodd" />
@@ -680,6 +760,8 @@
       </div>
     </nav>
   </div>
+
+  <main id="main-content">
 
   <!-- HERO -->
   <section class="hero">
@@ -791,12 +873,14 @@
     </div>
   </section>
 
+  </main><!-- /#main-content -->
+
   <!-- FOOTER -->
   <footer class="foot-wrap" id="contact">
     <div class="shell">
       <div class="foot-min">
         <div>
-          <a class="brand" href="#" style="font-size:15px">
+          <a class="brand" href="/" aria-label="Fornax Labs – home" style="font-size:15px">
             <svg width="18" height="18" viewBox="0 0 100 100" aria-hidden="true" style="display:block;flex-shrink:0">
               <path d="M 8 50 L 44 14 L 50 22 L 56 14 L 92 50 L 50 92 Z" fill="currentColor" fill-rule="evenodd" />
             </svg>
@@ -896,12 +980,16 @@
 
     function setTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
-      document.getElementById('btn-light').setAttribute('aria-pressed', theme === 'light');
-      document.getElementById('btn-dark').setAttribute('aria-pressed', theme === 'dark');
+      try { localStorage.setItem('theme', theme); } catch(e) {}
+      document.getElementById('btn-light').setAttribute('aria-pressed', String(theme === 'light'));
+      document.getElementById('btn-dark').setAttribute('aria-pressed', String(theme === 'dark'));
     }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark');
-    }
+    // Sync button state with what the head script already set on <html>
+    (function() {
+      var t = document.documentElement.getAttribute('data-theme') || 'light';
+      document.getElementById('btn-light').setAttribute('aria-pressed', String(t === 'light'));
+      document.getElementById('btn-dark').setAttribute('aria-pressed', String(t === 'dark'));
+    })();
 
     function openModal() {
       const modal = document.getElementById('modal');
