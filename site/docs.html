@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Inline theme init — runs before first paint to prevent FOUC -->
+  <script>(function(){try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>ConsumIQ — Documentation</title>
+  <meta name="description" content="Developer documentation for ConsumIQ: catalogue, metering, pricing models, billing, invoices, subscriptions, and the API reference." />
+  <meta name="author" content="Fornax Labs" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://consumiq.fornaxlabs.com/docs.html" />
+  <meta name="theme-color" content="#F8F8FB" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#101014" media="(prefers-color-scheme: dark)" />
+
+  <link rel="icon" type="image/svg+xml" href="../brand-assets/favicon/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../brand-assets/favicon/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../brand-assets/favicon/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../brand-assets/favicon/apple-touch-icon-180.png" />
+  <link rel="manifest" href="../brand-assets/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --r-xs:  4px; --r-sm:  6px; --r-md:  8px;
+      --r-lg: 12px; --r-xl: 16px; --r-2xl: 20px;
+      --nav-width: 256px;
+    }
+    [data-theme="light"] {
+      color-scheme: light;
+      --bg:          #F8F8FB;
+      --bg-elev-1:   #FFFFFF;
+      --bg-elev-2:   #F0F0F6;
+      --bg-sunken:   #E8E8EF;
+      --border:        #E2E2EB;
+      --border-strong: #C8C8D5;
+      --divider:       #EAEAF0;
+      --fg:        #0F0F14;
+      --fg-muted:  #5C5C72;
+      --fg-subtle: #8E8EA4;
+      --fg-faint:  #BBBBC8;
+      --brand:        #4F46E5;
+      --brand-hover:  #4338CA;
+      --brand-soft:   #EEF2FF;
+      --brand-border: #C7D2FE;
+      --success:        #059669;
+      --success-soft:   #ECFDF5;
+      --success-border: #A7F3D0;
+      --warning:        #D97706;
+      --warning-soft:   #FFFBEB;
+      --warning-border: #FDE68A;
+      --danger:         #E11D48;
+      --danger-soft:    #FFF1F2;
+      --danger-border:  #FECDD3;
+      --info:           #2563EB;
+      --info-soft:      #EFF6FF;
+      --info-border:    #BFDBFE;
+      --shadow-xs: 0 1px 2px 0 rgba(15,15,20,0.05);
+      --shadow-sm: 0 1px 3px 0 rgba(15,15,20,0.08), 0 1px 2px -1px rgba(15,15,20,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(15,15,20,0.08), 0 2px 4px -2px rgba(15,15,20,0.04);
+    }
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg:          #101014;
+      --bg-elev-1:   #17171D;
+      --bg-elev-2:   #1F1F27;
+      --bg-sunken:   #0B0B0E;
+      --border:        #2A2A35;
+      --border-strong: #3A3A48;
+      --divider:       #232330;
+      --fg:        #F1F1F5;
+      --fg-muted:  #A8A8B8;
+      --fg-subtle: #7C7C8E;
+      --fg-faint:  #55555F;
+      --brand:        #818CF8;
+      --brand-hover:  #A5B4FC;
+      --brand-soft:   #1E1B4B;
+      --brand-border: #3730A3;
+      --success:        #34D399;
+      --success-soft:   #052E1F;
+      --success-border: #065F46;
+      --warning:        #FBBF24;
+      --warning-soft:   #451A03;
+      --warning-border: #92400E;
+      --danger:         #FB7185;
+      --danger-soft:    #4C0519;
+      --danger-border:  #9F1239;
+      --info:           #60A5FA;
+      --info-soft:      #172554;
+      --info-border:    #1E40AF;
+      --shadow-xs: 0 1px 2px 0 rgba(0,0,0,0.20);
+      --shadow-sm: 0 1px 3px 0 rgba(0,0,0,0.28), 0 1px 2px -1px rgba(0,0,0,0.20);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.32), 0 2px 4px -2px rgba(0,0,0,0.24);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--fg);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color .2s ease, color .2s ease;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 54px; background: var(--bg-elev-1);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 24px; gap: 14px;
+      box-shadow: var(--shadow-xs);
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark {
+      width: 28px; height: 28px; border-radius: var(--r-md);
+      background: linear-gradient(135deg, #4F46E5, #7C3AED);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 13px; font-weight: 700;
+    }
+    .logo-word { font-size: 15px; font-weight: 700; color: var(--fg); letter-spacing: -0.3px; }
+    .topbar-sep { width: 1px; height: 18px; background: var(--border); }
+    .topbar-section { font-size: 13px; color: var(--fg-muted); font-weight: 500; }
+    .topbar-pill {
+      font-size: 11px; font-weight: 600; color: var(--brand);
+      background: var(--brand-soft); border: 1px solid var(--brand-border);
+      border-radius: var(--r-sm); padding: 2px 8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── Language Switcher ── */
+    .lang-switcher {
+      display: flex; gap: 2px; margin-left: auto;
+      background: var(--bg-sunken); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: 3px;
+    }
+    .lang-btn {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+      color: var(--fg-subtle); background: transparent; border: none;
+      cursor: pointer; padding: 3px 10px; border-radius: var(--r-xs);
+      transition: background 0.12s, color 0.12s; white-space: nowrap;
+    }
+    .lang-btn:hover { background: var(--bg-elev-2); color: var(--fg-muted); }
+    .lang-btn.active { background: var(--bg-elev-1); color: var(--brand); box-shadow: var(--shadow-xs); }
+
+    /* ── Theme Toggle ── */
+    .theme-toggle {
+      display: flex; gap: 2px;
+      background: var(--bg-sunken); border: 1px solid var(--border);
+      border-radius: var(--r-md); padding: 3px;
+    }
+    .theme-btn {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+      color: var(--fg-subtle); background: transparent; border: none;
+      cursor: pointer; padding: 3px 10px; border-radius: var(--r-xs);
+      transition: background 0.12s, color 0.12s; white-space: nowrap;
+    }
+    .theme-btn:hover { background: var(--bg-elev-2); color: var(--fg-muted); }
+    .theme-btn[aria-pressed="true"] { background: var(--bg-elev-1); color: var(--brand); box-shadow: var(--shadow-xs); }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed; top: 54px; left: 0; bottom: 0;
+      width: var(--nav-width);
+      background: var(--bg-elev-1); border-right: 1px solid var(--border);
+      overflow-y: auto; padding: 20px 0 40px;
+    }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+
+    .nav-group { margin-bottom: 6px; }
+    .nav-group-label {
+      padding: 10px 20px 3px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--fg-faint); font-family: 'JetBrains Mono', monospace;
+    }
+    .nav-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 20px; font-size: 13.5px; color: var(--fg-muted);
+      text-decoration: none; transition: background 0.1s, color 0.1s; white-space: nowrap;
+    }
+    .nav-link:hover { background: var(--bg-elev-2); color: var(--fg); }
+    .nav-link.active {
+      background: var(--brand-soft); color: var(--brand);
+      font-weight: 600; border-right: 2px solid var(--brand);
+    }
+    .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--fg-faint); flex-shrink: 0; }
+    .nav-link.active .nav-dot { background: var(--brand); }
+
+    /* ── Layout ── */
+    .layout { display: flex; }
+    .main { margin-left: var(--nav-width); margin-top: 54px; flex: 1; min-width: 0; padding: 52px 64px 100px; }
+
+    /* ── Section ── */
+    .doc-section { max-width: 780px; margin: 0 auto 72px; scroll-margin-top: 80px; }
+    .section-divider { border: none; border-top: 1px solid var(--divider); margin: 52px 0; }
+
+    /* ── Typography ── */
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--fg-subtle); margin-bottom: 8px;
+    }
+    h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.7px; color: var(--fg); line-height: 1.15; margin-bottom: 16px; }
+    h1 .gradient { background: linear-gradient(135deg, #4F46E5, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.3px; color: var(--fg); margin-bottom: 12px; margin-top: 40px; }
+    h3 { font-size: 15px; font-weight: 650; color: var(--fg); margin-bottom: 8px; margin-top: 28px; }
+    h4 { font-size: 13.5px; font-weight: 650; color: var(--fg); margin-bottom: 6px; margin-top: 20px; }
+    p { color: var(--fg-muted); line-height: 1.75; margin-bottom: 14px; font-size: 14px; }
+    p strong { color: var(--fg); font-weight: 600; }
+    .lead { font-size: 15.5px; color: var(--fg-muted); line-height: 1.75; margin-bottom: 28px; }
+    .mono { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; background: var(--bg-sunken); padding: 1px 6px; border-radius: var(--r-xs); }
+    ul.doc-list { margin: 10px 0 18px 20px; color: var(--fg-muted); line-height: 2; }
+    ul.doc-list li strong { color: var(--fg); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 36px 44px; background: var(--bg-elev-1);
+      border: 1px solid var(--border); border-radius: var(--r-2xl);
+      margin-bottom: 36px; box-shadow: var(--shadow-sm);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 300px; height: 180px;
+      background: radial-gradient(ellipse at 100% 0%, rgba(79,70,229,0.08), transparent 70%);
+    }
+
+    /* ── Module cards ── */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; margin: 20px 0; }
+    .card { background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 16px 18px; box-shadow: var(--shadow-xs); transition: box-shadow 0.15s, border-color 0.15s; }
+    .card:hover { box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+    .card-icon { width: 30px; height: 30px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 15px; margin-bottom: 10px; }
+    .card h4 { font-size: 13px; font-weight: 650; color: var(--fg); margin-bottom: 4px; margin-top: 0; }
+    .card p  { font-size: 12.5px; color: var(--fg-subtle); margin: 0; line-height: 1.5; }
+
+    /* ── Concept list ── */
+    .concept-list { display: flex; flex-direction: column; gap: 8px; margin: 18px 0; }
+    .concept-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-xs); }
+    .concept-tag { flex-shrink: 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; background: var(--brand-soft); color: var(--brand); border: 1px solid var(--brand-border); border-radius: var(--r-xs); padding: 2px 7px; white-space: nowrap; margin-top: 1px; }
+    .concept-body h5 { font-size: 13px; font-weight: 650; color: var(--fg); margin-bottom: 2px; }
+    .concept-body p  { font-size: 13px; color: var(--fg-muted); margin: 0; line-height: 1.6; }
+
+    /* ── Code blocks ── */
+    .code-block { background: #0F0F14; border: 1px solid #2A2A35; border-radius: var(--r-lg); overflow: hidden; margin: 14px 0; }
+    .code-block-header { display: flex; align-items: center; justify-content: space-between; padding: 7px 14px; background: #18181F; border-bottom: 1px solid #2A2A35; }
+    .code-lang { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: #666; letter-spacing: 0.06em; text-transform: uppercase; }
+    .copy-btn { font-size: 11px; color: #666; background: transparent; border: none; cursor: pointer; padding: 2px 8px; border-radius: var(--r-xs); font-family: 'JetBrains Mono', monospace; transition: color 0.15s, background 0.15s; }
+    .copy-btn:hover { color: #aaa; background: #2A2A35; }
+    .code-block pre { padding: 16px 18px; overflow-x: auto; margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; color: #E1E1E8; }
+    .code-block pre::-webkit-scrollbar { height: 4px; }
+    .code-block pre::-webkit-scrollbar-thumb { background: #3A3A48; border-radius: 2px; }
+
+    /* ── Token colors ── */
+    .tok-key  { color: #818CF8; }
+    .tok-str  { color: #86EFAC; }
+    .tok-num  { color: #FCA5A5; }
+    .tok-kw   { color: #C4B5FD; }
+    .tok-cmt  { color: #4A4A60; }
+    .tok-url  { color: #7DD3FC; }
+    .tok-bool { color: #FCD34D; }
+    .tok-fn   { color: #60A5FA; }
+    .tok-op   { color: #94A3B8; }
+    .tok-type { color: #F0ABFC; }
+
+    /* ── Language panes ── */
+    .code-group { margin: 14px 0; }
+    .lang-pane { display: none; }
+    .lang-pane.active { display: block; }
+    .lang-pane > .code-block { margin: 0; }
+
+    /* ── Tables ── */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 14px 0; }
+    .data-table th { text-align: left; padding: 7px 12px; background: var(--bg-sunken); color: var(--fg-subtle); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 9px 12px; border-bottom: 1px solid var(--divider); vertical-align: top; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: var(--bg-elev-2); }
+    .fn { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--fg); font-weight: 600; }
+    .ft { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--fg-subtle); }
+    .fd { color: var(--fg-muted); font-size: 13px; }
+    .req { color: var(--danger); font-size: 10px; font-family: 'JetBrains Mono', monospace; margin-left: 4px; }
+
+    /* ── API table ── */
+    .api-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
+    .api-table th { text-align: left; padding: 7px 12px; background: var(--bg-sunken); color: var(--fg-subtle); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; border-bottom: 1px solid var(--border); }
+    .api-table td { padding: 9px 12px; border-bottom: 1px solid var(--divider); vertical-align: middle; color: var(--fg-muted); }
+    .api-table tr:last-child td { border-bottom: none; }
+    .api-table tr:hover td { background: var(--bg-elev-2); }
+    .method { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: var(--r-xs); white-space: nowrap; border: 1px solid; }
+    .GET    { background: var(--success-soft); color: var(--success); border-color: var(--success-border); }
+    .POST   { background: var(--brand-soft);   color: var(--brand);   border-color: var(--brand-border); }
+    .PUT    { background: var(--warning-soft);  color: var(--warning); border-color: var(--warning-border); }
+    .PATCH  { background: var(--warning-soft);  color: var(--warning); border-color: var(--warning-border); }
+    .DELETE { background: var(--danger-soft);   color: var(--danger);  border-color: var(--danger-border); }
+    .ep { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: var(--fg); }
+    .ep em { color: var(--brand); font-style: normal; }
+
+    /* ── Error table ── */
+    .error-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 14px 0; }
+    .error-table th { text-align: left; padding: 7px 12px; background: var(--bg-sunken); color: var(--fg-subtle); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; border-bottom: 1px solid var(--border); }
+    .error-table td { padding: 9px 12px; border-bottom: 1px solid var(--divider); vertical-align: top; }
+    .error-table tr:last-child td { border-bottom: none; }
+    .error-table tr:hover td { background: var(--bg-elev-2); }
+    .http-code { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; font-weight: 700; }
+    .http-2xx { color: var(--success); }
+    .http-4xx { color: var(--warning); }
+    .http-5xx { color: var(--danger); }
+
+    /* ── Badges ── */
+    .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: var(--r-sm); border: 1px solid; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+    .badge.stable  { background: var(--success-soft); color: var(--success); border-color: var(--success-border); }
+    .badge.coming  { background: var(--warning-soft); color: var(--warning); border-color: var(--warning-border); }
+    .badge.new     { background: var(--brand-soft);   color: var(--brand);   border-color: var(--brand-border); }
+
+    /* ── Callouts ── */
+    .callout { display: flex; gap: 12px; align-items: flex-start; padding: 13px 15px; border-radius: var(--r-md); border: 1px solid; margin: 14px 0; }
+    .callout.info    { background: var(--info-soft);    border-color: var(--info-border); }
+    .callout.warning { background: var(--warning-soft); border-color: var(--warning-border); }
+    .callout.success { background: var(--success-soft); border-color: var(--success-border); }
+    .callout-icon { font-size: 14px; flex-shrink: 0; line-height: 1.7; }
+    .callout-body p { font-size: 13px; margin: 0; line-height: 1.6; }
+    .callout.info    .callout-body p { color: var(--info); }
+    .callout.warning .callout-body p { color: var(--warning); }
+    .callout.success .callout-body p { color: var(--success); }
+
+    /* ── Pricing cards ── */
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0; }
+    .pricing-card { padding: 16px 18px; border-radius: var(--r-md); border: 1px solid var(--border); background: var(--bg-elev-1); box-shadow: var(--shadow-xs); }
+    .ptype { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand); margin-bottom: 5px; }
+    .pricing-card h5 { font-size: 13.5px; font-weight: 650; color: var(--fg); margin-bottom: 4px; }
+    .pricing-card p  { font-size: 12.5px; color: var(--fg-muted); margin: 0; line-height: 1.55; }
+
+    /* ── Status flow ── */
+    .status-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin: 18px 0; }
+    .status-node { padding: 6px 13px; border-radius: 100px; border: 1.5px solid; font-size: 12px; font-weight: 600; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+    .s-active   { background: var(--success-soft); color: var(--success); border-color: var(--success-border); }
+    .s-warn     { background: var(--warning-soft); color: var(--warning); border-color: var(--warning-border); }
+    .s-terminal { background: var(--danger-soft);  color: var(--danger);  border-color: var(--danger-border); }
+    .s-neutral  { background: var(--bg-sunken); color: var(--fg-muted); border-color: var(--border-strong); }
+    .s-arrow    { padding: 0 8px; color: var(--fg-faint); font-size: 13px; }
+    .s-label    { font-size: 12px; color: var(--fg-faint); padding: 0 6px; }
+
+    /* ── Flow steps ── */
+    .flow-steps { counter-reset: steps; display: flex; flex-direction: column; gap: 7px; margin: 14px 0; }
+    .flow-step { display: flex; gap: 13px; align-items: flex-start; padding: 11px 15px; background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-md); }
+    .step-num { counter-increment: steps; width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; background: var(--brand); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .step-num::before { content: counter(steps); }
+    .step-body p { font-size: 13px; color: var(--fg-muted); margin: 0; }
+    .step-body strong { color: var(--fg); }
+
+    /* ── Pricing example blocks ── */
+    .pricing-example { background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; margin: 16px 0; }
+    .pe-header { padding: 12px 18px; background: var(--bg-elev-2); border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 600; color: var(--fg); }
+    .pe-body { padding: 16px 18px; }
+    .pe-row { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--divider); font-size: 13px; }
+    .pe-row:last-child { border-bottom: none; }
+    .pe-tier { color: var(--fg-muted); }
+    .pe-price { font-family: 'JetBrains Mono', monospace; color: var(--fg); font-size: 12.5px; }
+    .pe-total { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0 0; margin-top: 8px; border-top: 2px solid var(--border-strong); font-size: 13.5px; font-weight: 700; color: var(--fg); }
+    .pe-total-val { font-family: 'JetBrains Mono', monospace; color: var(--brand); }
+
+    /* ── Best practices list ── */
+    .bp-list { display: flex; flex-direction: column; gap: 10px; margin: 18px 0; }
+    .bp-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-xs); }
+    .bp-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .bp-body h5 { font-size: 13px; font-weight: 650; color: var(--fg); margin-bottom: 3px; }
+    .bp-body p  { font-size: 13px; color: var(--fg-muted); margin: 0; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="ConsumIQ.html">
+    <div class="logo-mark">CQ</div>
+    <span class="logo-word">ConsumIQ</span>
+  </a>
+  <div class="topbar-sep"></div>
+  <span class="topbar-section">Documentation</span>
+  <span class="topbar-pill">API v1</span>
+  <a href="../index.html" style="margin-left:14px;font-size:12px;color:var(--fg-subtle);text-decoration:none">/ Fornax Labs ↗</a>
+  <div class="lang-switcher">
+    <button class="lang-btn" data-lang="curl"  onclick="switchLang('curl')">curl</button>
+    <button class="lang-btn" data-lang="js"    onclick="switchLang('js')">Node.js</button>
+    <button class="lang-btn" data-lang="py"    onclick="switchLang('py')">Python</button>
+    <button class="lang-btn" data-lang="java"  onclick="switchLang('java')">Java</button>
+  </div>
+  <div class="theme-toggle" role="tablist" aria-label="Theme">
+    <button id="theme-btn-light" class="theme-btn" aria-pressed="true" onclick="setTheme('light')">Light</button>
+    <button id="theme-btn-dark" class="theme-btn" aria-pressed="false" onclick="setTheme('dark')">Dark</button>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="nav-group">
+      <div class="nav-group-label">Overview</div>
+      <a class="nav-link active" href="#overview" onclick="setActive(this)"><span class="nav-dot"></span>Introduction</a>
+      <a class="nav-link" href="#how-it-works" onclick="setActive(this)"><span class="nav-dot"></span>How It Works</a>
+      <a class="nav-link" href="#quickstart" onclick="setActive(this)"><span class="nav-dot"></span>Quickstart</a>
+      <a class="nav-link" href="#errors" onclick="setActive(this)"><span class="nav-dot"></span>Errors</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Catalogue</div>
+      <a class="nav-link" href="#products" onclick="setActive(this)"><span class="nav-dot"></span>Products</a>
+      <a class="nav-link" href="#offerings" onclick="setActive(this)"><span class="nav-dot"></span>Product Offerings</a>
+      <a class="nav-link" href="#usage-elements" onclick="setActive(this)"><span class="nav-dot"></span>Usage Elements</a>
+      <a class="nav-link" href="#billable-metrics" onclick="setActive(this)"><span class="nav-dot"></span>Billable Metrics</a>
+      <a class="nav-link" href="#rate-cards" onclick="setActive(this)"><span class="nav-dot"></span>Rate Cards</a>
+      <a class="nav-link" href="#rates" onclick="setActive(this)"><span class="nav-dot"></span>Rates &amp; Pricing</a>
+      <a class="nav-link" href="#allowances" onclick="setActive(this)"><span class="nav-dot"></span>Allowances</a>
+      <a class="nav-link" href="#discounts" onclick="setActive(this)"><span class="nav-dot"></span>Discounts</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Pricing Models</div>
+      <a class="nav-link" href="#pup" onclick="setActive(this)"><span class="nav-dot"></span>Price Per Unit</a>
+      <a class="nav-link" href="#flat" onclick="setActive(this)"><span class="nav-dot"></span>Flat Fee</a>
+      <a class="nav-link" href="#tiered" onclick="setActive(this)"><span class="nav-dot"></span>Tiered</a>
+      <a class="nav-link" href="#dimensional" onclick="setActive(this)"><span class="nav-dot"></span>Dimensional</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Metering</div>
+      <a class="nav-link" href="#usage-events" onclick="setActive(this)"><span class="nav-dot"></span>Usage Events</a>
+      <a class="nav-link" href="#event-schemas" onclick="setActive(this)"><span class="nav-dot"></span>Event Schemas</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Billing</div>
+      <a class="nav-link" href="#proration" onclick="setActive(this)"><span class="nav-dot"></span>Proration</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Invoices</div>
+      <a class="nav-link" href="#invoices" onclick="setActive(this)"><span class="nav-dot"></span>Invoices</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Subscriptions</div>
+      <a class="nav-link" href="#subscriptions" onclick="setActive(this)"><span class="nav-dot"></span>Subscriptions</a>
+      <a class="nav-link" href="#billing-schedules" onclick="setActive(this)"><span class="nav-dot"></span>Billing Schedules</a>
+      <a class="nav-link" href="#subscription-schedules" onclick="setActive(this)"><span class="nav-dot"></span>Subscription Schedules</a>
+      <a class="nav-link" href="#discount-instances" onclick="setActive(this)"><span class="nav-dot"></span>Discount Instances</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Accounts</div>
+      <a class="nav-link" href="#accounts" onclick="setActive(this)"><span class="nav-dot"></span>Accounts</a>
+      <a class="nav-link" href="#persons" onclick="setActive(this)"><span class="nav-dot"></span>Persons</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Reference</div>
+      <a class="nav-link" href="#best-practices" onclick="setActive(this)"><span class="nav-dot"></span>Best Practices</a>
+      <a class="nav-link" href="#api-reference" onclick="setActive(this)"><span class="nav-dot"></span>API Reference</a>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <!-- ══ INTRODUCTION ══ -->
+    <section class="doc-section" id="overview">
+      <div class="hero">
+        <div class="eyebrow">Usage-Based Billing</div>
+        <h1><span class="gradient">ConsumIQ</span> Documentation</h1>
+        <p class="lead">ConsumIQ is a flexible billing platform that lets you meter product consumption and generate charges based on configurable pricing — tiered, dimensional, flat, and price-per-unit. Build once, price however your customers use your product.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge stable">● Catalogue</span>
+          <span class="badge stable">● Metering</span>
+          <span class="badge stable">● Billing</span>
+          <span class="badge stable">● Subscriptions</span>
+          <span class="badge stable">● Accounts</span>
+          <span class="badge coming">⚠ Invoicing — Coming Soon</span>
+        </div>
+      </div>
+
+      <h2>What can you build?</h2>
+      <p>ConsumIQ gives you the primitives to implement any billing model — from simple per-seat fees to complex multi-dimensional usage pricing.</p>
+      <div class="cards-grid">
+        <div class="card"><div class="card-icon" style="background:var(--brand-soft)">📦</div><h4>Usage-based billing</h4><p>Charge customers based on API calls, storage, compute hours, or any measurable metric</p></div>
+        <div class="card"><div class="card-icon" style="background:var(--success-soft)">📊</div><h4>Tiered pricing</h4><p>Volume and graduated tiers so pricing scales automatically as usage grows</p></div>
+        <div class="card"><div class="card-icon" style="background:var(--warning-soft)">🗺</div><h4>Dimensional pricing</h4><p>Price the same metric differently by region, tier, or any custom dimension</p></div>
+        <div class="card"><div class="card-icon" style="background:var(--info-soft)">🔁</div><h4>Recurring subscriptions</h4><p>Combine flat fees and usage charges with flexible billing schedules</p></div>
+        <div class="card"><div class="card-icon" style="background:var(--bg-sunken)">🎁</div><h4>Free tiers &amp; discounts</h4><p>Allowances deducted before billing, plus flexible discount lifecycles</p></div>
+        <div class="card"><div class="card-icon" style="background:var(--bg-sunken)">⏱</div><h4>Proration</h4><p>Day- or second-precise proration for mid-period changes and cancellations</p></div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ HOW IT WORKS ══ -->
+    <section class="doc-section" id="how-it-works">
+      <div class="eyebrow">Overview</div>
+      <h2>How it works</h2>
+      <p>ConsumIQ models your billing in five layers, from product definition down to charge generation. You define the structure once in the catalogue, then send usage events as your customers consume your product.</p>
+      <div class="flow-steps">
+        <div class="flow-step"><div class="step-num"></div><div class="step-body"><p><strong>Define a Product</strong> — create the product you sell (e.g. "Data Processing API")</p></div></div>
+        <div class="flow-step"><div class="step-num"></div><div class="step-body"><p><strong>Create a Product Offering</strong> — package your product into tiers (e.g. Starter, Growth, Enterprise) each with its own pricing</p></div></div>
+        <div class="flow-step"><div class="step-num"></div><div class="step-body"><p><strong>Set up a Rate Card</strong> — attach a Rate Card to the offering and define Rates for each chargeable element with your chosen pricing model</p></div></div>
+        <div class="flow-step"><div class="step-num"></div><div class="step-body"><p><strong>Configure Billable Metrics</strong> — define how usage events map to your charge elements and which aggregation function applies (SUM, MAX, COUNT, etc.)</p></div></div>
+        <div class="flow-step"><div class="step-num"></div><div class="step-body"><p><strong>Send Usage Events</strong> — as customers use your product, POST events to the metering API with a unique <span class="mono">eventId</span> and quantity</p></div></div>
+        <div class="flow-step"><div class="step-num"></div><div class="step-body"><p><strong>Calculate Charges</strong> — call the billing API to aggregate events, apply allowances, and compute charges using your configured pricing model</p></div></div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ QUICKSTART ══ -->
+    <section class="doc-section" id="quickstart">
+      <div class="eyebrow">Getting Started</div>
+      <h2>Quickstart</h2>
+      <p class="lead">Build a complete metered billing pipeline end-to-end. You'll configure a product, subscribe a customer, meter their usage, and calculate their first invoice.</p>
+
+      <div class="callout info">
+        <span class="callout-icon">ℹ</span>
+        <div class="callout-body"><p>Replace <strong>https://api.consumiq.io</strong> with your deployment's base URL. All endpoints are also explorable at <strong>/swagger-ui.html</strong> on your server. Java examples require Java 11+ and Jackson (<span class="mono">jackson-databind</span>).</p></div>
+      </div>
+
+      <h3>Scenario</h3>
+      <p>You're building "CloudProcess" — a document-processing API. Your pricing model:</p>
+      <ul class="doc-list">
+        <li><strong>$49/month</strong> platform fee</li>
+        <li><strong>10,000 free API calls</strong> per month (included in every plan)</li>
+        <li><strong>$0.05/call</strong> for the first 1,000 billable calls (after the free tier)</li>
+        <li><strong>$0.03/call</strong> for calls 1,001–10,000</li>
+        <li><strong>$0.01/call</strong> above 10,000</li>
+      </ul>
+
+      <!-- Step 1 -->
+      <h3>Step 1 — Create a Product</h3>
+      <p>A Product is the top-level entity representing what you sell.</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/products \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{
+    "productName": "CloudProcess API",
+    "productCode": "CLOUD-PROC",
+    "description": "Metered document processing API",
+    "status": "ACTIVE"
+  }'</span>
+
+<span class="tok-cmt"># Response 200 OK</span>
+{ <span class="tok-key">"id"</span>: <span class="tok-str">"prod_7x9a2b"</span>, <span class="tok-key">"productName"</span>: <span class="tok-str">"CloudProcess API"</span>, <span class="tok-key">"status"</span>: <span class="tok-bool">"ACTIVE"</span> }</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> BASE = <span class="tok-str">'https://api.consumiq.io'</span>;
+<span class="tok-kw">const</span> headers = {
+  <span class="tok-key">'Content-Type'</span>: <span class="tok-str">'application/json'</span>,
+  <span class="tok-key">'Authorization'</span>: `Bearer ${process.env.CIQ_API_KEY}`
+};
+
+<span class="tok-kw">const</span> product = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/products`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">productName</span>: <span class="tok-str">'CloudProcess API'</span>,
+    <span class="tok-key">productCode</span>: <span class="tok-str">'CLOUD-PROC'</span>,
+    <span class="tok-key">status</span>: <span class="tok-str">'ACTIVE'</span>
+  })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());
+
+<span class="tok-kw">const</span> productId = product.id; <span class="tok-cmt">// "prod_7x9a2b"</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">import</span> requests, os
+
+BASE = <span class="tok-str">'https://api.consumiq.io'</span>
+headers = {<span class="tok-str">'Authorization'</span>: <span class="tok-fn">f</span><span class="tok-str">'Bearer {os.environ["CIQ_API_KEY"]}'</span>}
+
+product = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/products'</span>, headers=headers, json={
+    <span class="tok-str">'productName'</span>: <span class="tok-str">'CloudProcess API'</span>,
+    <span class="tok-str">'productCode'</span>: <span class="tok-str">'CLOUD-PROC'</span>,
+    <span class="tok-str">'status'</span>: <span class="tok-str">'ACTIVE'</span>
+}).<span class="tok-fn">json</span>()
+product_id = product[<span class="tok-str">'id'</span>]  <span class="tok-cmt"># "prod_7x9a2b"</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-cmt">// One-time setup (inject as beans in Spring Boot)</span>
+<span class="tok-type">HttpClient</span> client = HttpClient.<span class="tok-fn">newHttpClient</span>();
+<span class="tok-type">ObjectMapper</span> mapper = <span class="tok-kw">new</span> <span class="tok-fn">ObjectMapper</span>();
+<span class="tok-type">String</span> BASE = <span class="tok-str">"https://api.consumiq.io"</span>;
+<span class="tok-type">String</span> apiKey = System.<span class="tok-fn">getenv</span>(<span class="tok-str">"CIQ_API_KEY"</span>);
+
+<span class="tok-type">String</span> body = mapper.<span class="tok-fn">writeValueAsString</span>(Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"productName"</span>, <span class="tok-str">"CloudProcess API"</span>,
+    <span class="tok-str">"productCode"</span>,  <span class="tok-str">"CLOUD-PROC"</span>,
+    <span class="tok-str">"status"</span>,       <span class="tok-str">"ACTIVE"</span>
+));
+<span class="tok-type">HttpRequest</span> req = HttpRequest.<span class="tok-fn">newBuilder</span>()
+    .<span class="tok-fn">uri</span>(URI.<span class="tok-fn">create</span>(BASE + <span class="tok-str">"/api/v1/products"</span>))
+    .<span class="tok-fn">header</span>(<span class="tok-str">"Content-Type"</span>, <span class="tok-str">"application/json"</span>)
+    .<span class="tok-fn">header</span>(<span class="tok-str">"Authorization"</span>, <span class="tok-str">"Bearer "</span> + apiKey)
+    .<span class="tok-fn">POST</span>(HttpRequest.BodyPublishers.<span class="tok-fn">ofString</span>(body))
+    .<span class="tok-fn">build</span>();
+<span class="tok-type">Map</span>&lt;?,?&gt; product = mapper.<span class="tok-fn">readValue</span>(
+    client.<span class="tok-fn">send</span>(req, HttpResponse.BodyHandlers.<span class="tok-fn">ofString</span>()).<span class="tok-fn">body</span>(), Map.class);
+<span class="tok-type">String</span> productId = (<span class="tok-type">String</span>) product.<span class="tok-fn">get</span>(<span class="tok-str">"id"</span>); <span class="tok-cmt">// "prod_7x9a2b"</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <h3>Step 2 — Create a Product Offering</h3>
+      <p>A Product Offering is a specific plan tier of your product (e.g. "Starter Plan").</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/product-offerings \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{
+    "name": "Starter Plan",
+    "productId": "prod_7x9a2b",
+    "status": "ACTIVE"
+  }'</span>
+<span class="tok-cmt"># Response: { "id": "off_3k8f9g", "name": "Starter Plan", ... }</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> offering = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/product-offerings`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({ <span class="tok-key">name</span>: <span class="tok-str">'Starter Plan'</span>, <span class="tok-key">productId</span>: productId, <span class="tok-key">status</span>: <span class="tok-str">'ACTIVE'</span> })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());
+<span class="tok-kw">const</span> offeringId = offering.id;</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>offering = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/product-offerings'</span>, headers=headers,
+    json={<span class="tok-str">'name'</span>: <span class="tok-str">'Starter Plan'</span>, <span class="tok-str">'productId'</span>: product_id, <span class="tok-str">'status'</span>: <span class="tok-str">'ACTIVE'</span>}).<span class="tok-fn">json</span>()
+offering_id = offering[<span class="tok-str">'id'</span>]</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; offering = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/product-offerings"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"name"</span>,      <span class="tok-str">"Starter Plan"</span>,
+    <span class="tok-str">"productId"</span>, productId,
+    <span class="tok-str">"status"</span>,    <span class="tok-str">"ACTIVE"</span>
+));
+<span class="tok-type">String</span> offeringId = (<span class="tok-type">String</span>) offering.<span class="tok-fn">get</span>(<span class="tok-str">"id"</span>);</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <h3>Step 3 — Define a Usage Element</h3>
+      <p>A Usage Element declares the billable metric your customers generate — in this case, API calls.</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/usage-elements \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{
+    "usageKey": "api.calls",
+    "usageUnit": "calls",
+    "usageType": "UNLIMITED",
+    "displayName": "API Calls",
+    "productId": "prod_7x9a2b"
+  }'</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/usage-elements`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">usageKey</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-key">usageUnit</span>: <span class="tok-str">'calls'</span>,
+    <span class="tok-key">usageType</span>: <span class="tok-str">'UNLIMITED'</span>, <span class="tok-key">productId</span>: productId
+  })
+});</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/usage-elements'</span>, headers=headers, json={
+    <span class="tok-str">'usageKey'</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-str">'usageUnit'</span>: <span class="tok-str">'calls'</span>,
+    <span class="tok-str">'usageType'</span>: <span class="tok-str">'UNLIMITED'</span>, <span class="tok-str">'productId'</span>: product_id
+})</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/usage-elements"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"usageKey"</span>,   <span class="tok-str">"api.calls"</span>,
+    <span class="tok-str">"usageUnit"</span>,  <span class="tok-str">"calls"</span>,
+    <span class="tok-str">"usageType"</span>,  <span class="tok-str">"UNLIMITED"</span>,
+    <span class="tok-str">"displayName"</span>, <span class="tok-str">"API Calls"</span>,
+    <span class="tok-str">"productId"</span>,  productId
+));</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <h3>Step 4 — Create a Rate Card</h3>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/rate-cards \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{ "name": "Monthly Standard", "productOfferingId": "off_3k8f9g", "status": "ACTIVE" }'</span>
+<span class="tok-cmt"># Response: { "id": "rc_4m7n9p", ... }</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> rateCard = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/rate-cards`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({ <span class="tok-key">name</span>: <span class="tok-str">'Monthly Standard'</span>, <span class="tok-key">productOfferingId</span>: offeringId, <span class="tok-key">status</span>: <span class="tok-str">'ACTIVE'</span> })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());
+<span class="tok-kw">const</span> rateCardId = rateCard.id;</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>rate_card = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/rate-cards'</span>, headers=headers,
+    json={<span class="tok-str">'name'</span>: <span class="tok-str">'Monthly Standard'</span>, <span class="tok-str">'productOfferingId'</span>: offering_id, <span class="tok-str">'status'</span>: <span class="tok-str">'ACTIVE'</span>}).<span class="tok-fn">json</span>()
+rate_card_id = rate_card[<span class="tok-str">'id'</span>]</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; rateCard = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/rate-cards"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"name"</span>,              <span class="tok-str">"Monthly Standard"</span>,
+    <span class="tok-str">"productOfferingId"</span>, offeringId,
+    <span class="tok-str">"status"</span>,            <span class="tok-str">"ACTIVE"</span>
+));
+<span class="tok-type">String</span> rateCardId = (<span class="tok-type">String</span>) rateCard.<span class="tok-fn">get</span>(<span class="tok-str">"id"</span>);</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <h3>Step 5 — Add a Platform Fee Rate</h3>
+      <p>Create a flat $49/month fee charged regardless of usage.</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/rates \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{
+    "chargeElement": "platform-fee",
+    "priceType": "FLAT",
+    "rateType": "RECURRING",
+    "chargeType": "RECURRING",
+    "currency": "USD",
+    "flatCharge": 49.00,
+    "rateCardId": "rc_4m7n9p"
+  }'</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> feeRate = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/rates`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">chargeElement</span>: <span class="tok-str">'platform-fee'</span>, <span class="tok-key">priceType</span>: <span class="tok-str">'FLAT'</span>,
+    <span class="tok-key">rateType</span>: <span class="tok-str">'RECURRING'</span>, <span class="tok-key">chargeType</span>: <span class="tok-str">'RECURRING'</span>,
+    <span class="tok-key">currency</span>: <span class="tok-str">'USD'</span>, <span class="tok-key">flatCharge</span>: <span class="tok-num">49.00</span>, <span class="tok-key">rateCardId</span>: rateCardId
+  })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());
+<span class="tok-kw">const</span> feeRateId = feeRate.id;</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>fee_rate = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/rates'</span>, headers=headers, json={
+    <span class="tok-str">'chargeElement'</span>: <span class="tok-str">'platform-fee'</span>, <span class="tok-str">'priceType'</span>: <span class="tok-str">'FLAT'</span>,
+    <span class="tok-str">'rateType'</span>: <span class="tok-str">'RECURRING'</span>, <span class="tok-str">'chargeType'</span>: <span class="tok-str">'RECURRING'</span>,
+    <span class="tok-str">'currency'</span>: <span class="tok-str">'USD'</span>, <span class="tok-str">'flatCharge'</span>: <span class="tok-num">49.00</span>, <span class="tok-str">'rateCardId'</span>: rate_card_id
+}).<span class="tok-fn">json</span>()
+fee_rate_id = fee_rate[<span class="tok-str">'id'</span>]</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; feeRate = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/rates"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"chargeElement"</span>, <span class="tok-str">"platform-fee"</span>,
+    <span class="tok-str">"priceType"</span>,    <span class="tok-str">"FLAT"</span>,
+    <span class="tok-str">"rateType"</span>,     <span class="tok-str">"RECURRING"</span>,
+    <span class="tok-str">"chargeType"</span>,   <span class="tok-str">"RECURRING"</span>,
+    <span class="tok-str">"currency"</span>,     <span class="tok-str">"USD"</span>,
+    <span class="tok-str">"flatCharge"</span>,   <span class="tok-num">49.00</span>,
+    <span class="tok-str">"rateCardId"</span>,   rateCardId
+));
+<span class="tok-type">String</span> feeRateId = (<span class="tok-type">String</span>) feeRate.<span class="tok-fn">get</span>(<span class="tok-str">"id"</span>);</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <h3>Step 6 — Add a Tiered API Call Rate</h3>
+      <p>Create a graduated tiered rate for API calls. Set <span class="mono">ceiling</span> to <span class="mono">null</span> for the last tier.</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/rates \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{
+    "chargeElement": "api-calls", "priceType": "TIERED",
+    "rateType": "RECURRING", "chargeType": "RECURRING", "currency": "USD",
+    "rateCardId": "rc_4m7n9p",
+    "tiers": [
+      { "tierOrder": 1, "floor": 0,     "ceiling": 1000,  "pricePerUnit": 0.05 },
+      { "tierOrder": 2, "floor": 1000,  "ceiling": 10000, "pricePerUnit": 0.03 },
+      { "tierOrder": 3, "floor": 10000, "ceiling": null,  "pricePerUnit": 0.01 }
+    ]
+  }'</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> callRate = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/rates`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">chargeElement</span>: <span class="tok-str">'api-calls'</span>, <span class="tok-key">priceType</span>: <span class="tok-str">'TIERED'</span>,
+    <span class="tok-key">rateType</span>: <span class="tok-str">'RECURRING'</span>, <span class="tok-key">chargeType</span>: <span class="tok-str">'RECURRING'</span>, <span class="tok-key">currency</span>: <span class="tok-str">'USD'</span>,
+    <span class="tok-key">rateCardId</span>: rateCardId,
+    <span class="tok-key">tiers</span>: [
+      { <span class="tok-key">tierOrder</span>: <span class="tok-num">1</span>, <span class="tok-key">floor</span>: <span class="tok-num">0</span>,     <span class="tok-key">ceiling</span>: <span class="tok-num">1000</span>,  <span class="tok-key">pricePerUnit</span>: <span class="tok-num">0.05</span> },
+      { <span class="tok-key">tierOrder</span>: <span class="tok-num">2</span>, <span class="tok-key">floor</span>: <span class="tok-num">1000</span>,  <span class="tok-key">ceiling</span>: <span class="tok-num">10000</span>, <span class="tok-key">pricePerUnit</span>: <span class="tok-num">0.03</span> },
+      { <span class="tok-key">tierOrder</span>: <span class="tok-num">3</span>, <span class="tok-key">floor</span>: <span class="tok-num">10000</span>, <span class="tok-key">ceiling</span>: <span class="tok-kw">null</span>,  <span class="tok-key">pricePerUnit</span>: <span class="tok-num">0.01</span> }
+    ]
+  })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());
+<span class="tok-kw">const</span> callRateId = callRate.id;</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>call_rate = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/rates'</span>, headers=headers, json={
+    <span class="tok-str">'chargeElement'</span>: <span class="tok-str">'api-calls'</span>, <span class="tok-str">'priceType'</span>: <span class="tok-str">'TIERED'</span>,
+    <span class="tok-str">'rateType'</span>: <span class="tok-str">'RECURRING'</span>, <span class="tok-str">'chargeType'</span>: <span class="tok-str">'RECURRING'</span>, <span class="tok-str">'currency'</span>: <span class="tok-str">'USD'</span>,
+    <span class="tok-str">'rateCardId'</span>: rate_card_id,
+    <span class="tok-str">'tiers'</span>: [
+        {<span class="tok-str">'tierOrder'</span>: <span class="tok-num">1</span>, <span class="tok-str">'floor'</span>: <span class="tok-num">0</span>,     <span class="tok-str">'ceiling'</span>: <span class="tok-num">1000</span>,  <span class="tok-str">'pricePerUnit'</span>: <span class="tok-num">0.05</span>},
+        {<span class="tok-str">'tierOrder'</span>: <span class="tok-num">2</span>, <span class="tok-str">'floor'</span>: <span class="tok-num">1000</span>,  <span class="tok-str">'ceiling'</span>: <span class="tok-num">10000</span>, <span class="tok-str">'pricePerUnit'</span>: <span class="tok-num">0.03</span>},
+        {<span class="tok-str">'tierOrder'</span>: <span class="tok-num">3</span>, <span class="tok-str">'floor'</span>: <span class="tok-num">10000</span>, <span class="tok-str">'ceiling'</span>: <span class="tok-kw">None</span>,  <span class="tok-str">'pricePerUnit'</span>: <span class="tok-num">0.01</span>},
+    ]
+}).<span class="tok-fn">json</span>()
+call_rate_id = call_rate[<span class="tok-str">'id'</span>]</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; callRate = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/rates"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"chargeElement"</span>, <span class="tok-str">"api-calls"</span>, <span class="tok-str">"priceType"</span>, <span class="tok-str">"TIERED"</span>,
+    <span class="tok-str">"rateType"</span>, <span class="tok-str">"RECURRING"</span>, <span class="tok-str">"chargeType"</span>, <span class="tok-str">"RECURRING"</span>,
+    <span class="tok-str">"currency"</span>, <span class="tok-str">"USD"</span>, <span class="tok-str">"rateCardId"</span>, rateCardId,
+    <span class="tok-str">"tiers"</span>, List.<span class="tok-fn">of</span>(
+        Map.<span class="tok-fn">of</span>(<span class="tok-str">"tierOrder"</span>, <span class="tok-num">1</span>, <span class="tok-str">"floor"</span>, <span class="tok-num">0</span>,     <span class="tok-str">"ceiling"</span>, <span class="tok-num">1000</span>,  <span class="tok-str">"pricePerUnit"</span>, <span class="tok-num">0.05</span>),
+        Map.<span class="tok-fn">of</span>(<span class="tok-str">"tierOrder"</span>, <span class="tok-num">2</span>, <span class="tok-str">"floor"</span>, <span class="tok-num">1000</span>,  <span class="tok-str">"ceiling"</span>, <span class="tok-num">10000</span>, <span class="tok-str">"pricePerUnit"</span>, <span class="tok-num">0.03</span>),
+        Map.<span class="tok-fn">of</span>(<span class="tok-str">"tierOrder"</span>, <span class="tok-num">3</span>, <span class="tok-str">"floor"</span>, <span class="tok-num">10000</span>, <span class="tok-str">"pricePerUnit"</span>, <span class="tok-num">0.01</span>)  <span class="tok-cmt">// null ceiling omitted</span>
+    )
+));
+<span class="tok-type">String</span> callRateId = (<span class="tok-type">String</span>) callRate.<span class="tok-fn">get</span>(<span class="tok-str">"id"</span>);</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <h3>Step 7 — Create a Billable Metric</h3>
+      <p>Link <span class="mono">api.calls</span> events to the <span class="mono">api-calls</span> charge element using SUM aggregation.</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/billable-metrics \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{
+    "usageKey": "api.calls",
+    "chargeElement": "api-calls",
+    "aggregationType": "SUM",
+    "rateId": "rate_calls_001",
+    "productOfferingId": "off_3k8f9g"
+  }'</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/billable-metrics`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">usageKey</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-key">chargeElement</span>: <span class="tok-str">'api-calls'</span>,
+    <span class="tok-key">aggregationType</span>: <span class="tok-str">'SUM'</span>,
+    <span class="tok-key">rateId</span>: callRateId, <span class="tok-key">productOfferingId</span>: offeringId
+  })
+});</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/billable-metrics'</span>, headers=headers, json={
+    <span class="tok-str">'usageKey'</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-str">'chargeElement'</span>: <span class="tok-str">'api-calls'</span>,
+    <span class="tok-str">'aggregationType'</span>: <span class="tok-str">'SUM'</span>,
+    <span class="tok-str">'rateId'</span>: call_rate_id, <span class="tok-str">'productOfferingId'</span>: offering_id
+})</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/billable-metrics"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"usageKey"</span>,       <span class="tok-str">"api.calls"</span>,
+    <span class="tok-str">"chargeElement"</span>,  <span class="tok-str">"api-calls"</span>,
+    <span class="tok-str">"aggregationType"</span>, <span class="tok-str">"SUM"</span>,
+    <span class="tok-str">"rateId"</span>,          callRateId,
+    <span class="tok-str">"productOfferingId"</span>, offeringId
+));</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 8 -->
+      <h3>Step 8 — Configure Free Allowance</h3>
+      <p>Create an allowance group with 10,000 free calls. ConsumIQ deducts this automatically before billing.</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-cmt"># 1. Create allowance group</span>
+<span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/allowance-groups \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{ "name": "Starter Free Tier", "productOfferingId": "off_3k8f9g" }'</span>
+
+<span class="tok-cmt"># 2. Add 10k allowance (use the returned allowanceGroupId)</span>
+<span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/allowances \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{
+    "usageKey": "api.calls",
+    "allowanceAmount": 10000,
+    "allowanceGroupId": "&lt;group-id&gt;"
+  }'</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> group = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/allowance-groups`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({ <span class="tok-key">name</span>: <span class="tok-str">'Starter Free Tier'</span>, <span class="tok-key">productOfferingId</span>: offeringId })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());
+
+<span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/allowances`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">usageKey</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-key">allowanceAmount</span>: <span class="tok-num">10000</span>,
+    <span class="tok-key">allowanceGroupId</span>: group.id
+  })
+});</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>group = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/allowance-groups'</span>, headers=headers,
+    json={<span class="tok-str">'name'</span>: <span class="tok-str">'Starter Free Tier'</span>, <span class="tok-str">'productOfferingId'</span>: offering_id}).<span class="tok-fn">json</span>()
+
+requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/allowances'</span>, headers=headers, json={
+    <span class="tok-str">'usageKey'</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-str">'allowanceAmount'</span>: <span class="tok-num">10000</span>,
+    <span class="tok-str">'allowanceGroupId'</span>: group[<span class="tok-str">'id'</span>]
+})</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; group = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/allowance-groups"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"name"</span>,              <span class="tok-str">"Starter Free Tier"</span>,
+    <span class="tok-str">"productOfferingId"</span>, offeringId
+));
+
+<span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/allowances"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"usageKey"</span>,         <span class="tok-str">"api.calls"</span>,
+    <span class="tok-str">"allowanceAmount"</span>,  <span class="tok-num">10000</span>,
+    <span class="tok-str">"allowanceGroupId"</span>, group.<span class="tok-fn">get</span>(<span class="tok-str">"id"</span>)
+));</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 9 -->
+      <h3>Step 9 — Subscribe a Customer</h3>
+      <p>Create a subscription linking the customer to the offering and rate card. The <span class="mono">billingItems</span> array specifies which rates to bill.</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/subscriptions \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{
+    "name": "Acme Corp — Starter",
+    "customerId": "cust_acme_001",
+    "productOfferingId": "off_3k8f9g",
+    "billing": {
+      "rateCardId": "rc_4m7n9p",
+      "billingItems": [
+        { "rateId": "rate_fee_001" },
+        { "rateId": "rate_calls_001" }
+      ]
+    },
+    "billingCycleAnchor": { "anchorDay": 1 }
+  }'</span>
+<span class="tok-cmt"># Response 201 Created: { "id": "sub_acme_001", "status": "ACTIVE", ... }</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> sub = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/subscriptions`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">name</span>: <span class="tok-str">'Acme Corp — Starter'</span>, <span class="tok-key">customerId</span>: <span class="tok-str">'cust_acme_001'</span>,
+    <span class="tok-key">productOfferingId</span>: offeringId,
+    <span class="tok-key">billing</span>: {
+      <span class="tok-key">rateCardId</span>: rateCardId,
+      <span class="tok-key">billingItems</span>: [{ <span class="tok-key">rateId</span>: feeRateId }, { <span class="tok-key">rateId</span>: callRateId }]
+    },
+    <span class="tok-key">billingCycleAnchor</span>: { <span class="tok-key">anchorDay</span>: <span class="tok-num">1</span> }
+  })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>()); <span class="tok-cmt">// sub.status === "ACTIVE"</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>sub = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/subscriptions'</span>, headers=headers, json={
+    <span class="tok-str">'name'</span>: <span class="tok-str">'Acme Corp — Starter'</span>, <span class="tok-str">'customerId'</span>: <span class="tok-str">'cust_acme_001'</span>,
+    <span class="tok-str">'productOfferingId'</span>: offering_id,
+    <span class="tok-str">'billing'</span>: {
+        <span class="tok-str">'rateCardId'</span>: rate_card_id,
+        <span class="tok-str">'billingItems'</span>: [{<span class="tok-str">'rateId'</span>: fee_rate_id}, {<span class="tok-str">'rateId'</span>: call_rate_id}]
+    },
+    <span class="tok-str">'billingCycleAnchor'</span>: {<span class="tok-str">'anchorDay'</span>: <span class="tok-num">1</span>}
+}).<span class="tok-fn">json</span>()</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; sub = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/subscriptions"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"name"</span>,             <span class="tok-str">"Acme Corp — Starter"</span>,
+    <span class="tok-str">"customerId"</span>,       <span class="tok-str">"cust_acme_001"</span>,
+    <span class="tok-str">"productOfferingId"</span>, offeringId,
+    <span class="tok-str">"billing"</span>, Map.<span class="tok-fn">of</span>(
+        <span class="tok-str">"rateCardId"</span>,   rateCardId,
+        <span class="tok-str">"billingItems"</span>, List.<span class="tok-fn">of</span>(
+            Map.<span class="tok-fn">of</span>(<span class="tok-str">"rateId"</span>, feeRateId),
+            Map.<span class="tok-fn">of</span>(<span class="tok-str">"rateId"</span>, callRateId)
+        )
+    ),
+    <span class="tok-str">"billingCycleAnchor"</span>, Map.<span class="tok-fn">of</span>(<span class="tok-str">"anchorDay"</span>, <span class="tok-num">1</span>)
+));
+<span class="tok-cmt">// sub.get("status") == "ACTIVE"</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 10 -->
+      <h3>Step 10 — Send Usage Events</h3>
+      <p>Send events from your application as customers consume your product. Always include a unique <span class="mono">eventId</span> for idempotency.</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">curl</span> <span class="tok-op">-X</span> POST https://api.consumiq.io/api/v1/usage-events \
+  <span class="tok-op">-H</span> <span class="tok-str">"Content-Type: application/json"</span> \
+  <span class="tok-op">-H</span> <span class="tok-str">"Authorization: Bearer $CIQ_API_KEY"</span> \
+  <span class="tok-op">-d</span> <span class="tok-str">'{
+    "eventId": "evt_acme_20240701_001",
+    "usageKey": "api.calls",
+    "usageIdentifier": "cust_acme_001",
+    "value": 1,
+    "usageTimestamp": 1719820800000
+  }'</span>
+<span class="tok-cmt"># Response 202 Accepted</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">async function</span> <span class="tok-fn">trackApiCall</span>(customerId, eventId) {
+  <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/usage-events`, {
+    <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+    <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+      <span class="tok-key">eventId</span>,                   <span class="tok-cmt">// unique — safe to retry</span>
+      <span class="tok-key">usageKey</span>:        <span class="tok-str">'api.calls'</span>,
+      <span class="tok-key">usageIdentifier</span>: customerId,
+      <span class="tok-key">value</span>:           <span class="tok-num">1</span>,
+      <span class="tok-key">usageTimestamp</span>:  Date.<span class="tok-fn">now</span>()
+    })
+  }); <span class="tok-cmt">// 202 Accepted — do not await billing</span>
+}</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">import</span> time
+
+<span class="tok-kw">def</span> <span class="tok-fn">track_api_call</span>(customer_id: str, event_id: str):
+    requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/usage-events'</span>, headers=headers, json={
+        <span class="tok-str">'eventId'</span>:         event_id,       <span class="tok-cmt"># unique — safe to retry</span>
+        <span class="tok-str">'usageKey'</span>:        <span class="tok-str">'api.calls'</span>,
+        <span class="tok-str">'usageIdentifier'</span>: customer_id,
+        <span class="tok-str">'value'</span>:           <span class="tok-num">1</span>,
+        <span class="tok-str">'usageTimestamp'</span>:  <span class="tok-fn">int</span>(time.<span class="tok-fn">time</span>() * <span class="tok-num">1000</span>)
+    })</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">void</span> <span class="tok-fn">trackApiCall</span>(<span class="tok-type">String</span> customerId, <span class="tok-type">String</span> eventId) <span class="tok-kw">throws</span> <span class="tok-type">Exception</span> {
+    <span class="tok-type">String</span> body = mapper.<span class="tok-fn">writeValueAsString</span>(Map.<span class="tok-fn">of</span>(
+        <span class="tok-str">"eventId"</span>,         eventId,          <span class="tok-cmt">// unique — safe to retry</span>
+        <span class="tok-str">"usageKey"</span>,        <span class="tok-str">"api.calls"</span>,
+        <span class="tok-str">"usageIdentifier"</span>, customerId,
+        <span class="tok-str">"value"</span>,           <span class="tok-num">1</span>,
+        <span class="tok-str">"usageTimestamp"</span>,  System.<span class="tok-fn">currentTimeMillis</span>()
+    ));
+    <span class="tok-type">HttpRequest</span> req = HttpRequest.<span class="tok-fn">newBuilder</span>()
+        .<span class="tok-fn">uri</span>(URI.<span class="tok-fn">create</span>(BASE + <span class="tok-str">"/api/v1/usage-events"</span>))
+        .<span class="tok-fn">header</span>(<span class="tok-str">"Content-Type"</span>, <span class="tok-str">"application/json"</span>)
+        .<span class="tok-fn">header</span>(<span class="tok-str">"Authorization"</span>, <span class="tok-str">"Bearer "</span> + apiKey)
+        .<span class="tok-fn">POST</span>(HttpRequest.BodyPublishers.<span class="tok-fn">ofString</span>(body))
+        .<span class="tok-fn">build</span>();
+    client.<span class="tok-fn">send</span>(req, HttpResponse.BodyHandlers.<span class="tok-fn">ofString</span>()); <span class="tok-cmt">// 202 Accepted</span>
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">ℹ</span>
+        <div class="callout-body"><p>In the Java examples above, <span class="mono">post()</span> is a helper method using <span class="mono">java.net.http.HttpClient</span> + <span class="mono">ObjectMapper</span>. See the <a href="#java-helper" style="color:var(--info)">Java helper pattern</a> below.</p></div>
+      </div>
+
+      <h3 id="java-helper">Java helper pattern</h3>
+      <p>Declare this once in your service class to keep API calls concise throughout:</p>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">java — service setup</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="tok-kw">import</span> java.net.URI;
+<span class="tok-kw">import</span> java.net.http.*;
+<span class="tok-kw">import</span> java.util.*;
+<span class="tok-kw">import</span> com.fasterxml.jackson.databind.ObjectMapper;
+
+<span class="tok-kw">public class</span> <span class="tok-type">ConsumIQClient</span> {
+
+    <span class="tok-kw">private final</span> <span class="tok-type">HttpClient</span>   client = HttpClient.<span class="tok-fn">newHttpClient</span>();
+    <span class="tok-kw">private final</span> <span class="tok-type">ObjectMapper</span> mapper = <span class="tok-kw">new</span> <span class="tok-fn">ObjectMapper</span>();
+    <span class="tok-kw">private final</span> <span class="tok-type">String</span>       base   = <span class="tok-str">"https://api.consumiq.io"</span>;
+    <span class="tok-kw">private final</span> <span class="tok-type">String</span>       apiKey = System.<span class="tok-fn">getenv</span>(<span class="tok-str">"CIQ_API_KEY"</span>);
+
+    <span class="tok-kw">private</span> <span class="tok-type">Map</span>&lt;?,?&gt; <span class="tok-fn">post</span>(<span class="tok-type">String</span> path, <span class="tok-type">Object</span> body) <span class="tok-kw">throws</span> <span class="tok-type">Exception</span> {
+        <span class="tok-type">HttpRequest</span> req = HttpRequest.<span class="tok-fn">newBuilder</span>()
+            .<span class="tok-fn">uri</span>(URI.<span class="tok-fn">create</span>(base + path))
+            .<span class="tok-fn">header</span>(<span class="tok-str">"Content-Type"</span>, <span class="tok-str">"application/json"</span>)
+            .<span class="tok-fn">header</span>(<span class="tok-str">"Authorization"</span>, <span class="tok-str">"Bearer "</span> + apiKey)
+            .<span class="tok-fn">POST</span>(HttpRequest.BodyPublishers.<span class="tok-fn">ofString</span>(
+                mapper.<span class="tok-fn">writeValueAsString</span>(body)))
+            .<span class="tok-fn">build</span>();
+        <span class="tok-kw">return</span> mapper.<span class="tok-fn">readValue</span>(
+            client.<span class="tok-fn">send</span>(req, HttpResponse.BodyHandlers.<span class="tok-fn">ofString</span>()).<span class="tok-fn">body</span>(),
+            Map.class);
+    }
+}</pre>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ ERRORS ══ -->
+    <section class="doc-section" id="errors">
+      <div class="eyebrow">Getting Started</div>
+      <h2>Errors</h2>
+      <p>ConsumIQ uses standard HTTP status codes. Errors return a JSON body with the status code, a human-readable message, and the request path.</p>
+
+      <h3>Error response format</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">json — error response</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre>{
+  <span class="tok-key">"status"</span>:    <span class="tok-num">400</span>,
+  <span class="tok-key">"error"</span>:     <span class="tok-str">"Bad Request"</span>,
+  <span class="tok-key">"message"</span>:   <span class="tok-str">"productCode: must not be blank"</span>,
+  <span class="tok-key">"path"</span>:      <span class="tok-str">"/api/v1/products"</span>,
+  <span class="tok-key">"timestamp"</span>: <span class="tok-str">"2024-07-01T10:30:00.000Z"</span>
+}</pre>
+      </div>
+
+      <h3>HTTP status codes</h3>
+      <table class="error-table">
+        <thead><tr><th>Code</th><th>Status</th><th>When it occurs</th></tr></thead>
+        <tbody>
+          <tr><td class="http-code http-2xx">200</td><td>OK</td><td>Request succeeded (GET, PUT, PATCH)</td></tr>
+          <tr><td class="http-code http-2xx">201</td><td>Created</td><td>Resource created (POST for subscriptions, accounts, persons)</td></tr>
+          <tr><td class="http-code http-2xx">202</td><td>Accepted</td><td>Usage event queued for async processing — do not wait for billing confirmation</td></tr>
+          <tr><td class="http-code http-2xx">204</td><td>No Content</td><td>Resource deleted</td></tr>
+          <tr><td class="http-code http-4xx">400</td><td>Bad Request</td><td>Validation failure — missing required fields or invalid values. Check the <span class="mono">message</span> field for the specific constraint.</td></tr>
+          <tr><td class="http-code http-4xx">404</td><td>Not Found</td><td>Resource ID does not exist</td></tr>
+          <tr><td class="http-code http-4xx">409</td><td>Conflict</td><td>Duplicate resource — e.g., duplicate <span class="mono">productCode</span></td></tr>
+          <tr><td class="http-code http-4xx">422</td><td>Unprocessable Entity</td><td>Violates a business rule — e.g., referencing an INACTIVE rate card</td></tr>
+          <tr><td class="http-code http-5xx">500</td><td>Internal Server Error</td><td>Unexpected server error — safe to retry with exponential backoff</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Common validation messages</h3>
+      <table class="data-table">
+        <thead><tr><th>Message</th><th>Cause</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">must not be blank</td><td class="fd">Required string is missing or empty</td><td class="fd">Check required fields marked <span class="req">required</span></td></tr>
+          <tr><td class="fn">must not be null</td><td class="fd">Required field absent from body</td><td class="fd">Include the field explicitly</td></tr>
+          <tr><td class="fn">must not be empty</td><td class="fd">Required array (e.g. <span class="mono">billingItems</span>) was <span class="mono">[]</span></td><td class="fd">Include at least one item</td></tr>
+          <tr><td class="fn">not found</td><td class="fd">Referenced ID does not exist</td><td class="fd">Verify the ID was returned from a prior create call</td></tr>
+          <tr><td class="fn">size must be between 1 and 500</td><td class="fd">Batch event count exceeds 500</td><td class="fd">Split into batches of ≤500</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ PRODUCTS ══ -->
+    <section class="doc-section" id="products">
+      <div class="eyebrow">Catalogue</div>
+      <h2>Products</h2>
+      <p>A <strong>Product</strong> is the top-level entity representing what you sell. All pricing configuration (offerings, rate cards, rates) is attached to a product.</p>
+
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">productName<span class="req">required</span></td><td class="ft">string</td><td class="fd">Display name, e.g. "Data Processing API"</td></tr>
+          <tr><td class="fn">productCode</td><td class="ft">string</td><td class="fd">Unique machine-readable code, e.g. "DATA-API"</td></tr>
+          <tr><td class="fn">description</td><td class="ft">string</td><td class="fd">Optional description</td></tr>
+          <tr><td class="fn">status</td><td class="ft">ACTIVE | INACTIVE | ARCHIVED</td><td class="fd">Only ACTIVE products can accept subscriptions</td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-cmt"># Create</span>
+<span class="tok-kw">POST</span> <span class="tok-url">/api/v1/products</span>
+{ <span class="tok-key">"productName"</span>: <span class="tok-str">"Data Processing API"</span>, <span class="tok-key">"productCode"</span>: <span class="tok-str">"DATA-API"</span>, <span class="tok-key">"status"</span>: <span class="tok-bool">"ACTIVE"</span> }
+
+<span class="tok-cmt"># List / Get / Update / Delete</span>
+<span class="tok-kw">GET</span>    <span class="tok-url">/api/v1/products</span>
+<span class="tok-kw">GET</span>    <span class="tok-url">/api/v1/products/{id}</span>
+<span class="tok-kw">PUT</span>    <span class="tok-url">/api/v1/products/{id}</span>
+<span class="tok-kw">DELETE</span> <span class="tok-url">/api/v1/products/{id}</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-cmt">// Create</span>
+<span class="tok-kw">const</span> product = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/products`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({ <span class="tok-key">productName</span>: <span class="tok-str">'Data Processing API'</span>, <span class="tok-key">productCode</span>: <span class="tok-str">'DATA-API'</span>, <span class="tok-key">status</span>: <span class="tok-str">'ACTIVE'</span> })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());
+
+<span class="tok-cmt">// List</span>
+<span class="tok-kw">const</span> all = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/products`, { headers }).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-cmt"># Create</span>
+product = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/products'</span>, headers=headers,
+    json={<span class="tok-str">'productName'</span>: <span class="tok-str">'Data Processing API'</span>, <span class="tok-str">'productCode'</span>: <span class="tok-str">'DATA-API'</span>, <span class="tok-str">'status'</span>: <span class="tok-str">'ACTIVE'</span>}).<span class="tok-fn">json</span>()
+
+<span class="tok-cmt"># List</span>
+products = requests.<span class="tok-fn">get</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/products'</span>, headers=headers).<span class="tok-fn">json</span>()</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-cmt">// Create</span>
+<span class="tok-type">Map</span>&lt;?,?&gt; product = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/products"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"productName"</span>, <span class="tok-str">"Data Processing API"</span>,
+    <span class="tok-str">"productCode"</span>, <span class="tok-str">"DATA-API"</span>,
+    <span class="tok-str">"status"</span>,      <span class="tok-str">"ACTIVE"</span>
+));
+
+<span class="tok-cmt">// List — GET with no body</span>
+<span class="tok-type">HttpRequest</span> listReq = HttpRequest.<span class="tok-fn">newBuilder</span>()
+    .<span class="tok-fn">uri</span>(URI.<span class="tok-fn">create</span>(BASE + <span class="tok-str">"/api/v1/products"</span>))
+    .<span class="tok-fn">header</span>(<span class="tok-str">"Authorization"</span>, <span class="tok-str">"Bearer "</span> + apiKey)
+    .<span class="tok-fn">GET</span>().<span class="tok-fn">build</span>();
+<span class="tok-type">String</span> listJson = client.<span class="tok-fn">send</span>(listReq, HttpResponse.BodyHandlers.<span class="tok-fn">ofString</span>()).<span class="tok-fn">body</span>();</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ PRODUCT OFFERINGS ══ -->
+    <section class="doc-section" id="offerings">
+      <div class="eyebrow">Catalogue</div>
+      <h2>Product Offerings</h2>
+      <p>A <strong>Product Offering</strong> packages a product into a specific plan or tier — for example, "Starter" and "Enterprise" plans of the same API. Each offering has its own rate cards, billable metrics, and optional free-usage allowances.</p>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">name<span class="req">required</span></td><td class="ft">string</td><td class="fd">e.g. "Starter Plan"</td></tr>
+          <tr><td class="fn">productId<span class="req">required</span></td><td class="ft">UUID</td><td class="fd">Parent product</td></tr>
+          <tr><td class="fn">status</td><td class="ft">ACTIVE | INACTIVE | ARCHIVED</td><td class="fd">INACTIVE offerings cannot be subscribed to</td></tr>
+        </tbody>
+      </table>
+      <div class="callout info">
+        <span class="callout-icon">ℹ</span>
+        <div class="callout-body"><p>The GET response for a product offering includes its full <strong>rate cards</strong>, <strong>allowance group</strong>, and <strong>billable metrics</strong> — you can fetch the complete pricing config for an offering in a single call.</p></div>
+      </div>
+      <p>Query offerings for a specific product with <span class="mono">GET /api/v1/product-offerings?productId={id}</span>.</p>
+    </section>
+
+    <!-- ══ USAGE ELEMENTS ══ -->
+    <section class="doc-section" id="usage-elements">
+      <div class="eyebrow">Catalogue</div>
+      <h2>Usage Elements</h2>
+      <p>A <strong>Usage Element</strong> defines a trackable unit of consumption for a product. It establishes the <span class="mono">usageKey</span> that appears in usage events, and describes the unit type.</p>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">usageKey<span class="req">required</span></td><td class="ft">string</td><td class="fd">Unique identifier used in events, e.g. <span class="mono">api.calls</span></td></tr>
+          <tr><td class="fn">usageUnit<span class="req">required</span></td><td class="ft">string</td><td class="fd">Human-readable unit name, e.g. "requests", "GB"</td></tr>
+          <tr><td class="fn">usageType<span class="req">required</span></td><td class="ft">UNLIMITED | RATE_LIMITED | THROTTLED</td><td class="fd">Metering behaviour</td></tr>
+          <tr><td class="fn">primaryDimension</td><td class="ft">string</td><td class="fd">Dimension key for multi-dimensional pricing</td></tr>
+          <tr><td class="fn">productId<span class="req">required</span></td><td class="ft">UUID</td><td class="fd">Parent product</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ══ BILLABLE METRICS ══ -->
+    <section class="doc-section" id="billable-metrics">
+      <div class="eyebrow">Catalogue</div>
+      <h2>Billable Metrics</h2>
+      <p>A <strong>Billable Metric</strong> bridges metering and pricing. It defines how raw usage events for a <span class="mono">usageKey</span> are aggregated and mapped onto a charge element in the rate card.</p>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">usageKey<span class="req">required</span></td><td class="ft">string</td><td class="fd">Must match the Usage Element key</td></tr>
+          <tr><td class="fn">chargeElement<span class="req">required</span></td><td class="ft">string</td><td class="fd">Must match the Rate's <span class="mono">chargeElement</span></td></tr>
+          <tr><td class="fn">aggregationType<span class="req">required</span></td><td class="ft">SUM | MAX | MIN | COUNT | AVERAGE | UNIQUE</td><td class="fd">How to aggregate events before pricing</td></tr>
+          <tr><td class="fn">rateId<span class="req">required</span></td><td class="ft">UUID</td><td class="fd">The Rate this metric feeds into</td></tr>
+          <tr><td class="fn">productOfferingId</td><td class="ft">UUID</td><td class="fd">Parent product offering</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ══ RATE CARDS ══ -->
+    <section class="doc-section" id="rate-cards">
+      <div class="eyebrow">Catalogue</div>
+      <h2>Rate Cards</h2>
+      <p>A <strong>Rate Card</strong> groups one or more <strong>Rates</strong> under a Product Offering. When a customer subscribes, they reference a specific rate card whose terms are then snapshotted.</p>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">name<span class="req">required</span></td><td class="ft">string</td><td class="fd">e.g. "Monthly Standard", "Annual Discounted"</td></tr>
+          <tr><td class="fn">status</td><td class="ft">ACTIVE | INACTIVE | ARCHIVED</td><td class="fd">Only ACTIVE rate cards can be used by new subscriptions</td></tr>
+          <tr><td class="fn">productOfferingId<span class="req">required</span></td><td class="ft">UUID</td><td class="fd">Parent product offering</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warning">
+        <span class="callout-icon">⚠</span>
+        <div class="callout-body"><p>Rate card terms are <strong>snapshotted at subscription time</strong>. Changing a rate card's rates after a customer subscribes does not affect their existing subscription — use a Subscription Schedule to apply new pricing at a future date.</p></div>
+      </div>
+    </section>
+
+    <!-- ══ RATES & PRICING ══ -->
+    <section class="doc-section" id="rates">
+      <div class="eyebrow">Catalogue</div>
+      <h2>Rates &amp; Pricing Models</h2>
+      <p>A <strong>Rate</strong> defines how a specific <span class="mono">chargeElement</span> is priced within a Rate Card.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card"><div class="ptype">PUP</div><h5>Price Per Unit</h5><p>Fixed price × aggregated usage. Best for linear cost scaling.</p></div>
+        <div class="pricing-card"><div class="ptype">FLAT</div><h5>Flat Fee</h5><p>Fixed fee regardless of usage. Useful for seat licenses or minimum commitments.</p></div>
+        <div class="pricing-card"><div class="ptype">TIERED · VOLUME</div><h5>Volume Tiered</h5><p>All usage priced at the rate of the tier the total falls into.</p></div>
+        <div class="pricing-card"><div class="ptype">TIERED · GRADUATED</div><h5>Graduated Tiered</h5><p>Usage split across tiers — each portion priced at its tier's rate.</p></div>
+        <div class="pricing-card"><div class="ptype">DIMENSIONAL</div><h5>Dimensional</h5><p>Price varies by dimension value (region, storage class). Defined as a matrix.</p></div>
+        <div class="pricing-card"><div class="ptype">TIME_BASED</div><h5>Time-Based</h5><p>Pricing changes by time of day for off-peak discounts or peak surcharges.</p></div>
+      </div>
+      <h3>Rate fields</h3>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">chargeElement<span class="req">required</span></td><td class="ft">string</td><td class="fd">Must match a Billable Metric's <span class="mono">chargeElement</span></td></tr>
+          <tr><td class="fn">priceType<span class="req">required</span></td><td class="ft">FLAT | PER_UNIT | TIERED</td><td class="fd">Selects the pricing calculator</td></tr>
+          <tr><td class="fn">rateType<span class="req">required</span></td><td class="ft">STANDARD | RECURRING | TIERED | DIMENSIONAL | TIME_BASED</td><td class="fd">Rate behaviour type</td></tr>
+          <tr><td class="fn">chargeType<span class="req">required</span></td><td class="ft">ONE_TIME | RECURRING</td><td class="fd">ONE_TIME: charged once. RECURRING: charged each billing period.</td></tr>
+          <tr><td class="fn">currency<span class="req">required</span></td><td class="ft">string</td><td class="fd">ISO 4217 code, e.g. "USD", "EUR", "GBP"</td></tr>
+          <tr><td class="fn">pricePerUnit</td><td class="ft">decimal</td><td class="fd">Unit price for PUP pricing</td></tr>
+          <tr><td class="fn">flatCharge</td><td class="ft">decimal</td><td class="fd">Fixed amount for FLAT pricing</td></tr>
+          <tr><td class="fn">tiers</td><td class="ft">Tier[]</td><td class="fd">Ordered tier breakpoints for TIERED pricing</td></tr>
+          <tr><td class="fn">dimensionalPrices</td><td class="ft">DimensionalPrice[]</td><td class="fd">Dimension matrix for DIMENSIONAL pricing</td></tr>
+          <tr><td class="fn">rateCardId<span class="req">required</span></td><td class="ft">UUID</td><td class="fd">Parent rate card</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ══ ALLOWANCES ══ -->
+    <section class="doc-section" id="allowances">
+      <div class="eyebrow">Catalogue</div>
+      <h2>Allowances</h2>
+      <p>An <strong>Allowance</strong> gives customers a free-usage entitlement before billing starts. The billing engine deducts allowances from aggregated usage automatically.</p>
+      <div class="concept-list">
+        <div class="concept-item"><span class="concept-tag">AllowanceGroup</span><div class="concept-body"><h5>Container</h5><p>Groups all allowances for a product offering. One offering can have one allowance group.</p></div></div>
+        <div class="concept-item"><span class="concept-tag">Allowance</span><div class="concept-body"><h5>Global allowance</h5><p>A flat quantity subtracted from total usage for a <span class="mono">usageKey</span>. Supports optional <span class="mono">resetCycle</span> (DAILY, WEEKLY, MONTHLY, YEARLY, NONE).</p></div></div>
+        <div class="concept-item"><span class="concept-tag">DimensionalAllowance</span><div class="concept-body"><h5>Per-dimension allowance</h5><p>Different free-usage amounts per dimension value.</p></div></div>
+      </div>
+
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">POST</span> <span class="tok-url">/api/v1/allowances</span>
+{
+  <span class="tok-key">"usageKey"</span>: <span class="tok-str">"api.calls"</span>,
+  <span class="tok-key">"allowanceAmount"</span>: <span class="tok-num">10000</span>,
+  <span class="tok-key">"allowanceGroupId"</span>: <span class="tok-str">"&lt;group-id&gt;"</span>,
+  <span class="tok-key">"resetCycle"</span>: { <span class="tok-key">"resetInterval"</span>: <span class="tok-bool">"MONTHLY"</span>, <span class="tok-key">"resetCycleType"</span>: <span class="tok-bool">"RECURRING"</span> }
+}</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/allowances`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">usageKey</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-key">allowanceAmount</span>: <span class="tok-num">10000</span>,
+    <span class="tok-key">allowanceGroupId</span>: groupId,
+    <span class="tok-key">resetCycle</span>: { <span class="tok-key">resetInterval</span>: <span class="tok-str">'MONTHLY'</span>, <span class="tok-key">resetCycleType</span>: <span class="tok-str">'RECURRING'</span> }
+  })
+});</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/allowances'</span>, headers=headers, json={
+    <span class="tok-str">'usageKey'</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-str">'allowanceAmount'</span>: <span class="tok-num">10000</span>,
+    <span class="tok-str">'allowanceGroupId'</span>: group_id,
+    <span class="tok-str">'resetCycle'</span>: {<span class="tok-str">'resetInterval'</span>: <span class="tok-str">'MONTHLY'</span>, <span class="tok-str">'resetCycleType'</span>: <span class="tok-str">'RECURRING'</span>}
+})</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/allowances"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"usageKey"</span>,         <span class="tok-str">"api.calls"</span>,
+    <span class="tok-str">"allowanceAmount"</span>,   <span class="tok-num">10000</span>,
+    <span class="tok-str">"allowanceGroupId"</span>,  groupId,
+    <span class="tok-str">"resetCycle"</span>, Map.<span class="tok-fn">of</span>(
+        <span class="tok-str">"resetInterval"</span>,  <span class="tok-str">"MONTHLY"</span>,
+        <span class="tok-str">"resetCycleType"</span>, <span class="tok-str">"RECURRING"</span>
+    )
+));</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ DISCOUNTS ══ -->
+    <section class="doc-section" id="discounts">
+      <div class="eyebrow">Catalogue</div>
+      <h2>Discounts &amp; Discount Codes</h2>
+      <p>The catalogue supports reusable <strong>Discounts</strong> — percentage or fixed-amount reductions applied over a configurable duration. <strong>Discount Codes</strong> are short redemption tokens customers use to apply a discount to their subscription.</p>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">name<span class="req">required</span></td><td class="ft">string</td><td class="fd">Internal name, e.g. "Q3 Launch Promo"</td></tr>
+          <tr><td class="fn">discountType<span class="req">required</span></td><td class="ft">PERCENTAGE | FIXED_AMOUNT</td><td class="fd">Percentage off or a fixed currency reduction</td></tr>
+          <tr><td class="fn">discountMethod<span class="req">required</span></td><td class="ft">PERCENTAGE_OFF | FIXED_AMOUNT_OFF | TIERED_DISCOUNT | SEASONAL_DISCOUNT</td><td class="fd">How the discount is calculated</td></tr>
+          <tr><td class="fn">value<span class="req">required</span></td><td class="ft">decimal</td><td class="fd">e.g. 20 for 20% off, or 10.00 for $10 off</td></tr>
+          <tr><td class="fn">discountDuration<span class="req">required</span></td><td class="ft">PERMANENT | RECURRING | LIMITED_TIME</td><td class="fd">How long the discount applies</td></tr>
+          <tr><td class="fn">redemptionCount</td><td class="ft">integer</td><td class="fd">Max redemptions allowed</td></tr>
+        </tbody>
+      </table>
+      <div class="callout info">
+        <span class="callout-icon">ℹ</span>
+        <div class="callout-body"><p>Catalogue discounts become active on a subscription via <strong>Discount Instances</strong>. The discount terms are snapshotted at activation — future changes to the catalogue discount do not affect existing subscribers.</p></div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ PRICING MODELS — DETAIL ══ -->
+    <section class="doc-section" id="pup">
+      <div class="eyebrow">Pricing Models</div>
+      <h2>Price Per Unit (PUP)</h2>
+      <p>Every unit consumed is multiplied by a fixed <span class="mono">pricePerUnit</span>. Ideal for APIs, tokens, messages, or any metric where cost scales linearly.</p>
+      <div class="pricing-example">
+        <div class="pe-header">Example — $0.005 per API call</div>
+        <div class="pe-body">
+          <div class="pe-row"><span class="pe-tier">2,400 API calls</span><span class="pe-price">× $0.005</span></div>
+          <div class="pe-total"><span>Total</span><span class="pe-total-val">$12.00</span></div>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">json — rate definition</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre>{
+  <span class="tok-key">"chargeElement"</span>: <span class="tok-str">"api-calls"</span>,
+  <span class="tok-key">"priceType"</span>: <span class="tok-bool">"PER_UNIT"</span>, <span class="tok-key">"rateType"</span>: <span class="tok-bool">"RECURRING"</span>,
+  <span class="tok-key">"chargeType"</span>: <span class="tok-bool">"RECURRING"</span>, <span class="tok-key">"currency"</span>: <span class="tok-str">"USD"</span>,
+  <span class="tok-key">"pricePerUnit"</span>: <span class="tok-num">0.005</span>, <span class="tok-key">"rateCardId"</span>: <span class="tok-str">"&lt;rate-card-id&gt;"</span>
+}</pre>
+      </div>
+    </section>
+
+    <section class="doc-section" id="flat">
+      <div class="eyebrow">Pricing Models</div>
+      <h2>Flat Fee</h2>
+      <p>A fixed charge regardless of usage. Use it for base subscription fees, seat licenses, or platform access charges.</p>
+      <div class="pricing-example">
+        <div class="pe-header">Example — $49/month platform fee</div>
+        <div class="pe-body">
+          <div class="pe-row"><span class="pe-tier">Platform access</span><span class="pe-price">$49.00</span></div>
+          <div class="pe-total"><span>Total</span><span class="pe-total-val">$49.00</span></div>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">json — rate definition</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre>{
+  <span class="tok-key">"chargeElement"</span>: <span class="tok-str">"platform-fee"</span>,
+  <span class="tok-key">"priceType"</span>: <span class="tok-bool">"FLAT"</span>, <span class="tok-key">"rateType"</span>: <span class="tok-bool">"RECURRING"</span>,
+  <span class="tok-key">"chargeType"</span>: <span class="tok-bool">"RECURRING"</span>, <span class="tok-key">"currency"</span>: <span class="tok-str">"USD"</span>,
+  <span class="tok-key">"flatCharge"</span>: <span class="tok-num">49.00</span>, <span class="tok-key">"rateCardId"</span>: <span class="tok-str">"&lt;rate-card-id&gt;"</span>
+}</pre>
+      </div>
+    </section>
+
+    <section class="doc-section" id="tiered">
+      <div class="eyebrow">Pricing Models</div>
+      <h2>Tiered Pricing</h2>
+      <p>Tiered pricing rewards high-usage customers with lower unit rates. ConsumIQ supports <strong>Volume</strong> (entire usage priced at one tier) and <strong>Graduated</strong> (usage split across tiers) variants.</p>
+      <div class="pricing-example">
+        <div class="pe-header">Graduated tiered example — 8,000 units</div>
+        <div class="pe-body">
+          <div class="pe-row"><span class="pe-tier">First 1,000 units × $0.05</span><span class="pe-price">$50.00</span></div>
+          <div class="pe-row"><span class="pe-tier">Next 4,000 units (1,001–5,000) × $0.03</span><span class="pe-price">$120.00</span></div>
+          <div class="pe-row"><span class="pe-tier">Remaining 3,000 units (5,001–8,000) × $0.01</span><span class="pe-price">$30.00</span></div>
+          <div class="pe-total"><span>Total</span><span class="pe-total-val">$200.00</span></div>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">json — tiered rate definition</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre>{
+  <span class="tok-key">"chargeElement"</span>: <span class="tok-str">"compute-units"</span>,
+  <span class="tok-key">"priceType"</span>: <span class="tok-bool">"TIERED"</span>, <span class="tok-key">"rateType"</span>: <span class="tok-bool">"RECURRING"</span>,
+  <span class="tok-key">"chargeType"</span>: <span class="tok-bool">"RECURRING"</span>, <span class="tok-key">"currency"</span>: <span class="tok-str">"USD"</span>,
+  <span class="tok-key">"tiers"</span>: [
+    { <span class="tok-key">"tierOrder"</span>: <span class="tok-num">1</span>, <span class="tok-key">"floor"</span>: <span class="tok-num">0</span>,    <span class="tok-key">"ceiling"</span>: <span class="tok-num">1000</span>, <span class="tok-key">"pricePerUnit"</span>: <span class="tok-num">0.05</span> },
+    { <span class="tok-key">"tierOrder"</span>: <span class="tok-num">2</span>, <span class="tok-key">"floor"</span>: <span class="tok-num">1000</span>, <span class="tok-key">"ceiling"</span>: <span class="tok-num">5000</span>, <span class="tok-key">"pricePerUnit"</span>: <span class="tok-num">0.03</span> },
+    { <span class="tok-key">"tierOrder"</span>: <span class="tok-num">3</span>, <span class="tok-key">"floor"</span>: <span class="tok-num">5000</span>, <span class="tok-key">"ceiling"</span>: <span class="tok-kw">null</span>, <span class="tok-key">"pricePerUnit"</span>: <span class="tok-num">0.01</span> }
+  ],
+  <span class="tok-key">"rateCardId"</span>: <span class="tok-str">"&lt;rate-card-id&gt;"</span>
+}</pre>
+      </div>
+      <div class="callout info">
+        <span class="callout-icon">ℹ</span>
+        <div class="callout-body"><p>Set <span class="mono">ceiling: null</span> on the last tier to indicate "unlimited" — all usage above the floor is priced at that tier's rate.</p></div>
+      </div>
+    </section>
+
+    <section class="doc-section" id="dimensional">
+      <div class="eyebrow">Pricing Models</div>
+      <h2>Dimensional Pricing</h2>
+      <p>Dimensional pricing charges different rates for the same metric based on attribute values — for example, data egress priced differently by destination region.</p>
+      <div class="pricing-example">
+        <div class="pe-header">Example — egress priced by region</div>
+        <div class="pe-body">
+          <div class="pe-row"><span class="pe-tier">region: us-east-1 &nbsp;(500 GB)</span><span class="pe-price">500 × $0.08 = $40.00</span></div>
+          <div class="pe-row"><span class="pe-tier">region: eu-west-1 &nbsp;(200 GB)</span><span class="pe-price">200 × $0.12 = $24.00</span></div>
+          <div class="pe-row"><span class="pe-tier">region: ap-southeast-1 (100 GB)</span><span class="pe-price">100 × $0.15 = $15.00</span></div>
+          <div class="pe-total"><span>Total</span><span class="pe-total-val">$79.00</span></div>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">json — dimensional rate definition</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre>{
+  <span class="tok-key">"chargeElement"</span>: <span class="tok-str">"egress-gb"</span>,
+  <span class="tok-key">"priceType"</span>: <span class="tok-bool">"PER_UNIT"</span>, <span class="tok-key">"rateType"</span>: <span class="tok-bool">"DIMENSIONAL"</span>,
+  <span class="tok-key">"chargeType"</span>: <span class="tok-bool">"RECURRING"</span>, <span class="tok-key">"currency"</span>: <span class="tok-str">"USD"</span>,
+  <span class="tok-key">"dimensionalPrices"</span>: [
+    { <span class="tok-key">"dimensions"</span>: { <span class="tok-key">"region"</span>: <span class="tok-str">"us-east-1"</span>      }, <span class="tok-key">"pricePerUnit"</span>: <span class="tok-num">0.08</span> },
+    { <span class="tok-key">"dimensions"</span>: { <span class="tok-key">"region"</span>: <span class="tok-str">"eu-west-1"</span>      }, <span class="tok-key">"pricePerUnit"</span>: <span class="tok-num">0.12</span> },
+    { <span class="tok-key">"dimensions"</span>: { <span class="tok-key">"region"</span>: <span class="tok-str">"ap-southeast-1"</span> }, <span class="tok-key">"pricePerUnit"</span>: <span class="tok-num">0.15</span> }
+  ],
+  <span class="tok-key">"rateCardId"</span>: <span class="tok-str">"&lt;rate-card-id&gt;"</span>
+}</pre>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ USAGE EVENTS ══ -->
+    <section class="doc-section" id="usage-events">
+      <div class="eyebrow">Metering</div>
+      <h2>Usage Events</h2>
+      <p>Usage events are the consumption signals your application sends to ConsumIQ. The API responds with <span class="mono">202 Accepted</span> immediately — events are durably queued and do not block your request handler.</p>
+
+      <h3>Send a single event</h3>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">POST</span> <span class="tok-url">/api/v1/usage-events</span>
+
+{
+  <span class="tok-key">"eventId"</span>:         <span class="tok-str">"evt_cust123_1719820800"</span>,
+  <span class="tok-key">"usageKey"</span>:        <span class="tok-str">"api.calls"</span>,
+  <span class="tok-key">"usageIdentifier"</span>: <span class="tok-str">"customer-123"</span>,
+  <span class="tok-key">"value"</span>:           <span class="tok-num">1</span>,
+  <span class="tok-key">"usageTimestamp"</span>:  <span class="tok-num">1719820800000</span>,
+  <span class="tok-key">"dimensions"</span>: { <span class="tok-key">"region"</span>: <span class="tok-str">"us-east-1"</span> }
+}
+<span class="tok-cmt"># Response 202 Accepted</span>
+{ <span class="tok-key">"eventId"</span>: <span class="tok-str">"evt_cust123_1719820800"</span>, <span class="tok-key">"status"</span>: <span class="tok-bool">"ACCEPTED"</span> }</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> ack = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/usage-events`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">eventId</span>:         <span class="tok-str">'evt_cust123_1719820800'</span>, <span class="tok-cmt">// must be unique</span>
+    <span class="tok-key">usageKey</span>:        <span class="tok-str">'api.calls'</span>,
+    <span class="tok-key">usageIdentifier</span>: <span class="tok-str">'customer-123'</span>,
+    <span class="tok-key">value</span>:           <span class="tok-num">1</span>,
+    <span class="tok-key">usageTimestamp</span>:  Date.<span class="tok-fn">now</span>(),
+    <span class="tok-key">dimensions</span>:      { <span class="tok-key">region</span>: <span class="tok-str">'us-east-1'</span> }
+  })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>()); <span class="tok-cmt">// ack.status === "ACCEPTED"</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>ack = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/usage-events'</span>, headers=headers, json={
+    <span class="tok-str">'eventId'</span>:         <span class="tok-str">'evt_cust123_1719820800'</span>,  <span class="tok-cmt"># unique</span>
+    <span class="tok-str">'usageKey'</span>:        <span class="tok-str">'api.calls'</span>,
+    <span class="tok-str">'usageIdentifier'</span>: <span class="tok-str">'customer-123'</span>,
+    <span class="tok-str">'value'</span>:           <span class="tok-num">1</span>,
+    <span class="tok-str">'usageTimestamp'</span>:  <span class="tok-fn">int</span>(time.<span class="tok-fn">time</span>() * <span class="tok-num">1000</span>),
+    <span class="tok-str">'dimensions'</span>:      {<span class="tok-str">'region'</span>: <span class="tok-str">'us-east-1'</span>}
+}).<span class="tok-fn">json</span>()</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; ack = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/usage-events"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"eventId"</span>,         <span class="tok-str">"evt_cust123_1719820800"</span>,  <span class="tok-cmt">// unique</span>
+    <span class="tok-str">"usageKey"</span>,        <span class="tok-str">"api.calls"</span>,
+    <span class="tok-str">"usageIdentifier"</span>, <span class="tok-str">"customer-123"</span>,
+    <span class="tok-str">"value"</span>,           <span class="tok-num">1</span>,
+    <span class="tok-str">"usageTimestamp"</span>,  System.<span class="tok-fn">currentTimeMillis</span>(),
+    <span class="tok-str">"dimensions"</span>,      Map.<span class="tok-fn">of</span>(<span class="tok-str">"region"</span>, <span class="tok-str">"us-east-1"</span>)
+));
+<span class="tok-cmt">// ack.get("status") == "ACCEPTED"</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <h3>Send a batch</h3>
+      <p>Batch ingestion is recommended for high-throughput scenarios. Up to <strong>500 events</strong> per batch request.</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">POST</span> <span class="tok-url">/api/v1/usage-events/batch</span>
+
+{
+  <span class="tok-key">"events"</span>: [
+    { <span class="tok-key">"eventId"</span>: <span class="tok-str">"evt_001"</span>, <span class="tok-key">"usageKey"</span>: <span class="tok-str">"api.calls"</span>, <span class="tok-key">"usageIdentifier"</span>: <span class="tok-str">"cust-1"</span>, <span class="tok-key">"value"</span>: <span class="tok-num">10</span>, <span class="tok-key">"usageTimestamp"</span>: <span class="tok-num">1719820800000</span> },
+    { <span class="tok-key">"eventId"</span>: <span class="tok-str">"evt_002"</span>, <span class="tok-key">"usageKey"</span>: <span class="tok-str">"api.calls"</span>, <span class="tok-key">"usageIdentifier"</span>: <span class="tok-str">"cust-2"</span>, <span class="tok-key">"value"</span>: <span class="tok-num">55</span>, <span class="tok-key">"usageTimestamp"</span>: <span class="tok-num">1719820801000</span> }
+  ]
+}</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/usage-events/batch`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">events</span>: [
+      { <span class="tok-key">eventId</span>: <span class="tok-str">'evt_001'</span>, <span class="tok-key">usageKey</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-key">usageIdentifier</span>: <span class="tok-str">'cust-1'</span>, <span class="tok-key">value</span>: <span class="tok-num">10</span>, <span class="tok-key">usageTimestamp</span>: Date.<span class="tok-fn">now</span>() },
+      { <span class="tok-key">eventId</span>: <span class="tok-str">'evt_002'</span>, <span class="tok-key">usageKey</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-key">usageIdentifier</span>: <span class="tok-str">'cust-2'</span>, <span class="tok-key">value</span>: <span class="tok-num">55</span>, <span class="tok-key">usageTimestamp</span>: Date.<span class="tok-fn">now</span>() }
+    ]
+  })
+});</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/usage-events/batch'</span>, headers=headers, json={
+    <span class="tok-str">'events'</span>: [
+        {<span class="tok-str">'eventId'</span>: <span class="tok-str">'evt_001'</span>, <span class="tok-str">'usageKey'</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-str">'usageIdentifier'</span>: <span class="tok-str">'cust-1'</span>, <span class="tok-str">'value'</span>: <span class="tok-num">10</span>, <span class="tok-str">'usageTimestamp'</span>: now_ms},
+        {<span class="tok-str">'eventId'</span>: <span class="tok-str">'evt_002'</span>, <span class="tok-str">'usageKey'</span>: <span class="tok-str">'api.calls'</span>, <span class="tok-str">'usageIdentifier'</span>: <span class="tok-str">'cust-2'</span>, <span class="tok-str">'value'</span>: <span class="tok-num">55</span>, <span class="tok-str">'usageTimestamp'</span>: now_ms},
+    ]
+})</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">long</span> nowMs = System.<span class="tok-fn">currentTimeMillis</span>();
+<span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/usage-events/batch"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"events"</span>, List.<span class="tok-fn">of</span>(
+        Map.<span class="tok-fn">of</span>(<span class="tok-str">"eventId"</span>, <span class="tok-str">"evt_001"</span>, <span class="tok-str">"usageKey"</span>, <span class="tok-str">"api.calls"</span>,
+                <span class="tok-str">"usageIdentifier"</span>, <span class="tok-str">"cust-1"</span>, <span class="tok-str">"value"</span>, <span class="tok-num">10</span>, <span class="tok-str">"usageTimestamp"</span>, nowMs),
+        Map.<span class="tok-fn">of</span>(<span class="tok-str">"eventId"</span>, <span class="tok-str">"evt_002"</span>, <span class="tok-str">"usageKey"</span>, <span class="tok-str">"api.calls"</span>,
+                <span class="tok-str">"usageIdentifier"</span>, <span class="tok-str">"cust-2"</span>, <span class="tok-str">"value"</span>, <span class="tok-num">55</span>, <span class="tok-str">"usageTimestamp"</span>, nowMs)
+    )
+));</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3>Event fields</h3>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">eventId<span class="req">required</span></td><td class="ft">string</td><td class="fd">Unique ID — used for deduplication on retries</td></tr>
+          <tr><td class="fn">usageKey<span class="req">required</span></td><td class="ft">string</td><td class="fd">Must match a defined Usage Element</td></tr>
+          <tr><td class="fn">usageIdentifier<span class="req">required</span></td><td class="ft">string</td><td class="fd">The customer or entity whose usage this records</td></tr>
+          <tr><td class="fn">value<span class="req">required</span></td><td class="ft">number (≥ 0)</td><td class="fd">Quantity consumed in this event</td></tr>
+          <tr><td class="fn">usageTimestamp<span class="req">required</span></td><td class="ft">long (Unix ms)</td><td class="fd">When this consumption occurred</td></tr>
+          <tr><td class="fn">dimensions</td><td class="ft">map&lt;string, string&gt;</td><td class="fd">Key/value attributes for dimensional pricing</td></tr>
+          <tr><td class="fn">schemaVersion</td><td class="ft">integer</td><td class="fd">Event schema version for validation</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ══ EVENT SCHEMAS ══ -->
+    <section class="doc-section" id="event-schemas">
+      <div class="eyebrow">Metering</div>
+      <h2>Usage Event Schemas</h2>
+      <p>A <strong>Usage Event Schema</strong> defines the versioned contract for events with a given <span class="mono">usageKey</span>. Schema versioning lets producers and consumers evolve independently.</p>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">usageKey<span class="req">required</span></td><td class="ft">string</td><td class="fd">The usage key this schema applies to</td></tr>
+          <tr><td class="fn">schemaVersion<span class="req">required</span></td><td class="ft">integer</td><td class="fd">Monotonically increasing version number</td></tr>
+          <tr><td class="fn">dimensions</td><td class="ft">DimensionDefinition[]</td><td class="fd">Expected dimension keys and their types for validation</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ PRORATION ══ -->
+    <section class="doc-section" id="proration">
+      <div class="eyebrow">Billing</div>
+      <h2>Proration</h2>
+      <p>When a subscription starts, ends, or changes mid-period, ConsumIQ can prorate charges to reflect only the time the customer was active.</p>
+      <div class="concept-list">
+        <div class="concept-item"><span class="concept-tag">DAY</span><div class="concept-body"><h5>Day proration</h5><p>Charge × (active days ÷ total days in period). Standard for monthly and annual subscriptions.</p></div></div>
+        <div class="concept-item"><span class="concept-tag">SECOND</span><div class="concept-body"><h5>Second proration</h5><p>Charge × (active seconds ÷ total seconds). High-precision for infrastructure or compute billing.</p></div></div>
+      </div>
+      <p>Enable proration on a Rate with <span class="mono">"prorationEnabled": true</span> and set <span class="mono">supportedProrationSetting</span> to <span class="mono">DAY</span> or <span class="mono">SECOND</span>.</p>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ INVOICES ══ -->
+    <section class="doc-section" id="invoices">
+      <div class="eyebrow">Invoices</div>
+      <h2>Invoices</h2>
+      <p>An <strong>Invoice</strong> is created automatically when a billing timeline is processed. It consolidates all charges for a subscription period into a single document with line items, an amount, and a status lifecycle.</p>
+
+      <h3>Status lifecycle</h3>
+      <div class="status-flow">
+        <span class="status-node s-neutral">DRAFT</span><span class="s-arrow">→</span>
+        <span class="status-node s-active">PENDING</span><span class="s-arrow">→</span>
+        <span class="status-node s-terminal">PAID</span>
+      </div>
+
+      <h3>Create an invoice</h3>
+      <p>Invoices are created automatically when processing a billing timeline. You can also create them directly.</p>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">http</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">POST</span> <span class="tok-url">/api/v1/invoices</span>
+
+{
+  <span class="tok-key">"subscriptionId"</span>: <span class="tok-str">"sub_acme_001"</span>,
+  <span class="tok-key">"customerId"</span>: <span class="tok-str">"cust-acme"</span>,
+  <span class="tok-key">"items"</span>: [
+    {
+      <span class="tok-key">"billingTimelineId"</span>: <span class="tok-num">42</span>,
+      <span class="tok-key">"timelineItemId"</span>: <span class="tok-str">"tli_001"</span>,
+      <span class="tok-key">"billingPeriodStart"</span>: <span class="tok-num">1719792000000</span>,
+      <span class="tok-key">"billingPeriodEnd"</span>:   <span class="tok-num">1722470400000</span>,
+      <span class="tok-key">"subtotal"</span>: <span class="tok-num">49.00</span>,
+      <span class="tok-key">"total"</span>:    <span class="tok-num">49.00</span>,
+      <span class="tok-key">"qty"</span>:      <span class="tok-num">1</span>
+    }
+  ]
+}</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> invoice = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/invoices`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">subscriptionId</span>: <span class="tok-str">'sub_acme_001'</span>,
+    <span class="tok-key">customerId</span>:     <span class="tok-str">'cust-acme'</span>,
+    <span class="tok-key">items</span>: [{
+      <span class="tok-key">billingTimelineId</span>: <span class="tok-num">42</span>, <span class="tok-key">timelineItemId</span>: <span class="tok-str">'tli_001'</span>,
+      <span class="tok-key">billingPeriodStart</span>: <span class="tok-num">1719792000000</span>, <span class="tok-key">billingPeriodEnd</span>: <span class="tok-num">1722470400000</span>,
+      <span class="tok-key">subtotal</span>: <span class="tok-num">49.00</span>, <span class="tok-key">total</span>: <span class="tok-num">49.00</span>, <span class="tok-key">qty</span>: <span class="tok-num">1</span>
+    }]
+  })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>invoice = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/invoices'</span>, headers=headers, json={
+    <span class="tok-str">'subscriptionId'</span>: <span class="tok-str">'sub_acme_001'</span>,
+    <span class="tok-str">'customerId'</span>:     <span class="tok-str">'cust-acme'</span>,
+    <span class="tok-str">'items'</span>: [{
+        <span class="tok-str">'billingTimelineId'</span>: <span class="tok-num">42</span>, <span class="tok-str">'timelineItemId'</span>: <span class="tok-str">'tli_001'</span>,
+        <span class="tok-str">'billingPeriodStart'</span>: <span class="tok-num">1719792000000</span>, <span class="tok-str">'billingPeriodEnd'</span>: <span class="tok-num">1722470400000</span>,
+        <span class="tok-str">'subtotal'</span>: <span class="tok-num">49.00</span>, <span class="tok-str">'total'</span>: <span class="tok-num">49.00</span>, <span class="tok-str">'qty'</span>: <span class="tok-num">1</span>
+    }]
+}).<span class="tok-fn">json</span>()</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; invoice = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/invoices"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"subscriptionId"</span>, <span class="tok-str">"sub_acme_001"</span>,
+    <span class="tok-str">"customerId"</span>,     <span class="tok-str">"cust-acme"</span>,
+    <span class="tok-str">"items"</span>, List.<span class="tok-fn">of</span>(Map.<span class="tok-fn">of</span>(
+        <span class="tok-str">"billingTimelineId"</span>, <span class="tok-num">42</span>, <span class="tok-str">"timelineItemId"</span>, <span class="tok-str">"tli_001"</span>,
+        <span class="tok-str">"billingPeriodStart"</span>, <span class="tok-num">1719792000000L</span>, <span class="tok-str">"billingPeriodEnd"</span>, <span class="tok-num">1722470400000L</span>,
+        <span class="tok-str">"subtotal"</span>, <span class="tok-num">49.00</span>, <span class="tok-str">"total"</span>, <span class="tok-num">49.00</span>, <span class="tok-str">"qty"</span>, <span class="tok-num">1</span>
+    ))
+));</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3>Response — 201 Created</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">json — response</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre>{
+  <span class="tok-key">"id"</span>: <span class="tok-num">1</span>,
+  <span class="tok-key">"invoiceId"</span>:      <span class="tok-str">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span>,
+  <span class="tok-key">"subscriptionId"</span>: <span class="tok-str">"sub_acme_001"</span>,
+  <span class="tok-key">"customerId"</span>:     <span class="tok-str">"cust-acme"</span>,
+  <span class="tok-key">"amount"</span>:         <span class="tok-num">49.00</span>,
+  <span class="tok-key">"status"</span>:         <span class="tok-str">"DRAFT"</span>,
+  <span class="tok-key">"createdAt"</span>:      <span class="tok-str">"2024-07-01T00:00:00Z"</span>,
+  <span class="tok-key">"items"</span>: [
+    {
+      <span class="tok-key">"id"</span>: <span class="tok-num">1</span>,
+      <span class="tok-key">"billingTimelineId"</span>: <span class="tok-num">42</span>,
+      <span class="tok-key">"timelineItemId"</span>:   <span class="tok-str">"tli_001"</span>,
+      <span class="tok-key">"billingPeriodStart"</span>: <span class="tok-num">1719792000000</span>,
+      <span class="tok-key">"billingPeriodEnd"</span>:   <span class="tok-num">1722470400000</span>,
+      <span class="tok-key">"subtotal"</span>: <span class="tok-num">49.00</span>,
+      <span class="tok-key">"total"</span>:    <span class="tok-num">49.00</span>,
+      <span class="tok-key">"qty"</span>:      <span class="tok-num">1.0000</span>
+    }
+  ]
+}</pre>
+      </div>
+
+      <h3>Get an invoice</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">http</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="tok-kw">GET</span> <span class="tok-url">/api/v1/invoices/{id}</span>
+
+<span class="tok-cmt">// Returns 200 OK with the same schema as the create response</span></pre>
+      </div>
+
+      <h3>Invoice item fields</h3>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">billingTimelineId<span class="req">required</span></td><td class="ft">long</td><td class="fd">ID of the billing timeline that generated this charge</td></tr>
+          <tr><td class="fn">timelineItemId<span class="req">required</span></td><td class="ft">string</td><td class="fd">Rate card interval identifier within the timeline</td></tr>
+          <tr><td class="fn">billingPeriodStart<span class="req">required</span></td><td class="ft">long (Unix ms)</td><td class="fd">Start of the billed period</td></tr>
+          <tr><td class="fn">billingPeriodEnd<span class="req">required</span></td><td class="ft">long (Unix ms)</td><td class="fd">End of the billed period</td></tr>
+          <tr><td class="fn">subtotal<span class="req">required</span></td><td class="ft">decimal</td><td class="fd">Pre-discount amount</td></tr>
+          <tr><td class="fn">discountAmount</td><td class="ft">decimal</td><td class="fd">Discount applied to this line item</td></tr>
+          <tr><td class="fn">total<span class="req">required</span></td><td class="ft">decimal</td><td class="fd">Amount after discounts</td></tr>
+          <tr><td class="fn">qty<span class="req">required</span></td><td class="ft">decimal</td><td class="fd">Quantity billed</td></tr>
+          <tr><td class="fn">ratecardId</td><td class="ft">long</td><td class="fd">Rate card that drove this charge</td></tr>
+          <tr><td class="fn">prorationUnit</td><td class="ft">DAY | SECOND</td><td class="fd">Proration basis if charge is prorated</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ SUBSCRIPTIONS ══ -->
+    <section class="doc-section" id="subscriptions">
+      <div class="eyebrow">Subscriptions</div>
+      <h2>Subscriptions</h2>
+      <p>A <strong>Subscription</strong> links a customer to a Product Offering and Rate Card, carrying billing configuration and driving the billing lifecycle.</p>
+
+      <h3>Status lifecycle</h3>
+      <div class="status-flow">
+        <span class="status-node s-neutral">PENDING</span><span class="s-arrow">→</span>
+        <span class="status-node s-active">ACTIVE</span><span class="s-arrow">→</span>
+        <span class="status-node s-warn">INACTIVE</span><span class="s-arrow">→</span>
+        <span class="status-node s-terminal">CANCELLED</span>
+      </div>
+      <div class="status-flow" style="margin-top:8px">
+        <span class="status-node s-active">ACTIVE</span><span class="s-arrow">→</span>
+        <span class="status-node s-terminal">EXPIRED</span><span class="s-label">(at configured end date)</span>
+      </div>
+
+      <h3>Create a subscription</h3>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">curl</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">POST</span> <span class="tok-url">/api/v1/subscriptions</span>
+
+{
+  <span class="tok-key">"name"</span>: <span class="tok-str">"Acme Corp — Starter"</span>,
+  <span class="tok-key">"customerId"</span>: <span class="tok-str">"cust-acme"</span>,
+  <span class="tok-key">"productOfferingId"</span>: <span class="tok-str">"&lt;offering-id&gt;"</span>,
+  <span class="tok-key">"billing"</span>: {
+    <span class="tok-key">"rateCardId"</span>: <span class="tok-str">"&lt;rate-card-id&gt;"</span>,
+    <span class="tok-key">"billingItems"</span>: [
+      { <span class="tok-key">"rateId"</span>: <span class="tok-str">"&lt;fee-rate-id&gt;"</span> },
+      { <span class="tok-key">"rateId"</span>: <span class="tok-str">"&lt;calls-rate-id&gt;"</span> }
+    ]
+  },
+  <span class="tok-key">"billingCycleAnchor"</span>: { <span class="tok-key">"anchorDay"</span>: <span class="tok-num">1</span> }
+}</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> sub = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/subscriptions`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">name</span>: <span class="tok-str">'Acme Corp — Starter'</span>, <span class="tok-key">customerId</span>: <span class="tok-str">'cust-acme'</span>,
+    <span class="tok-key">productOfferingId</span>: offeringId,
+    <span class="tok-key">billing</span>: {
+      <span class="tok-key">rateCardId</span>: rateCardId,
+      <span class="tok-key">billingItems</span>: [{ <span class="tok-key">rateId</span>: feeRateId }, { <span class="tok-key">rateId</span>: callRateId }]
+    },
+    <span class="tok-key">billingCycleAnchor</span>: { <span class="tok-key">anchorDay</span>: <span class="tok-num">1</span> }
+  })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>sub = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/subscriptions'</span>, headers=headers, json={
+    <span class="tok-str">'name'</span>: <span class="tok-str">'Acme Corp — Starter'</span>, <span class="tok-str">'customerId'</span>: <span class="tok-str">'cust-acme'</span>,
+    <span class="tok-str">'productOfferingId'</span>: offering_id,
+    <span class="tok-str">'billing'</span>: {
+        <span class="tok-str">'rateCardId'</span>: rate_card_id,
+        <span class="tok-str">'billingItems'</span>: [{<span class="tok-str">'rateId'</span>: fee_rate_id}, {<span class="tok-str">'rateId'</span>: call_rate_id}]
+    },
+    <span class="tok-str">'billingCycleAnchor'</span>: {<span class="tok-str">'anchorDay'</span>: <span class="tok-num">1</span>}
+}).<span class="tok-fn">json</span>()</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; sub = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/subscriptions"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"name"</span>,             <span class="tok-str">"Acme Corp — Starter"</span>,
+    <span class="tok-str">"customerId"</span>,       <span class="tok-str">"cust-acme"</span>,
+    <span class="tok-str">"productOfferingId"</span>, offeringId,
+    <span class="tok-str">"billing"</span>, Map.<span class="tok-fn">of</span>(
+        <span class="tok-str">"rateCardId"</span>,   rateCardId,
+        <span class="tok-str">"billingItems"</span>, List.<span class="tok-fn">of</span>(
+            Map.<span class="tok-fn">of</span>(<span class="tok-str">"rateId"</span>, feeRateId),
+            Map.<span class="tok-fn">of</span>(<span class="tok-str">"rateId"</span>, callRateId)
+        )
+    ),
+    <span class="tok-str">"billingCycleAnchor"</span>, Map.<span class="tok-fn">of</span>(<span class="tok-str">"anchorDay"</span>, <span class="tok-num">1</span>)
+));</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3>Amend a subscription</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">http</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="tok-kw">PATCH</span> <span class="tok-url">/api/v1/subscriptions/{id}/amend</span>
+{ <span class="tok-key">"status"</span>: <span class="tok-bool">"INACTIVE"</span> }
+
+<span class="tok-cmt">// GET /api/v1/subscriptions/{id}/amendments — list all amendments</span></pre>
+      </div>
+    </section>
+
+    <!-- ══ BILLING SCHEDULES ══ -->
+    <section class="doc-section" id="billing-schedules">
+      <div class="eyebrow">Subscriptions</div>
+      <h2>Billing Schedules</h2>
+      <p>A <strong>Billing Schedule</strong> defines when a subscription is billed. It decouples billing cadence from the rate card so the same pricing can be billed monthly, quarterly, or annually.</p>
+
+      <h3>Create a billing schedule</h3>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">http</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">POST</span> <span class="tok-url">/api/v1/billing-schedules</span>
+
+{
+  <span class="tok-key">"name"</span>: <span class="tok-str">"Monthly on 1st"</span>,
+  <span class="tok-key">"type"</span>: <span class="tok-str">"MONTHLY"</span>,
+  <span class="tok-key">"billingCycleAnchor"</span>: { <span class="tok-key">"anchorDay"</span>: <span class="tok-num">1</span> }
+}
+
+<span class="tok-cmt">// For a custom quarterly schedule:</span>
+{
+  <span class="tok-key">"name"</span>: <span class="tok-str">"Quarterly"</span>,
+  <span class="tok-key">"type"</span>: <span class="tok-str">"CUSTOM"</span>,
+  <span class="tok-key">"cycleInterval"</span>: <span class="tok-str">"QUARTERLY"</span>,
+  <span class="tok-key">"intervalCount"</span>: <span class="tok-num">1</span>
+}
+
+<span class="tok-cmt">// Response — 201 Created
+// GET /api/v1/billing-schedules/{id}
+// DELETE /api/v1/billing-schedules/{id}</span></pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> sched = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/billing-schedules`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">name</span>: <span class="tok-str">'Monthly on 1st'</span>,
+    <span class="tok-key">type</span>: <span class="tok-str">'MONTHLY'</span>,
+    <span class="tok-key">billingCycleAnchor</span>: { <span class="tok-key">anchorDay</span>: <span class="tok-num">1</span> }
+  })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>sched = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/billing-schedules'</span>, headers=headers, json={
+    <span class="tok-str">'name'</span>: <span class="tok-str">'Monthly on 1st'</span>,
+    <span class="tok-str">'type'</span>: <span class="tok-str">'MONTHLY'</span>,
+    <span class="tok-str">'billingCycleAnchor'</span>: {<span class="tok-str">'anchorDay'</span>: <span class="tok-num">1</span>}
+}).<span class="tok-fn">json</span>()</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; sched = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/billing-schedules"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"name"</span>, <span class="tok-str">"Monthly on 1st"</span>,
+    <span class="tok-str">"type"</span>, <span class="tok-str">"MONTHLY"</span>,
+    <span class="tok-str">"billingCycleAnchor"</span>, Map.<span class="tok-fn">of</span>(<span class="tok-str">"anchorDay"</span>, <span class="tok-num">1</span>)
+));</pre>
+          </div>
+        </div>
+      </div>
+
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">name<span class="req">required</span></td><td class="ft">string</td><td class="fd">Human-readable name</td></tr>
+          <tr><td class="fn">type<span class="req">required</span></td><td class="ft">STANDARD | CUSTOM | ANNUAL | SEMI_ANNUAL | QUARTERLY | MONTHLY | WEEKLY | DAILY</td><td class="fd">Billing frequency</td></tr>
+          <tr><td class="fn">cycleInterval</td><td class="ft">DAILY | WEEKLY | MONTHLY | QUARTERLY | SEMI_ANNUALLY | ANNUALLY</td><td class="fd">Interval unit for CUSTOM type</td></tr>
+          <tr><td class="fn">intervalCount</td><td class="ft">integer (≥1)</td><td class="fd">Number of intervals per cycle for CUSTOM type</td></tr>
+          <tr><td class="fn">billingCycleAnchor</td><td class="ft">object</td><td class="fd">Anchor configuration (anchorDay, anchorMonth, anchorTime)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ══ SUBSCRIPTION SCHEDULES ══ -->
+    <section class="doc-section" id="subscription-schedules">
+      <div class="eyebrow">Subscriptions</div>
+      <h2>Subscription Schedules</h2>
+      <p>A <strong>Subscription Schedule</strong> lets you pre-plan future billing phases — for example, a trial period that transitions to paid, or a plan upgrade that takes effect at a specific date. Each phase overrides billing configuration for its time window.</p>
+
+      <h3>Create a subscription schedule</h3>
+      <div class="code-group">
+        <div class="lang-pane" data-lang="curl">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">http</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">POST</span> <span class="tok-url">/api/v1/subscription-schedules</span>
+
+{
+  <span class="tok-key">"subscriptionId"</span>: <span class="tok-str">"sub_acme_001"</span>,
+  <span class="tok-key">"phases"</span>: [
+    {
+      <span class="tok-key">"startAt"</span>: <span class="tok-num">1719792000000</span>,
+      <span class="tok-key">"endAt"</span>:   <span class="tok-num">1722470400000</span>,
+      <span class="tok-key">"billing"</span>: {
+        <span class="tok-key">"rateCardId"</span>: <span class="tok-str">"&lt;starter-rate-card-id&gt;"</span>,
+        <span class="tok-key">"billingItems"</span>: [{ <span class="tok-key">"rateId"</span>: <span class="tok-str">"&lt;rate-id&gt;"</span> }]
+      }
+    },
+    {
+      <span class="tok-key">"startAt"</span>: <span class="tok-num">1722470400000</span>,
+      <span class="tok-key">"billing"</span>: {
+        <span class="tok-key">"rateCardId"</span>: <span class="tok-str">"&lt;growth-rate-card-id&gt;"</span>,
+        <span class="tok-key">"billingItems"</span>: [{ <span class="tok-key">"rateId"</span>: <span class="tok-str">"&lt;rate-id&gt;"</span> }]
+      }
+    }
+  ]
+}</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="js">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">node.js</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-kw">const</span> schedule = <span class="tok-kw">await</span> <span class="tok-fn">fetch</span>(`${BASE}/api/v1/subscription-schedules`, {
+  <span class="tok-key">method</span>: <span class="tok-str">'POST'</span>, headers,
+  <span class="tok-key">body</span>: JSON.<span class="tok-fn">stringify</span>({
+    <span class="tok-key">subscriptionId</span>: <span class="tok-str">'sub_acme_001'</span>,
+    <span class="tok-key">phases</span>: [
+      { <span class="tok-key">startAt</span>: <span class="tok-num">1719792000000</span>, <span class="tok-key">endAt</span>: <span class="tok-num">1722470400000</span>,
+        <span class="tok-key">billing</span>: { <span class="tok-key">rateCardId</span>: starterRcId, <span class="tok-key">billingItems</span>: [{ <span class="tok-key">rateId</span>: rateId }] } },
+      { <span class="tok-key">startAt</span>: <span class="tok-num">1722470400000</span>,
+        <span class="tok-key">billing</span>: { <span class="tok-key">rateCardId</span>: growthRcId, <span class="tok-key">billingItems</span>: [{ <span class="tok-key">rateId</span>: rateId }] } }
+    ]
+  })
+}).<span class="tok-fn">then</span>(r => r.<span class="tok-fn">json</span>());</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="py">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">python</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre>schedule = requests.<span class="tok-fn">post</span>(<span class="tok-fn">f</span><span class="tok-str">'{BASE}/api/v1/subscription-schedules'</span>, headers=headers, json={
+    <span class="tok-str">'subscriptionId'</span>: <span class="tok-str">'sub_acme_001'</span>,
+    <span class="tok-str">'phases'</span>: [
+        { <span class="tok-str">'startAt'</span>: <span class="tok-num">1719792000000</span>, <span class="tok-str">'endAt'</span>: <span class="tok-num">1722470400000</span>,
+          <span class="tok-str">'billing'</span>: {<span class="tok-str">'rateCardId'</span>: starter_rc_id, <span class="tok-str">'billingItems'</span>: [{<span class="tok-str">'rateId'</span>: rate_id}]} },
+        { <span class="tok-str">'startAt'</span>: <span class="tok-num">1722470400000</span>,
+          <span class="tok-str">'billing'</span>: {<span class="tok-str">'rateCardId'</span>: growth_rc_id, <span class="tok-str">'billingItems'</span>: [{<span class="tok-str">'rateId'</span>: rate_id}]} }
+    ]
+}).<span class="tok-fn">json</span>()</pre>
+          </div>
+        </div>
+        <div class="lang-pane" data-lang="java">
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <pre><span class="tok-type">Map</span>&lt;?,?&gt; schedule = <span class="tok-fn">post</span>(<span class="tok-str">"/api/v1/subscription-schedules"</span>, Map.<span class="tok-fn">of</span>(
+    <span class="tok-str">"subscriptionId"</span>, <span class="tok-str">"sub_acme_001"</span>,
+    <span class="tok-str">"phases"</span>, List.<span class="tok-fn">of</span>(
+        Map.<span class="tok-fn">of</span>(<span class="tok-str">"startAt"</span>, <span class="tok-num">1719792000000L</span>, <span class="tok-str">"endAt"</span>, <span class="tok-num">1722470400000L</span>,
+                <span class="tok-str">"billing"</span>, Map.<span class="tok-fn">of</span>(<span class="tok-str">"rateCardId"</span>, starterRcId,
+                    <span class="tok-str">"billingItems"</span>, List.<span class="tok-fn">of</span>(Map.<span class="tok-fn">of</span>(<span class="tok-str">"rateId"</span>, rateId)))),
+        Map.<span class="tok-fn">of</span>(<span class="tok-str">"startAt"</span>, <span class="tok-num">1722470400000L</span>,
+                <span class="tok-str">"billing"</span>, Map.<span class="tok-fn">of</span>(<span class="tok-str">"rateCardId"</span>, growthRcId,
+                    <span class="tok-str">"billingItems"</span>, List.<span class="tok-fn">of</span>(Map.<span class="tok-fn">of</span>(<span class="tok-str">"rateId"</span>, rateId))))
+    )
+));</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3>Phase fields</h3>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">startAt<span class="req">required</span></td><td class="ft">long (Unix ms)</td><td class="fd">When this phase begins</td></tr>
+          <tr><td class="fn">endAt</td><td class="ft">long (Unix ms)</td><td class="fd">When this phase ends — omit for an open-ended final phase</td></tr>
+          <tr><td class="fn">billing<span class="req">required</span></td><td class="ft">object</td><td class="fd">Rate card and billing items that apply during this phase</td></tr>
+          <tr><td class="fn">billingScheduleId</td><td class="ft">string</td><td class="fd">Override the default billing schedule for this phase</td></tr>
+          <tr><td class="fn">billingCycleAnchor</td><td class="ft">object</td><td class="fd">Override anchor for this phase</td></tr>
+          <tr><td class="fn">freeUsage</td><td class="ft">object</td><td class="fd">Free usage allowance override for this phase</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout info">
+        <span class="callout-icon">ℹ</span>
+        <div class="callout-body"><p>Retrieve a schedule with <span class="mono">GET /api/v1/subscription-schedules/{id}</span>, or list all schedules for a subscription with <span class="mono">GET /api/v1/subscription-schedules?subscriptionId={id}</span>.</p></div>
+      </div>
+    </section>
+
+    <!-- ══ DISCOUNT INSTANCES ══ -->
+    <section class="doc-section" id="discount-instances">
+      <div class="eyebrow">Subscriptions</div>
+      <h2>Discount Instances</h2>
+      <p>A <strong>Discount Instance</strong> is an active discount applied to a specific subscription. Discount terms are <strong>snapshotted at activation time</strong>.</p>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">status</td><td class="ft">ACTIVE | PENDING | EXPIRED | REVOKED</td><td class="fd">Only ACTIVE instances are applied at billing time</td></tr>
+          <tr><td class="fn">snapshot</td><td class="ft">object</td><td class="fd">Immutable snapshot of discount terms at activation</td></tr>
+          <tr><td class="fn">startAt / endAt</td><td class="ft">long (Unix ms)</td><td class="fd">Validity window for this discount instance</td></tr>
+        </tbody>
+      </table>
+      <div class="callout info">
+        <span class="callout-icon">ℹ</span>
+        <div class="callout-body"><p>Query discount instances with <span class="mono">GET /api/v1/discount-instances?subscriptionId={id}&amp;status=ACTIVE</span>.</p></div>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ ACCOUNTS ══ -->
+    <section class="doc-section" id="accounts">
+      <div class="eyebrow">Accounts</div>
+      <h2>Accounts</h2>
+      <p>An <strong>Account</strong> represents a billing entity — typically a company or customer organization. Use sandbox accounts for development and testing.</p>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">companyName<span class="req">required</span></td><td class="ft">string</td><td class="fd">Company or organization name</td></tr>
+          <tr><td class="fn">personId<span class="req">required</span></td><td class="ft">UUID</td><td class="fd">The initial member and owner of this account</td></tr>
+          <tr><td class="fn">externalOrgId</td><td class="ft">string</td><td class="fd">Optional external identifier for mapping to your system</td></tr>
+          <tr><td class="fn">livemode</td><td class="ft">boolean</td><td class="fd">true = production; false = sandbox</td></tr>
+          <tr><td class="fn">status</td><td class="ft">ACTIVE | INACTIVE | DELETED</td><td class="fd">INACTIVE pauses access without deletion</td></tr>
+        </tbody>
+      </table>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">http</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="tok-cmt"># Manage members</span>
+<span class="tok-kw">POST</span>   <span class="tok-url">/api/v1/accounts/{accountId}/memberships</span>   <span class="tok-cmt">{ "personId": "..." }</span>
+<span class="tok-kw">GET</span>    <span class="tok-url">/api/v1/accounts/{accountId}/memberships</span>
+<span class="tok-kw">DELETE</span> <span class="tok-url">/api/v1/accounts/{accountId}/memberships/{personId}</span>
+
+<span class="tok-cmt"># Graduate sandbox → live</span>
+<span class="tok-kw">POST</span>   <span class="tok-url">/api/v1/internal/accounts/provision-live</span>   <span class="tok-cmt">{ "sandboxAccountId": "..." }</span></pre>
+      </div>
+    </section>
+
+    <!-- ══ PERSONS ══ -->
+    <section class="doc-section" id="persons">
+      <div class="eyebrow">Accounts</div>
+      <h2>Persons</h2>
+      <p>A <strong>Person</strong> is an individual user who can be a member of one or more Accounts. Persons authenticate via their <span class="mono">externalAuthId</span> which maps to your identity provider.</p>
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="fn">externalAuthId<span class="req">required</span></td><td class="ft">string</td><td class="fd">ID from your identity provider (e.g. Auth0 sub)</td></tr>
+          <tr><td class="fn">email<span class="req">required</span></td><td class="ft">string</td><td class="fd">Valid email address</td></tr>
+          <tr><td class="fn">name<span class="req">required</span></td><td class="ft">string</td><td class="fd">Display name</td></tr>
+          <tr><td class="fn">timezone</td><td class="ft">string</td><td class="fd">IANA timezone, e.g. "America/New_York"</td></tr>
+          <tr><td class="fn">status</td><td class="ft">ACTIVE | DELETED</td><td class="fd">Person lifecycle status</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="section-divider" />
+
+    <!-- ══ BEST PRACTICES ══ -->
+    <section class="doc-section" id="best-practices">
+      <div class="eyebrow">Reference</div>
+      <h2>Best Practices</h2>
+      <div class="bp-list">
+        <div class="bp-item">
+          <div class="bp-icon">🔑</div>
+          <div class="bp-body"><h5>Always include eventId for idempotency</h5><p>Set <span class="mono">eventId</span> to a unique value on every usage event — e.g. <span class="mono">"evt_{customerId}_{timestamp}_{seq}"</span>. If your request times out and you retry, ConsumIQ will deduplicate using this ID so usage is never double-counted.</p></div>
+        </div>
+        <div class="bp-item">
+          <div class="bp-icon">📦</div>
+          <div class="bp-body"><h5>Use batch ingestion for high throughput</h5><p>POST to <span class="mono">/api/v1/usage-events/batch</span> with up to <strong>500 events</strong> per request. Batching reduces network overhead and is recommended for applications generating more than a few events per second.</p></div>
+        </div>
+        <div class="bp-item">
+          <div class="bp-icon">🕐</div>
+          <div class="bp-body"><h5>Use Unix milliseconds for all timestamps</h5><p>Every timestamp field — <span class="mono">usageTimestamp</span>, <span class="mono">periodFrom</span>, <span class="mono">periodTo</span>, <span class="mono">startAt</span>, <span class="mono">endAt</span> — expects a <strong>Unix epoch in milliseconds</strong> (13-digit long). Use <span class="mono">System.currentTimeMillis()</span> in Java, <span class="mono">Date.now()</span> in Node.js, or <span class="mono">int(time.time()*1000)</span> in Python.</p></div>
+        </div>
+        <div class="bp-item">
+          <div class="bp-icon">🎁</div>
+          <div class="bp-body"><h5>Send raw usage — don't pre-subtract allowances</h5><p>Report the actual quantity consumed. ConsumIQ deducts allowances automatically during charge calculation. Pre-subtracting in your application would result in under-reporting and incorrect charges.</p></div>
+        </div>
+        <div class="bp-item">
+          <div class="bp-icon">🔒</div>
+          <div class="bp-body"><h5>Rate cards are locked at subscription time</h5><p>Once a customer subscribes, their rate card terms are fixed. To change pricing for an existing subscriber, create a <strong>Subscription Schedule</strong> with a new phase that references the updated rate card — the change takes effect at the scheduled date.</p></div>
+        </div>
+        <div class="bp-item">
+          <div class="bp-icon">🧪</div>
+          <div class="bp-body"><h5>Test with sandbox accounts before going live</h5><p>Create accounts with <span class="mono">livemode: false</span> for development and integration testing. Sandbox data is isolated from production. Graduate to production with <span class="mono">POST /api/v1/internal/accounts/provision-live</span>.</p></div>
+        </div>
+        <div class="bp-item">
+          <div class="bp-icon">☕</div>
+          <div class="bp-body"><h5>Java: inject HttpClient and ObjectMapper as beans</h5><p>Both <span class="mono">HttpClient</span> and <span class="mono">ObjectMapper</span> are thread-safe and expensive to construct. Declare them as <span class="mono">@Bean</span> singletons in your Spring Boot configuration and inject them into your <span class="mono">ConsumIQClient</span> service class.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ API REFERENCE ══ -->
+    <section class="doc-section" id="api-reference">
+      <div class="eyebrow">Reference</div>
+      <h2>API Reference</h2>
+      <p>All endpoints share the <span class="mono">/api/v1</span> prefix. The full interactive reference is available at <span class="mono">/swagger-ui.html</span> on your ConsumIQ server.</p>
+
+      <h3>Catalogue</h3>
+      <table class="api-table">
+        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/products</span></td><td>Create a product</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/products</span></td><td>List all products</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/products/<em>{id}</em></span></td><td>Get a product</td></tr>
+          <tr><td><span class="method PUT">PUT</span></td><td><span class="ep">/api/v1/products/<em>{id}</em></span></td><td>Update a product</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/products/<em>{id}</em></span></td><td>Delete a product</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/product-offerings</span></td><td>Create a product offering</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/product-offerings?productId=<em>{id}</em></span></td><td>List offerings for a product</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/product-offerings/<em>{id}</em></span></td><td>Get an offering (includes rates, allowances, metrics)</td></tr>
+          <tr><td><span class="method PUT">PUT</span></td><td><span class="ep">/api/v1/product-offerings/<em>{id}</em></span></td><td>Update an offering</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/product-offerings/<em>{id}</em></span></td><td>Delete an offering</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/usage-elements</span></td><td>Create a usage element</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/usage-elements?productId=<em>{id}</em></span></td><td>List usage elements for a product</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/usage-elements/<em>{id}</em></span></td><td>Delete a usage element</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/billable-metrics</span></td><td>Create a billable metric</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/billable-metrics?rateId=<em>{id}</em></span></td><td>List billable metrics for a rate</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/billable-metrics/<em>{id}</em></span></td><td>Delete a billable metric</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/rate-cards</span></td><td>Create a rate card</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/rate-cards?productOfferingId=<em>{id}</em></span></td><td>List rate cards for an offering</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/rate-cards/<em>{id}</em></span></td><td>Get a rate card</td></tr>
+          <tr><td><span class="method PUT">PUT</span></td><td><span class="ep">/api/v1/rate-cards/<em>{id}</em></span></td><td>Update a rate card</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/rate-cards/<em>{id}</em></span></td><td>Delete a rate card</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/rates</span></td><td>Create a rate</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/rates?rateCardId=<em>{id}</em></span></td><td>List rates for a rate card</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/rates/<em>{id}</em></span></td><td>Get a rate</td></tr>
+          <tr><td><span class="method PUT">PUT</span></td><td><span class="ep">/api/v1/rates/<em>{id}</em></span></td><td>Update a rate</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/rates/<em>{id}</em></span></td><td>Delete a rate</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/allowance-groups</span></td><td>Create an allowance group</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/allowance-groups/<em>{id}</em></span></td><td>Get an allowance group</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/allowances</span></td><td>Create an allowance</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/allowances?allowanceGroupId=<em>{id}</em></span></td><td>List allowances in a group</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/allowances/<em>{id}</em></span></td><td>Delete an allowance</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/discounts</span></td><td>Create a discount</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/discounts/<em>{id}</em></span></td><td>Get a discount</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/discount-codes</span></td><td>Create a discount code</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/discount-codes?discountId=<em>{id}</em></span></td><td>List codes for a discount</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/usage-event-schemas</span></td><td>Create an event schema</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/usage-event-schemas?usageKey=<em>{key}</em></span></td><td>List schemas for a usage key</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Metering</h3>
+      <table class="api-table">
+        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/usage-events</span></td><td>Ingest a usage event — 202 Accepted</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/usage-events/batch</span></td><td>Ingest a batch of events (max 500)</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/usage-events</span></td><td>Query events by usageKey + usageIdentifier + date range</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Invoices</h3>
+      <table class="api-table">
+        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/invoices</span></td><td>Create an invoice — 201 Created</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/invoices/<em>{id}</em></span></td><td>Get an invoice by ID</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Subscriptions</h3>
+      <table class="api-table">
+        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/subscriptions</span></td><td>Create a subscription — 201 Created</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/subscriptions?customerId=<em>{id}</em></span></td><td>List subscriptions for a customer</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/subscriptions/<em>{id}</em></span></td><td>Get a subscription</td></tr>
+          <tr><td><span class="method PATCH">PATCH</span></td><td><span class="ep">/api/v1/subscriptions/<em>{id}</em>/amend</span></td><td>Amend a live subscription</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/subscriptions/<em>{id}</em>/amendments</span></td><td>List amendments for a subscription</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/billing-schedules</span></td><td>Create a billing schedule — 201 Created</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/billing-schedules/<em>{id}</em></span></td><td>Get a billing schedule</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/billing-schedules/<em>{id}</em></span></td><td>Delete a billing schedule — 204 No Content</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/subscription-schedules</span></td><td>Create a subscription schedule — 201 Created</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/subscription-schedules/<em>{id}</em></span></td><td>Get a subscription schedule by ID</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/subscription-schedules?subscriptionId=<em>{id}</em></span></td><td>List schedules for a subscription</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/discount-instances?subscriptionId=<em>{id}</em>&amp;status=<em>{s}</em></span></td><td>List discount instances for a subscription</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Accounts &amp; Persons</h3>
+      <table class="api-table">
+        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/accounts</span></td><td>Create an account — 201 Created</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/accounts/<em>{id}</em></span></td><td>Get an account</td></tr>
+          <tr><td><span class="method PATCH">PATCH</span></td><td><span class="ep">/api/v1/accounts/<em>{id}</em></span></td><td>Update an account</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/accounts/<em>{id}</em></span></td><td>Delete an account</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/accounts/<em>{id}</em>/memberships</span></td><td>Add a person to an account</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/accounts/<em>{id}</em>/memberships</span></td><td>List members of an account</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/accounts/<em>{accountId}</em>/memberships/<em>{personId}</em></span></td><td>Remove a person from an account</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/persons</span></td><td>Create a person</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/persons/<em>{id}</em></span></td><td>Get a person</td></tr>
+          <tr><td><span class="method PATCH">PATCH</span></td><td><span class="ep">/api/v1/persons/<em>{id}</em></span></td><td>Update a person's name or timezone</td></tr>
+          <tr><td><span class="method DELETE">DELETE</span></td><td><span class="ep">/api/v1/persons/<em>{id}</em></span></td><td>Delete a person</td></tr>
+          <tr><td><span class="method GET">GET</span></td><td><span class="ep">/api/v1/persons/<em>{id}</em>/accounts</span></td><td>List all accounts a person belongs to</td></tr>
+          <tr><td><span class="method POST">POST</span></td><td><span class="ep">/api/v1/internal/accounts/provision-live</span></td><td>Graduate a sandbox account to live mode</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  /* ── Navigation active tracking ── */
+  function setActive(el) {
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  const sections = document.querySelectorAll('.doc-section');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+  sections.forEach(s => io.observe(s));
+
+  /* ── Copy button ── */
+  function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 1800);
+    });
+  }
+
+  /* ── Language switcher ── */
+  const LANG_KEY = 'ciq-docs-lang';
+
+  function switchLang(lang) {
+    localStorage.setItem(LANG_KEY, lang);
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+    document.querySelectorAll('.lang-pane').forEach(p => {
+      p.classList.toggle('active', p.dataset.lang === lang);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    switchLang(localStorage.getItem(LANG_KEY) || 'curl');
+  });
+
+  /* ── Theme toggle ── */
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('theme', theme); } catch(e) {}
+    document.getElementById('theme-btn-light').setAttribute('aria-pressed', String(theme === 'light'));
+    document.getElementById('theme-btn-dark').setAttribute('aria-pressed', String(theme === 'dark'));
+  }
+  // Sync button state with what the head script already set on <html>
+  (function() {
+    var t = document.documentElement.getAttribute('data-theme') || 'light';
+    document.getElementById('theme-btn-light').setAttribute('aria-pressed', String(t === 'light'));
+    document.getElementById('theme-btn-dark').setAttribute('aria-pressed', String(t === 'dark'));
+  })();
+</script>
+</body>
+</html>
