@@ -78,6 +78,16 @@
         "provider": { "@id": "https://fornaxlabs.xyz/#organization" },
         "audience": { "@type": "BusinessAudience", "name": "Small and mid-sized businesses" },
         "description": "Ready-made AI agents for finance (invoice reconciliation, collections, expense anomalies, cash-flow reporting) and marketing (content planning, campaign reporting, lead research), orchestrated with approvals, audit trails and cost tracking."
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://fornaxlabs.xyz/site/consumiq#app",
+        "name": "ConsumIQ",
+        "url": "https://fornaxlabs.xyz/site/consumiq",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "description": "The unified metering and billing platform for AI-native and modern SaaS. One source of truth, from event to invoice.",
+        "publisher": { "@id": "https://fornaxlabs.xyz/#organization" }
       }
     ]
   }
@@ -834,6 +844,61 @@
     .js .rv.in { opacity: 1; transform: none; }
 
     /* ============================================================
+       PRODUCTS (ConsumIQ)
+       ============================================================ */
+    .prod-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 48px;
+      background: var(--bg-elev-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-2xl);
+      padding: 44px 48px;
+      position: relative; overflow: hidden;
+      transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .prod-card::before {
+      content: ""; position: absolute; left: 0; top: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--brand), color-mix(in oklch, var(--brand) 65%, var(--ink)));
+    }
+    .prod-card:hover { transform: translateY(-2px); border-color: var(--brand-border); box-shadow: var(--shadow-md); }
+    .prod-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+    .prod-status {
+      font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em;
+      color: var(--success); background: var(--success-soft);
+      border: 1px solid var(--success-border);
+      padding: 3px 9px; border-radius: var(--r-full);
+    }
+    .prod-name { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+    .prod-logo {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+      background: var(--brand); position: relative;
+      box-shadow: var(--shadow-xs), inset 0 1px 0 rgba(255,255,255,.16);
+    }
+    .prod-logo::after { content: ""; position: absolute; inset: 9px; background: var(--brand-soft); border-radius: 2px; }
+    .prod-name h3 { margin: 0; font-weight: 500; font-size: 36px; letter-spacing: -0.028em; }
+    .prod-tag {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: 24px; line-height: 1.25; letter-spacing: -0.014em;
+      margin: 0 0 16px;
+    }
+    .prod-tag em { color: var(--brand); }
+    .prod-desc { font-size: 15.5px; line-height: 1.6; color: var(--fg-muted); margin: 0 0 26px; max-width: 54ch; }
+    .prod-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .prod-features {
+      list-style: none; padding: 0; margin: 0;
+      align-self: center;
+      border-top: 1px dashed var(--divider);
+    }
+    .prod-features li {
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 14px 0; border-bottom: 1px dashed var(--divider);
+      font-size: 14px;
+    }
+    .prod-features li span { font-weight: 500; color: var(--fg); }
+    .prod-features li em { font-style: normal; color: var(--fg-muted); font-size: 13px; }
+
+    /* ============================================================
        RESPONSIVE
        ============================================================ */
     @media (max-width: 1080px) {
@@ -851,6 +916,7 @@
       .sec-head { margin-bottom: 40px; }
       .foot-min { grid-template-columns: 1fr; gap: 24px; }
       .foot-min-links { align-items: flex-start; }
+      .prod-card { grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 36px 28px 28px; }
     }
     @media (max-width: 620px) {
       .shell, .nav, .mobile-menu { padding-left: 20px; padding-right: 20px; }
@@ -897,6 +963,7 @@
         <a class="nav-link" href="#how">How it works</a>
         <a class="nav-link" href="#tracking">Tracking</a>
         <a class="nav-link" href="#why">Why Fornax</a>
+        <a class="nav-link" href="#products">ConsumIQ</a>
       </div>
       <div class="nav-cta">
         <button class="btn btn--primary btn--sm" onclick="openModal()">Contact us →</button>
@@ -910,6 +977,7 @@
       <a href="#how">How it works</a>
       <a href="#tracking">Tracking</a>
       <a href="#why">Why Fornax</a>
+      <a href="#products">ConsumIQ</a>
       <button class="btn btn--primary btn--lg" onclick="setMenu(false);openModal()">Contact us →</button>
     </div>
   </div>
@@ -1089,8 +1157,47 @@
     </div>
   </section>
 
+  <!-- PRODUCTS -->
+  <section class="section section--alt" id="products">
+    <div class="shell">
+      <div class="sec-head rv">
+        <div class="eyebrow">Also from Fornax Labs</div>
+        <h2 class="sec-title">Billing for the <em>AI-native</em> world.</h2>
+        <p class="sec-lede">Before agents, we built ConsumIQ, our metering and billing platform for AI-native and usage-priced SaaS. It's live, and it runs alongside everything we build next.</p>
+      </div>
+      <article class="prod-card rv">
+        <div>
+          <div class="prod-meta">
+            <span class="eyebrow">Product · v1</span>
+            <span class="prod-status">● Live</span>
+          </div>
+          <div class="prod-name">
+            <span class="prod-logo" aria-hidden="true"></span>
+            <h3>ConsumIQ</h3>
+          </div>
+          <p class="prod-tag">One source of truth, from <em>event</em> to <em>invoice</em>.</p>
+          <p class="prod-desc">
+            The unified metering and billing platform for AI-native and modern SaaS. Event
+            capture, rating, entitlements and invoicing in a single schema, with real-time
+            gross-margin intelligence on top.
+          </p>
+          <div class="prod-actions">
+            <a class="btn btn--primary" href="site/consumiq">Explore ConsumIQ <span class="arrow">→</span></a>
+            <a class="btn btn--secondary" href="site/docs">Read the docs</a>
+          </div>
+        </div>
+        <ul class="prod-features">
+          <li><span>Real-time metering</span><em>30k events / second, idempotent</em></li>
+          <li><span>Per-customer margin</span><em>Revenue and cost-to-serve, live</em></li>
+          <li><span>Native invoicing</span><em>Tax, dunning, ERP sync</em></li>
+          <li><span>Buyer portal</span><em>Cross-vendor FinOps, included</em></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
   <!-- FINAL CTA -->
-  <section class="cta-section section--alt" id="start">
+  <section class="cta-section" id="start">
     <div class="shell">
       <div class="eyebrow"><span class="dot"></span>Ready when you are</div>
       <h2 class="cta-h">Put your first agent <em>to work</em>.</h2>
@@ -1125,6 +1232,7 @@
         <div class="foot-min-links">
           <a href="#verticals">Solutions</a>
           <a href="#how">How it works</a>
+          <a href="site/consumiq">ConsumIQ · billing</a>
           <a href="mailto:sales@fornaxlabs.xyz">sales@fornaxlabs.xyz</a>
         </div>
       </div>
