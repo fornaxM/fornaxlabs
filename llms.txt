@@ -1,0 +1,18 @@
+# Fornax Labs
+
+> Fornax Labs is an agentic AI company that builds and orchestrates AI agents for finance and marketing teams. We focus on small and mid-sized businesses: ready-made agents that connect to the tools a team already uses, run with human approval for sensitive actions, and are tracked end to end. Fornax Labs also builds ConsumIQ, a metering and billing platform for AI-native SaaS.
+
+- Website: https://fornaxlabs.xyz/
+- Contact: sales@fornaxlabs.xyz
+
+## Agent orchestration (primary focus)
+
+- [Fornax Labs home](https://fornaxlabs.xyz/): What we build, how it works, agent tracking and approvals, and an FAQ.
+- Finance agents: invoice capture and reconciliation against bank feeds, accounts receivable follow-ups, expense categorisation and anomaly flagging, monthly cash-flow reporting.
+- Marketing agents: content planning and drafting, campaign performance reporting from ad platforms, lead research and outreach drafts, competitor monitoring.
+- Oversight: every step, tool call and decision is logged; sensitive actions are routed for approval; time saved, success rate and spend are tracked per agent.
+
+## ConsumIQ (billing product)
+
+- [ConsumIQ](https://fornaxlabs.xyz/site/consumiq): Unified metering and billing for AI-native and usage-priced SaaS. Event capture, rating, entitlements and invoicing in one schema, with real-time gross-margin intelligence.
+- [ConsumIQ documentation](https://fornaxlabs.xyz/site/docs): Catalogue, metering, pricing models, billing, invoices, subscriptions and the API reference.

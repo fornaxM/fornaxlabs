@@ -58,7 +58,7 @@
           "height": 256
         },
         "slogan": "Agent orchestration for finance and marketing teams.",
-        "description": "Fornax Labs is an agentic AI company. We build, orchestrate and track AI agents for finance and marketing teams at small and mid-sized businesses.",
+        "description": "Fornax Labs is an agentic AI company that builds and orchestrates AI agents for finance and marketing teams. Built for small and mid-sized businesses.",
         "knowsAbout": ["AI agents", "Agent orchestration", "Agentic AI", "Finance automation", "Marketing automation", "Human-in-the-loop AI"],
         "email": "sales@fornaxlabs.xyz",
         "foundingDate": "2026"
@@ -88,6 +88,76 @@
         "operatingSystem": "Web",
         "description": "The unified metering and billing platform for AI-native and modern SaaS. One source of truth, from event to invoice.",
         "publisher": { "@id": "https://fornaxlabs.xyz/#organization" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://fornaxlabs.xyz/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Fornax Labs?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Fornax Labs is an agentic AI company that builds and orchestrates AI agents for finance and marketing teams. We focus on small and mid-sized businesses, giving them ready-made agents they can connect to their own tools, run with approvals and track end to end. We also build ConsumIQ, a metering and billing platform for AI-native SaaS."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is agent orchestration?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Agent orchestration is the work of running AI agents reliably inside a business: connecting them to the right tools and data, sequencing their steps, routing sensitive actions to a person for approval, and recording every run so you can see what happened and what it cost. Fornax Labs handles that layer so teams get working agents rather than a blank canvas."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What can Fornax agents do for finance teams?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Finance agents handle invoice capture, coding and reconciliation against bank feeds, accounts receivable follow-ups and payment reminders, expense categorisation and anomaly flagging, and monthly reporting and cash-flow summaries."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What can Fornax agents do for marketing teams?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Marketing agents handle content planning, drafting and repurposing across channels, campaign performance reports pulled from ad platforms, lead research and outreach drafts, and competitor and market monitoring digests."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do approvals and tracking work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sensitive steps, such as sending money-related emails or changing records, are routed to the right person for approval before they happen. Every step, tool call and decision is logged and searchable, and each agent shows time saved, success rate and spend."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need an engineering team to use Fornax?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. You start from an agent template for a specific finance or marketing task, connect the tools you already use, and set the rules and limits. Fornax Labs is built for operators and small teams, not developers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is ConsumIQ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ConsumIQ is the unified metering and billing platform from Fornax Labs for AI-native and usage-priced SaaS. It brings event capture, rating, entitlements and invoicing into a single schema, with real-time gross-margin intelligence on top."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I get started with Fornax Labs?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Tell us the task that takes up your team's week through the contact form on fornaxlabs.xyz, book a call, or email sales@fornaxlabs.xyz. We'll show you the agent that handles it."
+            }
+          }
+        ]
       }
     ]
   }
@@ -899,6 +969,32 @@
     .prod-features li em { font-style: normal; color: var(--fg-muted); font-size: 13px; }
 
     /* ============================================================
+       FAQ
+       ============================================================ */
+    .faq { max-width: 860px; border-top: 1px solid var(--divider); }
+    .faq details { border-bottom: 1px solid var(--divider); }
+    .faq summary {
+      list-style: none; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center; gap: 24px;
+      padding: 22px 4px;
+      font-size: 18px; font-weight: 400; letter-spacing: -0.012em;
+      transition: color .12s ease;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary:hover { color: var(--brand); }
+    .faq summary:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--focus-ring); border-radius: var(--r-md); }
+    .faq summary::after {
+      content: "+"; flex-shrink: 0;
+      font-family: var(--font-mono); font-size: 18px; color: var(--fg-faint);
+      transition: transform .15s ease;
+    }
+    .faq details[open] summary::after { transform: rotate(45deg); color: var(--brand); }
+    .faq details p {
+      margin: 0; padding: 0 4px 24px;
+      font-size: 15.5px; line-height: 1.65; color: var(--fg-muted); max-width: 68ch;
+    }
+
+    /* ============================================================
        RESPONSIVE
        ============================================================ */
     @media (max-width: 1080px) {
@@ -1196,8 +1292,52 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="shell">
+      <div class="sec-head rv">
+        <div class="eyebrow">FAQ</div>
+        <h2 class="sec-title">Questions, <em>answered</em>.</h2>
+      </div>
+      <div class="faq rv">
+        <details open>
+          <summary>What is Fornax Labs?</summary>
+          <p>Fornax Labs is an agentic AI company that builds and orchestrates AI agents for finance and marketing teams. We focus on small and mid-sized businesses, giving them ready-made agents they can connect to their own tools, run with approvals and track end to end. We also build ConsumIQ, a metering and billing platform for AI-native SaaS.</p>
+        </details>
+        <details>
+          <summary>What is agent orchestration?</summary>
+          <p>Agent orchestration is the work of running AI agents reliably inside a business: connecting them to the right tools and data, sequencing their steps, routing sensitive actions to a person for approval, and recording every run so you can see what happened and what it cost. Fornax Labs handles that layer so teams get working agents rather than a blank canvas.</p>
+        </details>
+        <details>
+          <summary>What can Fornax agents do for finance teams?</summary>
+          <p>Finance agents handle invoice capture, coding and reconciliation against bank feeds, accounts receivable follow-ups and payment reminders, expense categorisation and anomaly flagging, and monthly reporting and cash-flow summaries.</p>
+        </details>
+        <details>
+          <summary>What can Fornax agents do for marketing teams?</summary>
+          <p>Marketing agents handle content planning, drafting and repurposing across channels, campaign performance reports pulled from ad platforms, lead research and outreach drafts, and competitor and market monitoring digests.</p>
+        </details>
+        <details>
+          <summary>How do approvals and tracking work?</summary>
+          <p>Sensitive steps, such as sending money-related emails or changing records, are routed to the right person for approval before they happen. Every step, tool call and decision is logged and searchable, and each agent shows time saved, success rate and spend.</p>
+        </details>
+        <details>
+          <summary>Do I need an engineering team to use Fornax?</summary>
+          <p>No. You start from an agent template for a specific finance or marketing task, connect the tools you already use, and set the rules and limits. Fornax Labs is built for operators and small teams, not developers.</p>
+        </details>
+        <details>
+          <summary>What is ConsumIQ?</summary>
+          <p>ConsumIQ is the unified metering and billing platform from Fornax Labs for AI-native and usage-priced SaaS. It brings event capture, rating, entitlements and invoicing into a single schema, with real-time gross-margin intelligence on top.</p>
+        </details>
+        <details>
+          <summary>How do I get started with Fornax Labs?</summary>
+          <p>Tell us the task that takes up your team&#x27;s week through the contact form on fornaxlabs.xyz, book a call, or email sales@fornaxlabs.xyz. We&#x27;ll show you the agent that handles it.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- FINAL CTA -->
-  <section class="cta-section" id="start">
+  <section class="cta-section section--alt" id="start">
     <div class="shell">
       <div class="eyebrow"><span class="dot"></span>Ready when you are</div>
       <h2 class="cta-h">Put your first agent <em>to work</em>.</h2>
@@ -1232,6 +1372,7 @@
         <div class="foot-min-links">
           <a href="#verticals">Solutions</a>
           <a href="#how">How it works</a>
+          <a href="#faq">FAQ</a>
           <a href="site/consumiq">ConsumIQ · billing</a>
           <a href="mailto:sales@fornaxlabs.xyz">sales@fornaxlabs.xyz</a>
         </div>
