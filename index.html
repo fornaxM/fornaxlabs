@@ -6,28 +6,29 @@
   <script>(function(){try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
-  <title>Fornax Labs — AI agents for finance and marketing teams</title>
-  <meta name="description" content="Fornax Labs helps small and mid-sized businesses build, deploy and track AI agents for finance and marketing. Focused on two verticals, built to solve real problems." />
+  <title>Fornax Labs — Agent orchestration for finance and marketing teams</title>
+  <meta name="description" content="Fornax Labs is an agentic AI company. We build, orchestrate and track AI agents for finance and marketing teams, with approvals and audit trails built in." />
   <meta name="author" content="Fornax Labs" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://fornaxlabs.xyz/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://fornaxlabs.xyz/" />
   <meta property="og:site_name" content="Fornax Labs" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:title" content="Fornax Labs — AI agents for finance and marketing teams" />
-  <meta property="og:description" content="Build, deploy and track AI agents purpose-built for finance and marketing." />
-  <meta property="og:image" content="https://fornaxlabs.xyz/brand-assets/png/social-og-1200x630.png" />
+  <meta property="og:title" content="Fornax Labs — Agent orchestration for finance and marketing teams" />
+  <meta property="og:description" content="Build, orchestrate and track AI agents for finance and marketing, with approvals and audit trails built in." />
+  <meta property="og:image" content="https://fornaxlabs.xyz/brand-assets/png/social-og-agents-1200x630.png" />
+  <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Fornax Labs" />
+  <meta property="og:image:alt" content="Fornax Labs — Agent orchestration for finance and marketing teams" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Fornax Labs — AI agents for finance and marketing teams" />
-  <meta name="twitter:description" content="Build, deploy and track AI agents purpose-built for finance and marketing." />
-  <meta name="twitter:image" content="https://fornaxlabs.xyz/brand-assets/png/social-og-1200x630.png" />
-  <meta name="twitter:image:alt" content="Fornax Labs" />
+  <meta name="twitter:title" content="Fornax Labs — Agent orchestration for finance and marketing teams" />
+  <meta name="twitter:description" content="Build, orchestrate and track AI agents for finance and marketing, with approvals and audit trails built in." />
+  <meta name="twitter:image" content="https://fornaxlabs.xyz/brand-assets/png/social-og-agents-1200x630.png" />
+  <meta name="twitter:image:alt" content="Fornax Labs — Agent orchestration for finance and marketing teams" />
 
   <link rel="icon" type="image/svg+xml" href="brand-assets/favicon/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="brand-assets/favicon/favicon-32.png" />
@@ -44,18 +45,41 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Fornax Labs",
-    "url": "https://fornaxlabs.xyz",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://fornaxlabs.xyz/brand-assets/png/mark-brand-256.png",
-      "width": 256,
-      "height": 256
-    },
-    "description": "AI agents for finance and marketing teams at small and mid-sized businesses — built, deployed and tracked on one platform.",
-    "email": "sales@fornaxlabs.xyz",
-    "foundingDate": "2026"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://fornaxlabs.xyz/#organization",
+        "name": "Fornax Labs",
+        "url": "https://fornaxlabs.xyz/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://fornaxlabs.xyz/brand-assets/png/mark-brand-256.png",
+          "width": 256,
+          "height": 256
+        },
+        "slogan": "Agent orchestration for finance and marketing teams.",
+        "description": "Fornax Labs is an agentic AI company. We build, orchestrate and track AI agents for finance and marketing teams at small and mid-sized businesses.",
+        "knowsAbout": ["AI agents", "Agent orchestration", "Agentic AI", "Finance automation", "Marketing automation", "Human-in-the-loop AI"],
+        "email": "sales@fornaxlabs.xyz",
+        "foundingDate": "2026"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://fornaxlabs.xyz/#website",
+        "url": "https://fornaxlabs.xyz/",
+        "name": "Fornax Labs",
+        "publisher": { "@id": "https://fornaxlabs.xyz/#organization" }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://fornaxlabs.xyz/#agents",
+        "name": "AI agent orchestration for finance and marketing",
+        "serviceType": "AI agent orchestration",
+        "provider": { "@id": "https://fornaxlabs.xyz/#organization" },
+        "audience": { "@type": "BusinessAudience", "name": "Small and mid-sized businesses" },
+        "description": "Ready-made AI agents for finance (invoice reconciliation, collections, expense anomalies, cash-flow reporting) and marketing (content planning, campaign reporting, lead research), orchestrated with approvals, audit trails and cost tracking."
+      }
+    ]
   }
   </script>
 
@@ -896,7 +920,7 @@
   <section class="hero">
     <div class="shell hero-inner">
       <div>
-        <div class="eyebrow"><span class="dot"></span>Agents for finance &amp; marketing</div>
+        <div class="eyebrow"><span class="dot"></span>Agent orchestration for finance &amp; marketing</div>
         <h1>AI agents that do the work your team <em>never has time for</em>.</h1>
         <p class="lede">
           Fornax Labs gives small and mid-sized businesses a platform to build, launch and
@@ -1094,8 +1118,8 @@
             <span>Fornax Labs</span>
           </a>
           <p class="foot-blurb">
-            AI agents for finance and marketing teams — built, deployed and tracked
-            on one platform.
+            An agentic AI company. We build, orchestrate and track AI agents for
+            finance and marketing teams.
           </p>
         </div>
         <div class="foot-min-links">
