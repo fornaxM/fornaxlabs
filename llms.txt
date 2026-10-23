@@ -7,7 +7,7 @@
 
 ## The platform
 
-- [Fornax Labs home](https://fornaxlabs.xyz/): The platform, use cases, how it works, agent tracking and approvals, and an FAQ.
+- [Fornax Labs home](https://fornaxlabs.xyz/): The whole site on one page: the platform, a live Sugamkar demo, who it's for, rules and approvals, trust and privacy, the pilot application form and an FAQ.
 - Channels: email is live; WhatsApp and web forms are rolling out with pilot customers; business tools connect through integrations.
 - Mutual fund distributors and wealth advisors: SIP changes, redemptions and switches, KYC, nominee and address updates, statement and capital gains requests, complaints (pilots open, via Sugamkar).
 - Insurance brokers: new quote requests, renewal reminders, claim intimations, endorsements and policy documents (coming next).
@@ -18,8 +18,8 @@
 
 ## Sugamkar (first product)
 
-- [Sugamkar](https://fornaxlabs.xyz/site/sugamkar): An agent for advisors, distributors and service firms. It reads client messages from email, WhatsApp and web forms, recognises each request (for example an SIP change, a renewal or a tax notice), and puts the work on one list with an assignee and a status. Personally identifiable information (PII) and sensitive personal information (SPI) are masked before AI processing, and nothing is sent without approval. Open for pilots with mutual fund distributors.
+- [Sugamkar](https://fornaxlabs.xyz/#demo): An agent for advisors, distributors and service firms. It reads client messages from email, WhatsApp and web forms, recognises each request (for example an SIP change, a renewal or a tax notice), and puts the work on one list with an assignee and a status. Personally identifiable information (PII) and sensitive personal information (SPI) are masked before AI processing, and nothing is sent without approval. Open for pilots with mutual fund distributors; apply at https://fornaxlabs.xyz/#pilot.
 
 ## Optional
 
-- [Full content](https://fornaxlabs.xyz/llms-full.txt): The complete website text in one file, including both FAQs, for AI assistants that want more than this summary.
+- [Full content](https://fornaxlabs.xyz/llms-full.txt): The complete website text in one file, including the FAQ, for AI assistants that want more than this summary.

@@ -4,3 +4,6 @@
 /site/docs       /   302
 /index_backup.html  /   302
 /index_backup      /   302
+# Sugamkar now lives on the homepage (demo and pilot form)
+/site/sugamkar       /   301
+/site/sugamkar.html  /   301

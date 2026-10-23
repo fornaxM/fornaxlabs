@@ -29,7 +29,7 @@ A product page may add one accent of its own next to the core palette. Indigo st
 | Product  | Accent             | Light                                                                         | Dark                                | Use                                |
 |----------|--------------------|-------------------------------------------------------------------------------|-------------------------------------|------------------------------------|
 | ConsumIQ (archived) | none (core Indigo) | —                                                                             | —                                   | —                                  |
-| Sugamkar | Marigold           | `oklch(0.76 0.15 68)` ≈ `#f2a33a`; text on light `oklch(0.50 0.12 55)` ≈ `#a3570f` | `oklch(0.80 0.14 72)` ≈ `#f5b04a` | Highlights on `site/sugamkar.html` |
+| Sugamkar | Marigold           | `oklch(0.76 0.15 68)` ≈ `#f2a33a`; text on light `oklch(0.50 0.12 55)` ≈ `#a3570f` | `oklch(0.80 0.14 72)` ≈ `#f5b04a` | Sugamkar demo and pilot form on the homepage |
 
 Use the darker Marigold for text on light surfaces; the bright tone is too low-contrast on white.
 
