@@ -417,10 +417,14 @@
     .chan-note { margin-top: 14px; font-size: 14px; color: var(--fg-subtle); }
 
     /* Trades */
-    .trades { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .trades { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
     .trade {
       display: flex; flex-direction: column; padding: 28px; border-radius: var(--r-xl);
       background: var(--surface); border: 1px solid var(--border); min-width: 0;
+    }
+    /* Cards in the same row share row heights (badge, title, intro, tags), so their parts line up at any width */
+    @supports (grid-template-rows: subgrid) {
+      .trades > .trade { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; align-content: start; }
     }
     .trade--live { border: 1.5px solid var(--brand-border); box-shadow: var(--shadow-lg); }
     .trade-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
@@ -789,7 +793,7 @@
             <span class="pill pill--ok">Available for pilots</span>
           </div>
           <h3>Mutual fund distributors</h3>
-          <p>For advisors and operations teams who service investors over email and WhatsApp.</p>
+          <p>For advisors who service investors on email and WhatsApp.</p>
           <div class="chips"><span>SIP changes</span><span>Redemptions</span><span>KYC updates</span><span>Nominee changes</span><span>Statements</span><span>Complaints</span></div>
         </article>
         <article class="trade rv">
@@ -808,12 +812,21 @@
           </div>
           <h3>CA and tax firms</h3>
           <p>For practices juggling filings, notices and client documents.</p>
-          <div class="chips"><span>Filing requests</span><span>Notices received</span><span>Document submissions</span><span>Invoice queries</span></div>
+          <div class="chips"><span>Filing requests</span><span>Notices received</span><span>Document submissions</span><span>Fee queries</span></div>
+        </article>
+        <article class="trade rv">
+          <div class="trade-top">
+            <div class="trade-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h14M5 7l-3 7a3 3 0 006 0zM19 7l-3 7a3 3 0 006 0z"/></svg></div>
+            <span class="pill pill--accent">Coming next</span>
+          </div>
+          <h3>Law firms</h3>
+          <p>For legal practices handling enquiries, hearings and client updates.</p>
+          <div class="chips"><span>New matter enquiries</span><span>Hearing updates</span><span>Document requests</span><span>Client updates</span><span>Fee queries</span></div>
         </article>
       </div>
       <div class="more rv">
-        <p><strong>Run a different kind of service business?</strong> Property management, logistics, recruiting and B2B customer teams have the same problem. Tell us about yours.</p>
-        <a class="btn btn--secondary" href="#pilot" data-firm="Other service business">Tell us about yours <span class="arrow">→</span></a>
+        <p><strong>Run a different kind of advisory or professional firm?</strong> Wealth managers, tax consultants, company secretaries and other client-service practices have the same problem. Tell us about yours.</p>
+        <a class="btn btn--secondary" href="#pilot" data-firm="Other professional services firm">Tell us about yours <span class="arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -935,7 +948,8 @@
               <option>Mutual fund distributor</option>
               <option>Insurance broker or agent</option>
               <option>CA or tax firm</option>
-              <option>Other service business</option>
+              <option>Law firm</option>
+              <option>Other professional services firm</option>
             </select>
           </div>
           <div class="field">

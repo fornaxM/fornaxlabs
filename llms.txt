@@ -1,6 +1,6 @@
 # Fornax Labs
 
-> Fornax Labs is an agentic AI platform for small and mid-sized businesses. Its agents pick up requests from the channels a business already uses (email, WhatsApp, web forms and business tools), work out what is needed, do the routine work, and bring in a person for anything sensitive. Every run is tracked end to end. Ready-made playbooks cover client servicing, finance operations and marketing.
+> Fornax Labs is an agentic AI platform for advisory and professional firms: mutual fund distributors, insurance brokers, CA and tax firms, and law firms. Its agents pick up client requests from the channels a firm already uses (email, WhatsApp, web forms and business tools), work out what is needed, do the routine work, and bring in a person for anything sensitive. Every run is tracked end to end.
 
 - Website: https://fornaxlabs.xyz/
 - Contact: sales@fornaxlabs.xyz
@@ -9,9 +9,11 @@
 
 - [Fornax Labs home](https://fornaxlabs.xyz/): The platform, use cases, how it works, agent tracking and approvals, and an FAQ.
 - Channels: email is live; WhatsApp and web forms are rolling out with pilot customers; business tools connect through integrations.
-- Client servicing: client requests for mutual fund distributors, insurance brokers and CA and tax firms, turned into tracked work (see Sugamkar).
-- Finance operations: invoice capture and reconciliation against bank feeds, accounts receivable follow-ups, expense categorisation and anomaly flagging, monthly cash-flow reporting.
-- Marketing: content planning and drafting, campaign performance reporting from ad platforms, lead research and outreach drafts, competitor monitoring.
+- Mutual fund distributors and wealth advisors: SIP changes, redemptions and switches, KYC, nominee and address updates, statement and capital gains requests, complaints (pilots open, via Sugamkar).
+- Insurance brokers: new quote requests, renewal reminders, claim intimations, endorsements and policy documents (coming next).
+- CA and tax firms: filing requests, tax notices with due dates, document collection, fee follow-ups (coming next).
+- Law firms: new matter intake with conflict checks, hearing and court date updates, document requests, client updates and fee follow-ups (coming next).
+- Customisation: custom rules, routing to people or teams, and approval flows, without code.
 - Oversight: every step, tool call and decision is logged; sensitive actions are routed for approval; time saved, success rate and spend are tracked per agent.
 
 ## Sugamkar (first product)

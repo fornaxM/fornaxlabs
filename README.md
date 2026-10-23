@@ -1,6 +1,6 @@
 # Fornax Labs
 
-Fornax Labs is an agentic AI platform for small and mid-sized businesses: AI agents that pick up requests from email, WhatsApp, web forms and business tools, do the routine work, and keep people in control.
+Fornax Labs is an agentic AI platform for advisory and professional firms (mutual fund distributors, insurance brokers, CA and tax firms, law firms): AI agents that pick up client requests from email, WhatsApp, web forms and business tools, do the routine work, and keep people in control.
 
 This repository is the website at **[fornaxlabs.xyz](https://fornaxlabs.xyz/)**, served by Netlify.
 
@@ -8,7 +8,7 @@ This repository is the website at **[fornaxlabs.xyz](https://fornaxlabs.xyz/)**,
 
 | Path | What it is |
 |---|---|
-| `index.html` | Fornax Labs homepage: the agentic platform, use cases (client servicing, finance operations, marketing), tracking, Sugamkar and FAQ |
+| `index.html` | Fornax Labs homepage: the agentic platform, industry use cases (fund distributors, insurance brokers, CA and tax firms, law firms), tracking, Sugamkar and FAQ |
 | `site/sugamkar.html` | Sugamkar, our first product: turns client requests from email, WhatsApp and web forms into one worklist for advisors and service firms (served at `/site/sugamkar`) |
 
 ## Archive

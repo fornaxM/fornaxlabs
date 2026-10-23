@@ -1,6 +1,6 @@
 # Fornax Labs — full content
 
-> Fornax Labs is an agentic AI platform for small and mid-sized businesses. Agents pick up requests from the channels a business already uses (email, WhatsApp, web forms and business tools), work out what is needed, do the routine work, and bring in a person for anything sensitive. Every run is tracked end to end. Sugamkar is the first product built on the platform.
+> Fornax Labs is an agentic AI platform for advisory and professional firms: mutual fund distributors, insurance brokers, CA and tax firms, and law firms. Agents pick up client requests from the channels a firm already uses (email, WhatsApp, web forms and business tools), work out what is needed, do the routine work, and bring in a person for anything sensitive. Every run is tracked end to end. Sugamkar is the first product built on the platform.
 
 This file is the long-form companion to https://fornaxlabs.xyz/llms.txt. It restates the public website in plain text for AI assistants and agents.
 
@@ -11,7 +11,7 @@ This file is the long-form companion to https://fornaxlabs.xyz/llms.txt. It rest
 
 ## The platform
 
-Every business runs on requests: a client asking for a change, an invoice to chase, a report someone needs. Fornax agents handle that loop wherever the work comes from, and hand people only the decisions that need them.
+Every advisory firm runs on client requests: an SIP change, a policy renewal, a tax notice, a new matter. Fornax agents handle that loop wherever the work comes from, and hand people only the decisions that need them.
 
 - Comes in from: email, WhatsApp, web forms, and your tools and APIs.
 - Fornax agents: read and understand the request, decide what kind of work it is, do the routine steps, and ask a person when it matters.
@@ -21,11 +21,12 @@ Channel status: email is live; WhatsApp and web forms are rolling out with pilot
 
 ## Use cases
 
-Each playbook teaches the platform the requests and routines of one kind of business, so agents are useful from day one.
+Each playbook teaches the platform the requests, documents and deadlines of one kind of firm, so agents are useful from day one.
 
-1. Client servicing (powered by Sugamkar), for advisors, distributors, insurance brokers and accounting firms: SIP changes, redemptions and KYC requests for fund distributors; quotes, renewals and claims for insurance brokers; filings, notices and documents for CA and tax firms; one worklist across email and WhatsApp with an assignee on every request.
-2. Finance operations: invoice capture, coding and reconciliation against bank feeds; accounts receivable follow-ups and payment reminders; expense categorisation and anomaly flagging; monthly reporting and cash-flow summaries.
-3. Marketing: content planning, drafting and repurposing across channels; campaign performance reports from ad platforms; lead research, enrichment and outreach drafts; competitor and market monitoring digests.
+1. Mutual fund distributors and wealth advisors (pilots open, powered by Sugamkar): SIP changes, redemptions and switches captured with folio details; KYC, nominee and address updates tracked to completion; statement and capital gains requests sent on time; complaints flagged high priority and escalated first.
+2. Insurance brokers and agents (coming next): new quote requests captured with the details needed; renewal reminders drafted well before the due date; claim intimations tracked from first notice to settlement; endorsements and policy document requests routed to the right person.
+3. CA and tax firms (coming next): GST and income tax filing requests sorted by client; tax notices logged with response due dates; document collection with automatic reminders; fee follow-ups and payment reminders, with approval.
+4. Law firms and legal practices (coming next): new matter enquiries captured with a conflict-check task; hearing and court date updates routed to the right associate; document requests and filings tracked to completion; client update requests and fee follow-ups.
 
 ## How it works
 
@@ -45,7 +46,7 @@ Example rule: when a client message arrives on email or WhatsApp, if it is a red
 
 ## Agent tracking
 
-Every step, tool call and decision is logged and searchable. Sensitive actions are routed to the right person for approval before they happen. Time saved, success rate and spend are shown per agent.
+Every step, tool call and decision is logged and searchable. Sensitive actions are routed to the right person for approval before they happen. Time saved, success rate and spend are shown per agent. Example run: an insurance renewal-reminder agent finds 31 policies due in 30 days, drafts the reminders, holds a high-value fleet policy for branch manager approval, then sends and logs everything.
 
 ## Why Fornax
 
@@ -66,7 +67,7 @@ What each message becomes:
 2. The request is recognised as a kind from the firm's playbook (for example SIP changes, Redemptions, KYC updates, Nominee changes, Statement requests or Complaints), with a confidence score. Messages it is unsure about go to a Review list for one-click sorting.
 3. A task is created with the customer, matched details from the client record (such as folio, phone and email), a priority, an assignee and a suggested next step. Full details are shown only inside the firm's workspace.
 
-Playbooks: mutual fund distributors (available for pilots); insurance brokers and CA and tax firms (coming next). Other service businesses such as property management, logistics, recruiting and B2B customer teams can ask about fit.
+Playbooks: mutual fund distributors (available for pilots); insurance brokers, CA and tax firms, and law firms (coming next). Other advisory and professional firms, such as wealth managers, tax consultants and company secretaries, can ask about fit.
 
 Principles: private by design; the firm stays in control (nothing is sent to a client without approval); a team view for owners with filtering and reassignment; summaries, not investment advice.
 
@@ -76,7 +77,7 @@ Pilot: Fornax Labs is onboarding a small group of distributors and advisory firm
 
 ### What is Fornax Labs?
 
-Fornax Labs is an agentic AI platform for small and mid-sized businesses. Our agents pick up requests from the channels your business already uses, such as email, WhatsApp and web forms, work out what is needed, do the routine work, and bring in a person for anything sensitive. Every run is tracked end to end.
+Fornax Labs is an agentic AI platform for advisory and professional firms: mutual fund distributors, insurance brokers, CA and tax firms, and law firms. Our agents pick up client requests from email, WhatsApp and web forms, work out what is needed, do the routine work, and bring in a person for anything sensitive. Every run is tracked end to end.
 
 ### What is agent orchestration?
 
@@ -84,11 +85,11 @@ Agent orchestration is the work of running AI agents reliably inside a business:
 
 ### Which channels and tools do Fornax agents work with?
 
-Agents take work in from email, WhatsApp, web forms and the business tools you already use, such as accounting software, CRMs and ad platforms. Email is live today, and WhatsApp and further channels are rolling out with our pilot customers.
+Agents take work in from email, WhatsApp, web forms and the systems your firm already uses, such as practice-management software, CRMs and back-office platforms. Email is live today, and WhatsApp and further channels are rolling out with our pilot customers.
 
 ### What kinds of work can Fornax agents do?
 
-Client request handling for advisors, distributors, insurance brokers and accounting firms; finance operations such as invoice reconciliation, collections and cash-flow reporting; and marketing work such as campaign reporting, content planning and lead research. New industries start from a playbook, not from scratch.
+Each industry has a ready-made playbook. For fund distributors: SIP changes, redemptions, KYC and nominee updates, statements and complaints. For insurance brokers: quotes, renewals, claims and endorsements. For CA and tax firms: filing requests, tax notices, document collection and fee follow-ups. For law firms: new matter intake, hearing updates, document requests and client updates. New kinds of request can be added to any playbook.
 
 ### What is Sugamkar?
 
