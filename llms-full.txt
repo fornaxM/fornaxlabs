@@ -1,0 +1,141 @@
+# Fornax Labs — full content
+
+> Fornax Labs is an agentic AI platform for small and mid-sized businesses. Agents pick up requests from the channels a business already uses (email, WhatsApp, web forms and business tools), work out what is needed, do the routine work, and bring in a person for anything sensitive. Every run is tracked end to end. Sugamkar is the first product built on the platform.
+
+This file is the long-form companion to https://fornaxlabs.xyz/llms.txt. It restates the public website in plain text for AI assistants and agents.
+
+- Website: https://fornaxlabs.xyz/
+- Sugamkar: https://fornaxlabs.xyz/site/sugamkar
+- Contact: sales@fornaxlabs.xyz
+- Book a call: https://cal.com/manjunath-iyer/30min
+
+## The platform
+
+Every business runs on requests: a client asking for a change, an invoice to chase, a report someone needs. Fornax agents handle that loop wherever the work comes from, and hand people only the decisions that need them.
+
+- Comes in from: email, WhatsApp, web forms, and your tools and APIs.
+- Fornax agents: read and understand the request, decide what kind of work it is, do the routine steps, and ask a person when it matters.
+- Ends up as: tasks with an assignee, summaries and reports, updates in your tools, and approved replies.
+
+Channel status: email is live; WhatsApp and web forms are rolling out with pilot customers; other channels on request.
+
+## Use cases
+
+Each playbook teaches the platform the requests and routines of one kind of business, so agents are useful from day one.
+
+1. Client servicing (powered by Sugamkar), for advisors, distributors, insurance brokers and accounting firms: SIP changes, redemptions and KYC requests for fund distributors; quotes, renewals and claims for insurance brokers; filings, notices and documents for CA and tax firms; one worklist across email and WhatsApp with an assignee on every request.
+2. Finance operations: invoice capture, coding and reconciliation against bank feeds; accounts receivable follow-ups and payment reminders; expense categorisation and anomaly flagging; monthly reporting and cash-flow summaries.
+3. Marketing: content planning, drafting and repurposing across channels; campaign performance reports from ad platforms; lead research, enrichment and outreach drafts; competitor and market monitoring digests.
+
+## How it works
+
+1. Pick a playbook for your industry and the work that eats your week.
+2. Connect your channels: email, WhatsApp, forms and the systems you already use. Set the rules and limits.
+3. Deploy with guardrails: require approvals for sensitive steps and let the agent handle the rest.
+4. Track and improve: watch every run, review outcomes and refine the agent over time.
+
+## Make it yours: rules, routing and approvals
+
+- Custom rules: conditions on anything the agent understands, such as the kind of request, an amount, the client, the channel or the time of day.
+- Routing: send work to a person, a team or round robin, by skill, workload or client; reassign in one click.
+- Approval flows: choose which actions need sign-off, from whom and in what order; add a second approver above a limit you set.
+- Extend any playbook: add your own kinds of request and decide what happens with each.
+
+Example rule: when a client message arrives on email or WhatsApp, if it is a redemption over ₹1,00,000, create a high-priority task routed round robin to the Operations team, and require Branch manager sign-off on any reply; otherwise assign it to a named person at normal priority.
+
+## Agent tracking
+
+Every step, tool call and decision is logged and searchable. Sensitive actions are routed to the right person for approval before they happen. Time saved, success rate and spend are shown per agent.
+
+## Why Fornax
+
+| | Generic agent builders | Fornax Labs |
+|---|---|---|
+| Starting point | Blank canvas and prompts | Ready-made playbooks for your industry |
+| Channels | Usually one, wired up by you | Email, WhatsApp, forms and your tools |
+| Domain knowledge | You supply it | Built in |
+| Oversight | Add-on or DIY | Tracking and approvals by default |
+| Built for | Developers | SMB operators and teams |
+
+## Sugamkar
+
+Sugamkar is an agent for advisors, distributors and service firms. Clients write in on email, WhatsApp and web forms; Sugamkar reads every message, recognises what each request is, and puts the work that needs a person on one list (Today) with an assignee and a status.
+
+What each message becomes:
+1. Personally identifiable information (PII) and sensitive personal information (SPI) are masked with typed placeholders such as [NAME_1] before any AI processing.
+2. The request is recognised as a kind from the firm's playbook (for example SIP changes, Redemptions, KYC updates, Nominee changes, Statement requests or Complaints), with a confidence score. Messages it is unsure about go to a Review list for one-click sorting.
+3. A task is created with the customer, matched details from the client record (such as folio, phone and email), a priority, an assignee and a suggested next step. Full details are shown only inside the firm's workspace.
+
+Playbooks: mutual fund distributors (available for pilots); insurance brokers and CA and tax firms (coming next). Other service businesses such as property management, logistics, recruiting and B2B customer teams can ask about fit.
+
+Principles: private by design; the firm stays in control (nothing is sent to a client without approval); a team view for owners with filtering and reassignment; summaries, not investment advice.
+
+Pilot: Fornax Labs is onboarding a small group of distributors and advisory firms. Apply at https://fornaxlabs.xyz/site/sugamkar#pilot. Fornax Labs replies within one business day, holds a 30-minute call, then sets up the firm's playbook and connects the first channel.
+
+## FAQ — Fornax Labs
+
+### What is Fornax Labs?
+
+Fornax Labs is an agentic AI platform for small and mid-sized businesses. Our agents pick up requests from the channels your business already uses, such as email, WhatsApp and web forms, work out what is needed, do the routine work, and bring in a person for anything sensitive. Every run is tracked end to end.
+
+### What is agent orchestration?
+
+Agent orchestration is the work of running AI agents reliably inside a business: connecting them to the right channels, tools and data, sequencing their steps, routing sensitive actions to a person for approval, and recording every run so you can see what happened and what it cost. Fornax Labs handles that layer so teams get working agents rather than a blank canvas.
+
+### Which channels and tools do Fornax agents work with?
+
+Agents take work in from email, WhatsApp, web forms and the business tools you already use, such as accounting software, CRMs and ad platforms. Email is live today, and WhatsApp and further channels are rolling out with our pilot customers.
+
+### What kinds of work can Fornax agents do?
+
+Client request handling for advisors, distributors, insurance brokers and accounting firms; finance operations such as invoice reconciliation, collections and cash-flow reporting; and marketing work such as campaign reporting, content planning and lead research. New industries start from a playbook, not from scratch.
+
+### What is Sugamkar?
+
+Sugamkar is the first product on the Fornax platform. It reads client messages from email, WhatsApp and other channels, recognises what each request is, and turns it into a tracked task on one worklist. It is open for pilots with mutual fund distributors.
+
+### How do approvals and tracking work?
+
+Sensitive steps, such as sending a reply to a client or changing a record, are routed to the right person for approval before they happen. Every step, tool call and decision is logged and searchable, and each agent shows time saved, success rate and spend.
+
+### Can I customise rules, routing and approvals?
+
+Yes. You set the conditions an agent acts on, such as the kind of request, an amount, the client or the channel. You decide where the work goes: a person, a team or round robin. And you choose which actions need approval, from whom and above what limit. No code required.
+
+### Do I need an engineering team to use Fornax?
+
+No. You start from a ready-made playbook for your industry, connect your channels and tools, and set the rules and limits. Fornax Labs is built for operators and small teams, not developers.
+
+### How do I get started with Fornax Labs?
+
+Tell us the work that takes up your team's week through the contact form on fornaxlabs.xyz, book a call, or email sales@fornaxlabs.xyz. We'll show you the agent that handles it.
+
+## FAQ — Sugamkar
+
+### Which channels does Sugamkar work with?
+
+Email is live today. WhatsApp Business and web forms are rolling out with our pilot firms, and other channels can be added on request. Every channel lands on the same Today list.
+
+### Will Sugamkar reply to my clients on its own?
+
+No. Sugamkar sorts, summarises and creates work for your team. Any reply it prepares, by email or WhatsApp, waits for a person to approve it.
+
+### What happens to my clients' personal data?
+
+Sugamkar detects personally identifiable information (PII) and sensitive personal information (SPI) in every message, whichever channel it came from, and replaces it with placeholders before any AI processing. That covers identifiers such as government ID and tax numbers, financial account numbers, phone numbers and email addresses. The originals are restored only inside your workspace.
+
+### What if it gets a message wrong?
+
+When Sugamkar isn't confident, it puts the message on your Today list and asks you to choose. One click files it correctly, starts the right follow-up, and Sugamkar learns from your choice for next time.
+
+### Can I decide who gets which requests?
+
+Yes. Set your own rules: route each kind of request to a person, a team or round robin, raise the priority above an amount you choose, and require a manager's approval before anything goes back to a client. Reassign any task in one click.
+
+### Do I need to change how my team works?
+
+No new inbox, number or app for your clients. Your team opens one list each morning instead of digging through mail and chats.
+
+### How much does it cost?
+
+Pricing is per connected channel. Early pilot firms get preferential pricing in return for feedback. Get in touch for details.

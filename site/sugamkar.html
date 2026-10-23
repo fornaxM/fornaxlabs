@@ -5,8 +5,8 @@
   <script>(function(){try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
-  <title>Sugamkar by Fornax Labs — Every client request, on every channel, turned into a worklist</title>
-  <meta name="description" content="Sugamkar reads client messages from email, WhatsApp and web forms, recognises every request, and puts the work that needs you on one list. Built for advisors, distributors and service firms." />
+  <title>Sugamkar by Fornax Labs — Client requests, sorted and owned</title>
+  <meta name="description" content="Sugamkar turns client messages from email, WhatsApp and web forms into tracked tasks with an assignee. Built for advisors, distributors and service firms." />
   <meta name="author" content="Fornax Labs" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://fornaxlabs.xyz/site/sugamkar" />
@@ -14,13 +14,19 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://fornaxlabs.xyz/site/sugamkar" />
   <meta property="og:site_name" content="Fornax Labs" />
-  <meta property="og:title" content="Sugamkar — Every client request, on every channel, turned into a worklist" />
+  <meta property="og:title" content="Sugamkar — Every client request, sorted and owned" />
   <meta property="og:description" content="Every client request, from email, WhatsApp or the web, sorted, owned and tracked. Built for advisors, distributors and service firms." />
   <meta property="og:image" content="https://fornaxlabs.xyz/brand-assets/png/social-og-agents-1200x630.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sugamkar — Every client request, sorted and owned" />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Sugamkar — Every client request, on every channel, turned into a worklist" />
+  <meta name="twitter:title" content="Sugamkar — Every client request, sorted and owned" />
   <meta name="twitter:description" content="Every client request, from email, WhatsApp or the web, sorted, owned and tracked. Built for advisors, distributors and service firms." />
   <meta name="twitter:image" content="https://fornaxlabs.xyz/brand-assets/png/social-og-agents-1200x630.png" />
+  <meta name="twitter:image:alt" content="Sugamkar — Every client request, sorted and owned" />
 
   <link rel="icon" type="image/svg+xml" href="../brand-assets/favicon/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="../brand-assets/favicon/favicon-32.png" />
@@ -37,13 +43,126 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Sugamkar",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web",
-    "url": "https://fornaxlabs.xyz/site/sugamkar",
-    "description": "An AI agent on the Fornax Labs platform that reads client messages from email, WhatsApp and other channels, recognises each request and turns it into tracked work on one list. Built for advisors, distributors and service firms.",
-    "publisher": { "@type": "Organization", "name": "Fornax Labs", "url": "https://fornaxlabs.xyz/" }
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://fornaxlabs.xyz/site/sugamkar#webpage",
+        "url": "https://fornaxlabs.xyz/site/sugamkar",
+        "name": "Sugamkar by Fornax Labs — Client requests, sorted and owned",
+        "description": "Sugamkar turns client messages from email, WhatsApp and web forms into tracked tasks with an assignee. Built for advisors, distributors and service firms.",
+        "isPartOf": {
+          "@id": "https://fornaxlabs.xyz/#website"
+        },
+        "about": {
+          "@id": "https://fornaxlabs.xyz/site/sugamkar#app"
+        },
+        "primaryImageOfPage": "https://fornaxlabs.xyz/brand-assets/png/social-og-agents-1200x630.png",
+        "breadcrumb": {
+          "@id": "https://fornaxlabs.xyz/site/sugamkar#breadcrumb"
+        },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://fornaxlabs.xyz/site/sugamkar#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Fornax Labs",
+            "item": "https://fornaxlabs.xyz/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Sugamkar",
+            "item": "https://fornaxlabs.xyz/site/sugamkar"
+          }
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Sugamkar",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://fornaxlabs.xyz/site/sugamkar",
+        "description": "An AI agent on the Fornax Labs platform that reads client messages from email, WhatsApp and other channels, recognises each request and turns it into tracked work on one list. Built for advisors, distributors and service firms.",
+        "publisher": {
+          "@id": "https://fornaxlabs.xyz/#organization"
+        },
+        "@id": "https://fornaxlabs.xyz/site/sugamkar#app",
+        "featureList": [
+          "Email, WhatsApp and web form intake",
+          "Request classification with industry playbooks",
+          "PII and SPI masking before AI processing",
+          "Tasks with assignee, priority and next step",
+          "Custom routing and approval rules",
+          "Team view for owners"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://fornaxlabs.xyz/site/sugamkar#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Which channels does Sugamkar work with?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Email is live today. WhatsApp Business and web forms are rolling out with our pilot firms, and other channels can be added on request. Every channel lands on the same Today list."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will Sugamkar reply to my clients on its own?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Sugamkar sorts, summarises and creates work for your team. Any reply it prepares, by email or WhatsApp, waits for a person to approve it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens to my clients' personal data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sugamkar detects personally identifiable information (PII) and sensitive personal information (SPI) in every message, whichever channel it came from, and replaces it with placeholders before any AI processing. That covers identifiers such as government ID and tax numbers, financial account numbers, phone numbers and email addresses. The originals are restored only inside your workspace."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if it gets a message wrong?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When Sugamkar isn't confident, it puts the message on your Today list and asks you to choose. One click files it correctly, starts the right follow-up, and Sugamkar learns from your choice for next time."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I decide who gets which requests?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Set your own rules: route each kind of request to a person, a team or round robin, raise the priority above an amount you choose, and require a manager's approval before anything goes back to a client. Reassign any task in one click."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to change how my team works?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No new inbox, number or app for your clients. Your team opens one list each morning instead of digging through mail and chats."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does it cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pricing is per connected channel. Early pilot firms get preferential pricing in return for feedback. Get in touch for details."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 
