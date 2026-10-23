@@ -2,17 +2,12 @@
 <urlset xmlns="http://www.w3.org/2000/sitemaps/0.9">
   <url>
     <loc>https://fornaxlabs.xyz/</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-23</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fornaxlabs.xyz/site/consumiq</loc>
-    <lastmod>2026-10-13</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://fornaxlabs.xyz/site/docs</loc>
-    <lastmod>2026-10-13</lastmod>
-    <priority>0.5</priority>
+    <loc>https://fornaxlabs.xyz/site/sugamkar</loc>
+    <lastmod>2026-10-23</lastmod>
+    <priority>0.8</priority>
   </url>
 </urlset>

@@ -13,9 +13,11 @@ User-agent: Google-Extended
 User-agent: Applebot-Extended
 User-agent: CCBot
 Allow: /
+Disallow: /archive/
 
 # Everyone else
 User-agent: *
 Allow: /
+Disallow: /archive/
 
 Sitemap: https://fornaxlabs.xyz/sitemap.xml

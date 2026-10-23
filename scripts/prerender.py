@@ -18,7 +18,7 @@ import sys
 import threading
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = ["site/ConsumIQ.html"]
+PAGES = ["archive/ConsumIQ.html"]
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 START, END = "<!-- prerender:start -->", "<!-- prerender:end -->"
 ROOT_RE = re.compile(r'(<div id="root">)(.*?)(</div>\s*\n\s*<script type="text/babel">)', re.S)

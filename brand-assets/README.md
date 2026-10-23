@@ -22,6 +22,17 @@ A solid filled diamond (rotated square) with a small V-notch cut from its top ve
 
 The mark itself never carries a gradient and never sits inside a circle or rounded square *except* in favicon form.
 
+## Product accents
+
+A product page may add one accent of its own next to the core palette. Indigo stays the colour for buttons and links; the product accent is for highlights only (eyebrows, badges, icon tiles, background glows). The mark always stays Ink or Paper, never the product accent.
+
+| Product  | Accent             | Light                                                                         | Dark                                | Use                                |
+|----------|--------------------|-------------------------------------------------------------------------------|-------------------------------------|------------------------------------|
+| ConsumIQ (archived) | none (core Indigo) | —                                                                             | —                                   | —                                  |
+| Sugamkar | Marigold           | `oklch(0.76 0.15 68)` ≈ `#f2a33a`; text on light `oklch(0.50 0.12 55)` ≈ `#a3570f` | `oklch(0.80 0.14 72)` ≈ `#f5b04a` | Highlights on `site/sugamkar.html` |
+
+Use the darker Marigold for text on light surfaces; the bright tone is too low-contrast on white.
+
 ## Files in this folder
 
 ```
