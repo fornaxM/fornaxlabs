@@ -28,6 +28,7 @@ This repository is the website at **[fornaxlabs.xyz](https://fornaxlabs.xyz/)**,
 - `robots.txt` allows search engines and AI crawlers, except `/archive/`; `sitemap.xml` lists the indexable pages.
 - `llms.txt` is a plain-text summary of the company and its pages for AI tools; `llms-full.txt` is the full site text, including both FAQs. Update `llms-full.txt` when page copy changes.
 - Each page carries a canonical URL, Open Graph and Twitter cards, and JSON-LD (homepage: Organization, WebSite, Service, SoftwareApplication, FAQPage; Sugamkar: WebPage, BreadcrumbList, SoftwareApplication, FAQPage). FAQ markup must match the visible FAQ.
+- `googleb283909ac6fbaf68.html` verifies the site in Google Search Console. Keep it at the root; deleting it removes verification.
 - `_headers` (Netlify) sets content types for the manifest and the llms files, and adds `X-Robots-Tag: noindex` to everything under `/archive/`.
 - `archive/ConsumIQ.html` is a client-side React page. Its rendered markup is saved inside `#root` so crawlers that don't run JavaScript can read it. After editing the page's JSX, regenerate it with:
 
