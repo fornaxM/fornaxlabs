@@ -20,6 +20,8 @@
 
 - [Sugamkar](https://fornaxlabs.xyz/#demo): An agent for advisors, distributors and service firms. It reads client messages from email, WhatsApp and web forms, recognises each request (for example an SIP change, a renewal or a tax notice), and puts the work on one list with an assignee and a status. Personally identifiable information (PII) and sensitive personal information (SPI) are masked before AI processing, and nothing is sent without approval. Open for pilots with mutual fund distributors; apply at https://fornaxlabs.xyz/#pilot.
 
+- [Privacy policy](https://fornaxlabs.xyz/privacy): What data Fornax Labs collects, how WhatsApp messages and AI processing are handled, retention, and user rights.
+
 ## Optional
 
 - [Full content](https://fornaxlabs.xyz/llms-full.txt): The complete website text in one file, including the FAQ, for AI assistants that want more than this summary.
