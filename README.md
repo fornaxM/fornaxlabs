@@ -9,6 +9,7 @@ This repository is the website at **[fornaxlabs.xyz](https://fornaxlabs.xyz/)**,
 | Path | What it is |
 |---|---|
 | `index.html` | The whole site on one page: hero, platform, Sugamkar demo ("See it sort"), who it's for, rules and approvals, trust, the pilot application form and FAQ |
+| `privacy.html` | Privacy policy (served at `/privacy`), written to meet the WhatsApp Business Platform requirements; linked from the footer |
 
 ## Archive
 

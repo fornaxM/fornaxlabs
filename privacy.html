@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Inline theme init — runs before first paint to prevent FOUC -->
+  <script>(function(){try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}}());</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Privacy Policy — Fornax Labs</title>
+  <meta name="description" content="How Fornax Labs collects, uses, shares and protects personal data, including messages handled through the WhatsApp Business Platform, and the choices you have." />
+  <meta name="author" content="Fornax Labs" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://fornaxlabs.xyz/privacy" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fornaxlabs.xyz/privacy" />
+  <meta property="og:site_name" content="Fornax Labs" />
+  <meta property="og:title" content="Privacy Policy — Fornax Labs" />
+  <meta property="og:description" content="How Fornax Labs collects, uses, shares and protects personal data, including WhatsApp messages." />
+  <meta property="og:image" content="https://fornaxlabs.xyz/brand-assets/png/social-og-agents-1200x630.png" />
+  <link rel="icon" type="image/svg+xml" href="brand-assets/favicon/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="brand-assets/favicon/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="brand-assets/favicon/apple-touch-icon-180.png" />
+  <link rel="manifest" href="brand-assets/site.webmanifest" />
+  <meta name="theme-color" content="#fafbfc" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1c1e2a" media="(prefers-color-scheme: dark)" />
+  <style>
+    /* ============================================================
+       TOKENS
+       ============================================================ */
+    :root {
+      --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+      --font-serif: "Instrument Serif", "Times New Roman", serif;
+
+      --r-xs: 4px; --r-sm: 6px; --r-md: 8px; --r-lg: 12px;
+      --r-xl: 16px; --r-2xl: 20px; --r-full: 999px;
+
+      --shadow-xs: 0 1px 2px rgba(15,18,30,.04), 0 0 0 .5px rgba(15,18,30,.06);
+      --shadow-sm: 0 2px 6px rgba(15,18,30,.05), 0 0 0 .5px rgba(15,18,30,.06);
+      --shadow-md: 0 6px 18px rgba(15,18,30,.07), 0 0 0 .5px rgba(15,18,30,.06);
+      --shadow-lg: 0 16px 40px rgba(15,18,30,.09), 0 0 0 .5px rgba(15,18,30,.06);
+      --shadow-xl: 0 28px 70px rgba(15,18,30,.14), 0 0 0 .5px rgba(15,18,30,.06);
+    }
+
+    [data-theme="light"] {
+      color-scheme: light;
+      --bg:          oklch(0.992 0.003 250);
+      --bg-elev-1:   oklch(0.985 0.004 250);
+      --bg-elev-2:   #ffffff;
+      --bg-sunken:   oklch(0.965 0.006 250);
+      --bg-press:    oklch(0.945 0.006 250);
+      --surface:     #ffffff;
+
+      --border:      oklch(0.92 0.006 250);
+      --border-strong: oklch(0.85 0.008 250);
+      --divider:     oklch(0.945 0.005 250);
+
+      --fg:          oklch(0.18 0.012 260);
+      --fg-muted:    oklch(0.42 0.012 260);
+      --fg-subtle:   oklch(0.58 0.012 260);
+      --fg-faint:    oklch(0.72 0.010 260);
+
+      --brand:       oklch(0.52 0.155 268);
+      --brand-hover: oklch(0.46 0.16 268);
+      --brand-soft:  oklch(0.96 0.025 268);
+      --brand-border: oklch(0.86 0.06 268);
+      --brand-fg:    #ffffff;
+
+      --ink:         oklch(0.12 0.014 268);
+      --ink-paper:   oklch(0.99 0.005 80);
+
+      --success:        oklch(0.55 0.12 152);
+      --success-soft:   oklch(0.96 0.03 152);
+      --success-border: oklch(0.86 0.06 152);
+      --warn:           oklch(0.58 0.12 70);
+      --warn-soft:      oklch(0.965 0.035 80);
+      --danger:         oklch(0.55 0.18 26);
+      --focus-ring:     oklch(0.55 0.18 268 / .35);
+      --bg-alt:         oklch(0.975 0.006 250);
+      --danger-soft:    oklch(0.96 0.03 26);
+      /* Sugamkar product accent: Marigold (brand-assets/README.md -> Product accents) */
+      --accent:         oklch(0.76 0.15 68);
+      --accent-ink:     oklch(0.50 0.12 55);
+      --accent-soft:    oklch(0.965 0.04 80);
+      --accent-border:  oklch(0.87 0.08 75);
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg:          oklch(0.14 0.012 260);
+      --bg-elev-1:   oklch(0.18 0.013 260);
+      --bg-elev-2:   oklch(0.215 0.013 260);
+      --bg-sunken:   oklch(0.12 0.012 260);
+      --bg-press:    oklch(0.10 0.012 260);
+      --surface:     oklch(0.205 0.013 260);
+
+      --border:      oklch(0.30 0.012 260);
+      --border-strong: oklch(0.40 0.014 260);
+      --divider:     oklch(0.235 0.012 260);
+
+      --fg:          oklch(0.97 0.004 250);
+      --fg-muted:    oklch(0.78 0.010 260);
+      --fg-subtle:   oklch(0.62 0.012 260);
+      --fg-faint:    oklch(0.48 0.012 260);
+
+      --brand:       oklch(0.74 0.155 268);
+      --brand-hover: oklch(0.80 0.16 268);
+      --brand-soft:  oklch(0.30 0.06 268);
+      --brand-border: oklch(0.42 0.08 268);
+      --brand-fg:    oklch(0.14 0.012 260);
+
+      --ink:         oklch(0.97 0.004 250);
+      --ink-paper:   oklch(0.18 0.013 260);
+
+      --success:        oklch(0.78 0.14 152);
+      --success-soft:   oklch(0.28 0.05 152);
+      --success-border: oklch(0.40 0.07 152);
+      --warn:           oklch(0.82 0.12 80);
+      --warn-soft:      oklch(0.30 0.05 80);
+      --danger:         oklch(0.72 0.18 26);
+      --focus-ring:     oklch(0.72 0.18 268 / .45);
+      --bg-alt:         oklch(0.17 0.013 260);
+      --danger-soft:    oklch(0.30 0.06 26);
+      --accent:         oklch(0.80 0.14 72);
+      --accent-ink:     oklch(0.84 0.13 75);
+      --accent-soft:    oklch(0.30 0.05 70);
+      --accent-border:  oklch(0.45 0.08 70);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: "ss01", "cv11";
+      transition: background-color .25s ease, color .25s ease;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--brand); color: var(--brand-fg); }
+    svg { display: block; }
+
+    /* ============================================================
+       SKIP LINK (accessibility)
+       ============================================================ */
+    .skip-link {
+      position: absolute; top: -40px; left: 0; z-index: 9999;
+      background: var(--brand); color: var(--brand-fg);
+      padding: 8px 16px; border-radius: 0 0 var(--r-md) 0;
+      font-size: 14px; font-weight: 500; text-decoration: none;
+      transition: top .12s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ============================================================
+       SHELL
+       ============================================================ */
+    .shell { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    .nav-wrap {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: saturate(1.4) blur(14px);
+      -webkit-backdrop-filter: saturate(1.4) blur(14px);
+      background: color-mix(in oklch, var(--bg) 78%, transparent);
+      border-bottom: 1px solid var(--divider);
+    }
+    .nav {
+      max-width: 1240px; margin: 0 auto;
+      padding: 18px 32px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 24px;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-weight: 500; font-size: 17px; letter-spacing: -0.012em;
+    }
+    .brand svg { color: var(--ink); transition: color .25s ease; }
+
+    .nav-links {
+      display: flex; gap: 4px; justify-self: center;
+    }
+    .nav-link {
+      font-size: 13.5px; font-weight: 500; color: var(--fg-muted);
+      padding: 8px 14px; border-radius: var(--r-md);
+      transition: color .12s ease, background .12s ease;
+    }
+    .nav-link:hover { color: var(--fg); background: color-mix(in oklch, var(--fg) 4%, transparent); }
+    .nav-link:focus-visible { outline: 0; color: var(--fg); box-shadow: 0 0 0 3px var(--focus-ring); border-radius: var(--r-md); }
+
+    .nav-cta { display: flex; gap: 8px; align-items: center; }
+
+    .burger {
+      display: none;
+      appearance: none; cursor: pointer;
+      width: 36px; height: 36px;
+      border: 1px solid var(--border); border-radius: var(--r-md);
+      background: var(--bg-elev-2); color: var(--fg);
+      place-items: center;
+      transition: background .12s ease;
+    }
+    .burger:hover { background: var(--bg-sunken); }
+    .burger:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--focus-ring); }
+    .burger svg { width: 18px; height: 18px; }
+
+    .mobile-menu {
+      border-top: 1px solid var(--divider);
+      padding: 8px 32px 20px;
+    }
+    .mobile-menu a:not(.btn) {
+      display: block; padding: 13px 0;
+      border-bottom: 1px solid var(--divider);
+      font-size: 15px; color: var(--fg-muted);
+    }
+    .mobile-menu a:not(.btn):hover { color: var(--fg); }
+    .mobile-menu .btn { margin-top: 16px; width: 100%; justify-content: center; }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      appearance: none; border: 0; cursor: pointer;
+      font-family: var(--font-sans);
+      font-weight: 500; font-size: 14px; line-height: 1;
+      padding: 11px 18px;
+      border-radius: var(--r-md);
+      display: inline-flex; align-items: center; gap: 8px;
+      letter-spacing: -0.005em;
+      text-decoration: none;
+      transition: background .12s ease, color .12s ease, transform .06s ease, box-shadow .12s ease;
+    }
+    .btn:active { transform: translateY(.5px); }
+    .btn:focus-visible { outline: 0; box-shadow: 0 0 0 3px var(--focus-ring); }
+    .btn--primary {
+      background: var(--ink); color: var(--bg);
+      box-shadow: var(--shadow-xs), inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .btn--primary:hover { background: var(--brand); }
+    .btn--secondary { background: var(--bg-elev-2); color: var(--fg); box-shadow: var(--shadow-xs); }
+    .btn--secondary:hover { background: var(--bg-sunken); }
+    .btn--sm { font-size: 12.5px; padding: 8px 13px; border-radius: var(--r-sm); }
+    .btn--lg { font-size: 15px; padding: 14px 24px; border-radius: var(--r-lg); }
+    .btn .arrow { transition: transform .12s ease; }
+    .btn:hover .arrow { transform: translateX(2px); }
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .foot-wrap {
+      border-top: 1px solid var(--divider);
+      background: var(--bg-elev-1);
+      padding: 60px 0 28px;
+    }
+    .foot-min {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: end;
+      padding-bottom: 32px;
+      margin-bottom: 24px;
+    }
+    .foot-blurb {
+      margin: 12px 0 0; max-width: 34ch;
+      font-size: 13.5px; color: var(--fg-muted); line-height: 1.55;
+    }
+    .foot-min-links {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+      font-size: 13.5px; font-family: var(--font-mono);
+      color: var(--fg-muted); letter-spacing: -0.005em;
+    }
+    .foot-min-links a { color: var(--fg); transition: color .12s ease; }
+    .foot-min-links a:hover { color: var(--brand); }
+
+    .foot-bottom {
+      border-top: 1px solid var(--divider);
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-mono); font-size: 10.5px;
+      color: var(--fg-subtle); letter-spacing: .08em; text-transform: uppercase;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .theme-ctrls {
+      display: inline-flex; gap: 4px;
+      background: var(--bg-elev-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-full);
+      padding: 3px;
+    }
+    .theme-ctrls button {
+      appearance: none; border: 0; background: transparent; cursor: pointer;
+      color: var(--fg-muted);
+      font: 500 11px/1 var(--font-sans);
+      padding: 6px 12px;
+      border-radius: var(--r-full);
+      letter-spacing: 0; text-transform: none;
+      transition: background .12s ease, color .12s ease;
+    }
+    .nav-wrap .btn--primary{white-space:nowrap}
+    @media (max-width: 920px){ .nav-links,.nav-cta{display:none} .burger{display:grid} .foot-min{grid-template-columns:1fr;gap:24px} .foot-min-links{align-items:flex-start} }
+    @media (max-width: 620px){ .shell,.nav,.mobile-menu{padding-left:20px;padding-right:20px} }
+    .legal{max-width:760px;margin:0 auto;padding:72px 32px 96px}
+    .legal h1{font-size:clamp(32px,5vw,44px);letter-spacing:-0.025em;line-height:1.1;margin:12px 0 8px;font-weight:500}
+    .legal .updated{font-family:var(--font-mono);font-size:12px;color:var(--fg-subtle);margin:0 0 28px}
+    .legal h2{font-size:22px;letter-spacing:-0.015em;font-weight:500;margin:44px 0 12px;scroll-margin-top:90px}
+    .legal h3{font-size:16px;font-weight:600;margin:22px 0 6px}
+    .legal p,.legal li{font-size:15.5px;line-height:1.7;color:var(--fg-muted)}
+    .legal p{margin:0 0 14px}
+    .legal ul{padding-left:20px;margin:0 0 14px}
+    .legal li{margin-bottom:6px}
+    .legal a{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
+    .legal strong{color:var(--fg);font-weight:600}
+    .legal .callout{background:var(--brand-soft);border:1px solid var(--brand-border);border-radius:var(--r-lg);padding:16px 20px;margin:20px 0}
+    .legal .callout p{margin:0;color:var(--fg)}
+    .toc{background:var(--bg-elev-1);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 24px;margin:0 0 8px}
+    .toc ol{margin:8px 0 0;padding-left:20px;columns:2;column-gap:32px}
+    .toc li{font-size:14px;margin-bottom:4px;break-inside:avoid}
+    .toc strong{font-size:13px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--fg-subtle);font-weight:500}
+    .tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--border);border-radius:var(--r-lg)}
+    .tbl table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+    .tbl th,.tbl td{text-align:left;vertical-align:top;padding:12px 16px;border-bottom:1px solid var(--divider);line-height:1.55;color:var(--fg-muted)}
+    .tbl th{background:var(--bg-elev-1);color:var(--fg);font-weight:600;font-size:13px}
+    .tbl tr:last-child td{border-bottom:0}
+    @media (max-width:620px){ .legal{padding:48px 20px 72px} .toc ol{columns:1} }
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="nav-wrap">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="Fornax Labs – home">
+        <svg width="22" height="22" viewBox="0 0 100 100" aria-hidden="true" style="display:block;flex-shrink:0"><path d="M 8 50 L 44 14 L 50 22 L 56 14 L 92 50 L 50 92 Z" fill="currentColor" fill-rule="evenodd" /></svg>
+        <span>Fornax Labs</span>
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="/#platform">Platform</a>
+        <a class="nav-link" href="/#demo">See it sort</a>
+        <a class="nav-link" href="/#faq">FAQ</a>
+      </div>
+      <div class="nav-cta"><a class="btn btn--primary btn--sm" href="/#pilot">Join the pilot →</a></div>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" style="justify-self:end">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <a href="/#platform">Platform</a>
+      <a href="/#demo">See it sort</a>
+      <a href="/#faq">FAQ</a>
+      <a class="btn btn--primary btn--lg" href="/#pilot">Join the pilot →</a>
+    </div>
+  </div>
+  <main id="main-content">
+  <article class="legal">
+    <div class="eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: 29 October 2026</p>
+
+    <p>Fornax Labs ("Fornax Labs", "we", "us") builds AI agents for advisory and professional firms. Our first product, Sugamkar, reads client messages from email, WhatsApp and web forms and turns them into tracked work for the firm's team. This policy explains what personal data we collect, why, who we share it with, how long we keep it and what choices you have. It applies to our website at fornaxlabs.xyz, our pilot programme, and our services, including messages sent or received through the WhatsApp Business Platform.</p>
+
+    <div class="callout"><p><strong>In short:</strong> we collect only what we need to run the service. We mask sensitive identifiers before any AI processes a message. We never sell personal data, never use WhatsApp message content for advertising, never message anyone on WhatsApp without their consent, and never send a reply to a client without a person at the firm approving it.</p></div>
+
+    <nav class="toc" aria-label="Contents">
+      <strong>Contents</strong>
+      <ol>
+        <li><a href="#who">Who we are and our role</a></li>
+        <li><a href="#collect">Data we collect</a></li>
+        <li><a href="#use">How we use data</a></li>
+        <li><a href="#whatsapp">WhatsApp Business Platform</a></li>
+        <li><a href="#ai">AI processing and masking</a></li>
+        <li><a href="#sharing">Who we share data with</a></li>
+        <li><a href="#transfers">International transfers</a></li>
+        <li><a href="#retention">Retention and deletion</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#rights">Your rights and choices</a></li>
+        <li><a href="#cookies">Cookies and site analytics</a></li>
+        <li><a href="#children">Children</a></li>
+        <li><a href="#changes">Changes to this policy</a></li>
+        <li><a href="#contact">Contact and grievances</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="who">1. Who we are and our role</h2>
+    <p>Our role depends on whose data it is:</p>
+    <ul>
+      <li><strong>Website visitors and pilot applicants.</strong> For data you give us through our website, pilot form or by email, Fornax Labs decides why and how it is used. We are the data controller (called "data fiduciary" under India's Digital Personal Data Protection Act, 2023).</li>
+      <li><strong>Customer firms' client data.</strong> When a firm (for example a mutual fund distributor, insurance broker, CA or law firm) uses our service, the firm is the controller of its clients' messages and details. Fornax Labs processes that data on the firm's behalf and on its documented instructions (as a data processor). If you are a client of one of our customers, that firm is your first point of contact for questions about your data, and we will help them respond.</li>
+    </ul>
+
+    <h2 id="collect">2. Data we collect</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Category</th><th>Examples</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Pilot and enquiry details</strong></td><td>Name, work email, phone or WhatsApp number, firm name, type of firm, channels used, and anything you write in the message box</td><td>You, through the website form, email or a call</td></tr>
+        <tr><td><strong>Client messages</strong></td><td>Message text, attachments (such as documents or images), sender name and phone number or email address, timestamps, and delivery and read status</td><td>Our customers' clients, through email, WhatsApp and web forms connected by the customer</td></tr>
+        <tr><td><strong>Workspace and account data</strong></td><td>Names and work emails of the firm's team members, roles, rules, routing and approval settings, tasks and their status</td><td>Our customers and their team members</td></tr>
+        <tr><td><strong>WhatsApp profile data</strong></td><td>WhatsApp phone number, profile name, and message metadata supplied by WhatsApp</td><td>WhatsApp Business Platform</td></tr>
+        <tr><td><strong>Usage and technical data</strong></td><td>Activity and audit logs (which action happened, when, and by whom), IP address, browser and device type, error logs</td><td>Collected automatically when you use our website or service</td></tr>
+      </tbody>
+    </table></div>
+    <p>We do not ask clients to send, and our service is not designed to collect through WhatsApp, full payment card numbers, full financial account numbers, passwords, PINs, one-time passcodes or government ID numbers. If such details arrive in a message anyway, we mask them before AI processing (section 5) and customer firms are told not to request them over WhatsApp.</p>
+
+    <h2 id="use">3. How we use data</h2>
+    <ul>
+      <li>To provide the service: receive client requests, recognise what each one is, create tracked tasks, route them to the right person, prepare draft replies and wait for approval before anything is sent.</li>
+      <li>To respond to pilot applications and enquiries, and to schedule calls.</li>
+      <li>To keep the service secure, prevent abuse and fraud, and keep audit logs that customers rely on.</li>
+      <li>To fix problems, support customers and improve reliability and accuracy of the service for the customer that the data belongs to.</li>
+      <li>To meet legal obligations and respond to lawful requests.</li>
+    </ul>
+    <p><strong>Our legal bases:</strong> your consent (for example, when you submit the form or opt in to receive WhatsApp messages); performance of a contract with our customers; our legitimate interests in running and securing the service; and compliance with law. Under the DPDP Act we process personal data for the purposes you consented to or for other lawful uses the Act allows.</p>
+    <p>We do not sell personal data. We do not use client message content for advertising or profiling, and we do not use one customer's data to serve another customer.</p>
+
+    <h2 id="whatsapp">4. WhatsApp Business Platform</h2>
+    <p>Our service lets customer firms send and receive WhatsApp messages using the WhatsApp Business Platform, which is provided by WhatsApp LLC and Meta Platforms, Inc. and its affiliates ("Meta"). This section applies whenever you message, or are messaged by, a firm using our service on WhatsApp.</p>
+    <h3>How messages are handled</h3>
+    <ul>
+      <li>Messages sent to a firm's WhatsApp Business number are delivered to us through the WhatsApp Business Platform, so that we can show them to the firm's team and turn them into tracked tasks.</li>
+      <li>Meta acts as our service provider and as an independent controller for its own purposes. WhatsApp's own handling of your data is described in the <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">WhatsApp Privacy Policy</a> and the <a href="https://www.whatsapp.com/legal/business-terms" target="_blank" rel="noopener">WhatsApp Business Terms of Service</a>. Messages to a business account are not covered by WhatsApp's end-to-end encryption once they reach the business's systems; the firm and its service providers, including us, can read them.</li>
+      <li>We use the message content only to provide the service to the firm you contacted. We do not use WhatsApp message content, phone numbers or profile data for advertising, and we do not share it with Meta for advertising or to build profiles.</li>
+    </ul>
+    <h3>Opt-in and opt-out</h3>
+    <ul>
+      <li><strong>We never message anyone on WhatsApp without their consent.</strong> We message a person only on behalf of a customer firm, and only after that person has opted in to receive messages from the firm on WhatsApp (for example, by messaging the firm first or by agreeing on a form or in writing). Customers must keep a record of that consent, and we do not send messages to numbers that have not opted in.</li>
+      <li>Messages outside the 24-hour customer-service window use pre-approved message templates, as WhatsApp requires.</li>
+      <li>You can stop messages at any time by replying <strong>STOP</strong>, by blocking the number in WhatsApp, or by telling the firm or us at the address in section 14. We will stop sending you messages promptly and keep a suppression record so you are not contacted again.</li>
+    </ul>
+    <h3>Human approval and no automated decisions</h3>
+    <p>Replies prepared by an agent are not sent until a person at the firm approves them. Agents sort and summarise; they do not recommend financial, insurance, tax or legal products and make no decision about you that has legal or similarly significant effect.</p>
+    <h3>What we ask of customers</h3>
+    <p>Customers must comply with the WhatsApp Business Terms of Service, the WhatsApp Business Messaging Policy and the Meta Commerce Policy, must have a lawful basis and your consent for the messages they send, and must not use the service for prohibited content or for unsolicited marketing.</p>
+
+    <h2 id="ai">5. AI processing and masking</h2>
+    <ul>
+      <li>Before a message is analysed by an AI model, we detect personally identifiable information (PII) and sensitive personal information (SPI), such as government ID and tax numbers, financial account numbers, phone numbers and email addresses, and replace them with placeholders. The originals are restored only inside the firm's own workspace.</li>
+      <li>Our AI model providers process the masked content only to return a result to us. They are not permitted to use it to train their models for others, and we do not train general-purpose models on customer data.</li>
+      <li>Every agent step and decision is logged so the firm can review what happened and why.</li>
+    </ul>
+
+    <h2 id="sharing">6. Who we share data with</h2>
+    <p>We share personal data only as needed to run the service:</p>
+    <ul>
+      <li><strong>The customer firm</strong> that the data belongs to.</li>
+      <li><strong>Service providers</strong> that act on our instructions under written confidentiality and data-protection terms: cloud hosting and storage, AI model providers (masked content only), email delivery and the WhatsApp Business Platform (Meta).</li>
+      <li><strong>Professional advisers and authorities</strong>, where required by law, court order or to protect rights, safety and security.</li>
+      <li><strong>A successor</strong>, if Fornax Labs is involved in a merger, acquisition or sale of assets, subject to this policy continuing to apply.</li>
+    </ul>
+    <p>We do not sell or rent personal data, and we do not share it for third-party advertising.</p>
+
+    <h2 id="transfers">7. International transfers</h2>
+    <p>Our providers, including Meta and cloud and AI providers, may process data in countries other than your own, including India, the United States and the European Economic Area. Where data leaves your country, we rely on lawful transfer mechanisms and contractual safeguards, and on any restrictions the DPDP Act or other applicable law places on transfers.</p>
+
+    <h2 id="retention">8. Retention and deletion</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Data</th><th>How long we keep it</th></tr></thead>
+      <tbody>
+        <tr><td>Pilot and enquiry details</td><td>Up to 24 months after our last contact, or until you ask us to delete them</td></tr>
+        <tr><td>Client messages, attachments and tasks</td><td>For as long as the customer's account is active, or as the customer instructs. After the account ends, we delete or return the data within 90 days, unless the law requires us to keep it longer</td></tr>
+        <tr><td>Audit and security logs</td><td>Up to 12 months, or longer where needed for security or legal reasons</td></tr>
+        <tr><td>WhatsApp opt-out and suppression records</td><td>Kept so that we honour your opt-out; only your number and the opt-out date are held</td></tr>
+        <tr><td>Backups</td><td>Removed on the normal backup cycle, no later than 35 days after deletion</td></tr>
+      </tbody>
+    </table></div>
+    <p>A customer can ask us to delete a specific client's messages at any time. Deleted data cannot be recovered.</p>
+
+    <h2 id="security">9. Security</h2>
+    <p>We use measures suited to the sensitivity of the data we handle, including encryption in transit and at rest, masking of PII and SPI before AI processing, role-based access, separation between customers' workspaces, audit logging, and access only for staff who need it. No system is perfectly secure. If a personal data breach affects you, we will notify the affected customer and, where the law requires, the regulator and you, without undue delay.</p>
+
+    <h2 id="rights">10. Your rights and choices</h2>
+    <p>Subject to applicable law, you can:</p>
+    <ul>
+      <li>ask for a summary of the personal data we hold about you and how it is used;</li>
+      <li>ask us to correct inaccurate or incomplete data, or to update it;</li>
+      <li>ask us to erase your data;</li>
+      <li>withdraw consent at any time (this does not affect processing already done);</li>
+      <li>stop WhatsApp or email messages by replying STOP or unsubscribing;</li>
+      <li>nominate another person to exercise your rights if you die or become incapacitated (under the DPDP Act);</li>
+      <li>raise a grievance with us, and if it is not resolved, complain to the Data Protection Board of India or to your local data protection authority.</li>
+    </ul>
+    <p>To exercise a right, email us at the address in section 14 from the email address or WhatsApp number you used, so that we can verify it is you. We reply within 30 days. If your data sits in a customer firm's workspace, we may refer your request to that firm, which controls it, and will help them respond.</p>
+
+    <h2 id="cookies">11. Cookies and site analytics</h2>
+    <p>Our website does not use advertising or tracking cookies. It stores one preference, your light or dark theme choice, in your browser's local storage. Our hosting provider may log technical information such as IP address and browser type for security and delivery.</p>
+
+    <h2 id="children">12. Children</h2>
+    <p>Our service is for businesses and is not directed at children. We do not knowingly collect data about anyone under 18. If you believe a child has sent us personal data, contact us and we will delete it. Where a customer firm's service involves a minor, the firm is responsible for obtaining verifiable parental consent as the law requires.</p>
+
+    <h2 id="changes">13. Changes to this policy</h2>
+    <p>We may update this policy as our service or the law changes. We will post the new version here with a new "last updated" date. If a change is significant, we will tell our customers and pilot participants directly.</p>
+
+    <h2 id="contact">14. Contact and grievances</h2>
+    <p>For any privacy question, request, opt-out or complaint, write to us:</p>
+    <ul>
+      <li>Email: <a href="mailto:privacy@fornaxlabs.xyz">privacy@fornaxlabs.xyz</a></li>
+      <li>Website: <a href="https://fornaxlabs.xyz/">fornaxlabs.xyz</a></li>
+    </ul>
+    <p>We acknowledge grievances within 48 hours and aim to resolve them within 30 days. If you are unhappy with our response, you may complain to the Data Protection Board of India or your local data protection authority.</p>
+  </article>
+
+  </main>
+
+  <footer class="foot-wrap" id="contact">
+    <div class="shell">
+      <div class="foot-min">
+        <div>
+          <a class="brand" href="index.html" aria-label="Fornax Labs – home" style="font-size:15px">
+            <svg width="18" height="18" viewBox="0 0 100 100" aria-hidden="true" style="display:block;flex-shrink:0">
+              <path d="M 8 50 L 44 14 L 50 22 L 56 14 L 92 50 L 50 92 Z" fill="currentColor" fill-rule="evenodd" />
+            </svg>
+            <span>Fornax Labs</span>
+          </a>
+          <p class="foot-blurb">
+            AI agents for advisory and professional firms. Every client request,
+            from any channel, turned into tracked work with your team in control.
+          </p>
+        </div>
+        <div class="foot-min-links">
+          <a href="/#platform">Platform</a>
+          <a href="/#demo">See it sort</a>
+          <a href="/#pilot">Join the pilot</a>
+          <a href="/#faq">FAQ</a>
+          <a href="/privacy">Privacy policy</a>
+          <a href="mailto:sales@fornaxlabs.xyz">sales@fornaxlabs.xyz</a>
+        </div>
+      </div>
+
+      <div class="foot-bottom">
+        <span>© 2026 Fornax Labs</span>
+        <div class="theme-ctrls" role="group" aria-label="Theme">
+          <button id="btn-light" aria-pressed="true" onclick="setTheme('light')">Light</button>
+          <button id="btn-dark" aria-pressed="false" onclick="setTheme('dark')">Dark</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('theme', theme); } catch(e) {}
+      document.getElementById('btn-light').setAttribute('aria-pressed', String(theme === 'light'));
+      document.getElementById('btn-dark').setAttribute('aria-pressed', String(theme === 'dark'));
+    }
+    (function() {
+      var t = document.documentElement.getAttribute('data-theme') || 'light';
+      document.getElementById('btn-light').setAttribute('aria-pressed', String(t === 'light'));
+      document.getElementById('btn-dark').setAttribute('aria-pressed', String(t === 'dark'));
+    })();
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    function setMenu(open) { mobileMenu.hidden = !open; burger.setAttribute('aria-expanded', String(open)); }
+    burger.addEventListener('click', () => setMenu(mobileMenu.hidden));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  </script>
+</body>
+</html>
